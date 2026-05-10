@@ -1,119 +1,401 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>队内足球射手榜</title>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
-body{background:#f5f7fa;padding:15px;}
-.box{max-width:750px;margin:0 auto;}
-.tab{display:flex;background:#1677ff;border-radius:10px;overflow:hidden;margin-bottom:20px;}
-.tab-item{flex:1;text-align:center;line-height:50px;color:#fff;font-size:15px;}
-.tab-item.active{background:#0f5fcc;}
-.page{display:none;background:#fff;border-radius:10px;padding:20px;}
-.page.active{display:block;}
-input{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin:10px 0;font-size:16px;}
-button{padding:10px 18px;border:none;border-radius:8px;background:#1677ff;color:#fff;font-size:15px;}
-button.warn{background:#f53f3f;}
-.item{padding:15px;border-bottom:1px solid #eee;}
-.rank-head,.rank-row{display:flex;padding:12px 0;}
-.rank-head{font-weight:bold;border-bottom:1px solid #eee;}
-.r1{width:80px;text-align:center;}
-.r2{flex:1;}
-.r3{width:100px;text-align:center;}
-.hide{display:none;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>队内足球射手榜</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding: 15px;
+        }
+        .box {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+        .tab {
+            display: flex;
+            background-color: #1677ff;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .tab-item.active {
+            background-color: #0f5fcc;
+        }
+        .page {
+            display: none;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .page.active {
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: #1677ff;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        button.warn {
+            background-color: #f53f3f;
+        }
+        .item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .rank-head, .rank-row {
+            display: flex;
+            padding: 12px 0;
+        }
+        .rank-head {
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+        }
+        .r1 {
+            width: 80px;
+            text-align: center;
+        }
+        .r2 {
+            flex: 1;
+        }
+        .r3 {
+            width: 100px;
+            text-align: center;
+        }
+        .hide {
+            display: none;
+        }
+        .player-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .goal-num {
+            width: 80px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<div class="box">
-  <div class="tab">
-    <div class="tab-item active" data-page="rank">射手榜</div>
-    <div class="tab-item" data-page="history">历史记录</div>
-    <div class="tab-item" data-page="apply">提交申请</div>
-    <div class="tab-item" data-page="admin">管理登录</div>
-  </div>
+    <div class="box">
+        <div class="tab">
+            <div class="tab-item active" data-page="rank">射手榜</div>
+            <div class="tab-item" data-page="history">历史记录</div>
+            <div class="tab-item" data-page="apply">提交申请</div>
+            <div class="tab-item" data-page="admin">管理登录</div>
+        </div>
 
-  <!-- 射手榜 -->
-  <div class="page active" id="rank"></div>
+        <!-- 射手榜 -->
+        <div class="page active" id="rank">
+            <div class="rank-head">
+                <div class="r1">排名</div>
+                <div class="r2">球员</div>
+                <div class="r3">进球</div>
+            </div>
+            <div id="rankList"></div>
+        </div>
 
-  <!-- 历史记录 -->
-  <div class="page" id="history"></div>
+        <!-- 历史记录 -->
+        <div class="page" id="history">
+            <div id="historyList"></div>
+        </div>
 
-  <!-- 提交申请 -->
-  <div class="page" id="apply">
-    <h3>提交新球员</h3>
-    <input type="text" id="pName" placeholder="输入球员姓名">
-    <button onclick="applyPlayer()">提交</button>
+        <!-- 提交申请 -->
+        <div class="page" id="apply">
+            <h3>提交新球员</h3>
+            <input type="text" id="pName" placeholder="输入球员姓名">
+            <button onclick="applyPlayer()">提交</button>
 
-    <h3 style="margin-top:30px">提交比赛记录</h3>
-    <input type="text" id="mRemark" placeholder="比赛备注">
-    <div id="playerSel"></div>
-    <button onclick="applyMatch()">提交比赛</button>
-  </div>
+            <h3 style="margin-top:30px">提交比赛记录</h3>
+            <input type="text" id="mRemark" placeholder="比赛备注：如周末队内赛">
+            <div id="playerSel"></div>
+            <button onclick="applyMatch()">提交比赛</button>
+        </div>
 
-  <!-- 管理员 -->
-  <div class="page" id="admin">
-    <div id="loginBox">
-      <input type="password" id="pwd" placeholder="输入管理员密码">
-      <button onclick="login()">登录管理后台</button>
+        <!-- 管理员 -->
+        <div class="page" id="admin">
+            <div id="loginBox">
+                <input type="password" id="pwd" placeholder="输入管理员密码">
+                <button onclick="login()">登录管理后台</button>
+            </div>
+            <div id="adminBox" class="hide">
+                <h3>待审核球员</h3>
+                <div id="waitPlayer"></div>
+
+                <h3 style="margin-top:20px">待审核比赛</h3>
+                <div id="waitMatch"></div>
+            </div>
+        </div>
     </div>
-    <div id="adminBox" class="hide">
-      <h3>待审核球员</h3>
-      <div id="waitPlayer"></div>
-      <h3 style="margin-top:20px">待审核比赛</h3>
-      <div id="waitMatch"></div>
-    </div>
-  </div>
-</div>
 
-<script>
-  const API = "https://football-api.2598205606.workers.dev/";
-const ADMIN_PWD = "20041202";
-let isAdmin = false;
+    <script>
+        // 你的专属服务器地址
+        const API = "https://football-api.2598205606.workers.dev/";
+        const ADMIN_PWD = "20041202";
+        let isAdmin = false;
 
-// 切换标签
-document.querySelectorAll('.tab-item').forEach(el=>{
-  el.onclick = function(){
-    document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    this.classList.add('active');
-    let page = this.dataset.page;
-    document.getElementById(page).classList.add('active');
-    if(page==='rank') getRank();
-    if(page==='history') getHistory();
-    if(page==='apply') getPlayerSel();
-    if(page==='admin' && isAdmin) getAuditList();
-  }
-})
+        // 切换标签页
+        document.querySelectorAll('.tab-item').forEach(el => {
+            el.onclick = function () {
+                document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                let page = this.dataset.page;
+                document.getElementById(page).classList.add('active');
 
-// 模拟接口 实际部署我帮你换成国内可联网数据库
-function getRank(){
-  document.getElementById('rank').innerHTML = `
-  <div class="rank-head">
-    <div class="r1">排名</div>
-    <div class="r2">球员</div>
-    <div class="r3">进球</div>
-  </div>
-  <div class="rank-row"><div class="r1">1</div><div class="r2">请先部署云端</div><div class="r3">0</div></div>
-  `;
-}
-function getHistory(){}
-function getPlayerSel(){}
-function applyPlayer(){alert('部署联网服务器后可用');}
-function applyMatch(){alert('部署联网服务器后可用');}
+                if (page === 'rank') getRank();
+                if (page === 'history') getHistory();
+                if (page === 'apply') getPlayerSel();
+                if (page === 'admin' && isAdmin) getAuditList();
+            }
+        });
 
-function login(){
-  let pwd = document.getElementById('pwd').value;
-  if(pwd === ADMIN_PWD){
-    isAdmin = true;
-    document.getElementById('loginBox').classList.add('hide');
-    document.getElementById('adminBox').classList.remove('hide');
-    alert('管理员登录成功');
-  }else{
-    alert('密码错误');
-  }
-}
-</script>
+        // 从服务器获取数据
+        async function getData() {
+            try {
+                const res = await axios.get(API);
+                return res.data;
+            } catch (e) {
+                console.error(e);
+                alert('服务器连接失败，请稍后重试');
+                return { players: [], matches: [], waitPlayers: [], waitMatches: [] };
+            }
+        }
+
+        // 保存数据到服务器
+        async function saveData(data) {
+            try {
+                await axios.post(API, data);
+                return true;
+            } catch (e) {
+                console.error(e);
+                alert('数据保存失败，请稍后重试');
+                return false;
+            }
+        }
+
+        // 渲染射手榜
+        async function getRank() {
+            const data = await getData();
+            const sortedPlayers = [...data.players].sort((a, b) => b.goal - a.goal);
+            let html = '';
+            sortedPlayers.forEach((player, idx) => {
+                html += `
+                <div class="rank-row">
+                    <div class="r1">${idx + 1}</div>
+                    <div class="r2">${player.name}</div>
+                    <div class="r3">${player.goal || 0}</div>
+                </div>`;
+            });
+            document.getElementById('rankList').innerHTML = html || '<div style="text-align:center;padding:30px;color:#999;">暂无数据</div>';
+        }
+
+        // 渲染比赛历史
+        async function getHistory() {
+            const data = await getData();
+            let html = '';
+            data.matches.forEach(match => {
+                const str = match.goalData.map(g => `${g.name}${g.num}球`).join('、');
+                html += `
+                <div class="item">
+                    <div>${match.time} | ${match.remark}</div>
+                    <div style="color:#666;margin-top:8px;">进球：${str}</div>
+                </div>`;
+            });
+            document.getElementById('historyList').innerHTML = html || '<div style="text-align:center;padding:30px;color:#999;">暂无数据</div>';
+        }
+
+        // 渲染提交比赛的球员选择列表
+        async function getPlayerSel() {
+            const data = await getData();
+            let html = '';
+            data.players.forEach((player, idx) => {
+                html += `
+                <div class="player-row">
+                    <span>${player.name}</span>
+                    <input type="number" class="goal-num" min="0" value="1" id="goal-${idx}">
+                </div>`;
+            });
+            document.getElementById('playerSel').innerHTML = html || '<div style="text-align:center;padding:20px;color:#999;">请先添加球员</div>';
+        }
+
+        // 提交新球员申请
+        async function applyPlayer() {
+            const name = document.getElementById('pName').value.trim();
+            if (!name) {
+                alert('请输入球员姓名');
+                return;
+            }
+
+            const data = await getData();
+            if (data.players.find(p => p.name === name)) {
+                alert('该球员已存在');
+                return;
+            }
+            if (data.waitPlayers.find(p => p.name === name)) {
+                alert('该球员已提交申请，等待审核');
+                return;
+            }
+
+            data.waitPlayers.push({ name, goal: 0 });
+            await saveData(data);
+            alert('提交成功，等待管理员审核');
+            document.getElementById('pName').value = '';
+        }
+
+        // 提交比赛记录
+        async function applyMatch() {
+            const remark = document.getElementById('mRemark').value.trim();
+            const data = await getData();
+            const goalData = [];
+            let hasGoal = false;
+
+            data.players.forEach((player, idx) => {
+                const num = parseInt(document.getElementById(`goal-${idx}`).value) || 0;
+                if (num > 0) {
+                    hasGoal = true;
+                    goalData.push({ name: player.name, num });
+                }
+            });
+
+            if (!hasGoal) {
+                alert('至少要有一名球员进球');
+                return;
+            }
+
+            data.waitMatches.push({
+                time: new Date().toLocaleString(),
+                remark: remark || '普通队内赛',
+                goalData
+            });
+            await saveData(data);
+            alert('提交成功，等待管理员审核');
+            document.getElementById('mRemark').value = '';
+            getPlayerSel();
+        }
+
+        // 管理员登录
+        function login() {
+            const pwd = document.getElementById('pwd').value;
+            if (pwd === ADMIN_PWD) {
+                isAdmin = true;
+                document.getElementById('loginBox').classList.add('hide');
+                document.getElementById('adminBox').classList.remove('hide');
+                getAuditList();
+                alert('登录成功');
+            } else {
+                alert('密码错误');
+            }
+        }
+
+        // 渲染审核列表
+        async function getAuditList() {
+            const data = await getData();
+            let pHtml = '';
+            data.waitPlayers.forEach((p, idx) => {
+                pHtml += `
+                <div class="item">
+                    <span>${p.name}</span>
+                    <button onclick="passPlayer(${idx})">通过</button>
+                    <button class="warn" onclick="rejectPlayer(${idx})">驳回</button>
+                </div>`;
+            });
+            document.getElementById('waitPlayer').innerHTML = pHtml || '<div style="text-align:center;padding:20px;color:#999;">暂无待审核球员</div>';
+
+            let mHtml = '';
+            data.waitMatches.forEach((m, idx) => {
+                const str = m.goalData.map(g => `${g.name}${g.num}球`).join('、');
+                mHtml += `
+                <div class="item">
+                    <div>${m.time} | ${m.remark}</div>
+                    <div style="color:#666;margin:8px 0;">进球：${str}</div>
+                    <button onclick="passMatch(${idx})">通过</button>
+                    <button class="warn" onclick="rejectMatch(${idx})">驳回</button>
+                </div>`;
+            });
+            document.getElementById('waitMatch').innerHTML = mHtml || '<div style="text-align:center;padding:20px;color:#999;">暂无待审核比赛</div>';
+        }
+
+        // 通过球员申请
+        async function passPlayer(idx) {
+            const data = await getData();
+            const player = data.waitPlayers.splice(idx, 1)[0];
+            data.players.push(player);
+            await saveData(data);
+            getAuditList();
+            getRank();
+            getPlayerSel();
+        }
+
+        // 驳回球员申请
+        async function rejectPlayer(idx) {
+            const data = await getData();
+            data.waitPlayers.splice(idx, 1);
+            await saveData(data);
+            getAuditList();
+        }
+
+        // 通过比赛记录
+        async function passMatch(idx) {
+            const data = await getData();
+            const match = data.waitMatches.splice(idx, 1)[0];
+            data.matches.unshift(match);
+
+            // 更新进球数
+            match.goalData.forEach(g => {
+                const p = data.players.find(x => x.name === g.name);
+                if (p) p.goal += g.num;
+            });
+
+            await saveData(data);
+            getAuditList();
+            getRank();
+            getHistory();
+        }
+
+        // 驳回比赛记录
+        async function rejectMatch(idx) {
+            const data = await getData();
+            data.waitMatches.splice(idx, 1);
+            await saveData(data);
+            getAuditList();
+        }
+
+        // 初始化页面
+        getRank();
+    </script>
 </body>
+</html>
