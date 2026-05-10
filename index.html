@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>队内足球射手榜</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
+body{background:#f5f7fa;padding:15px;}
+.box{max-width:750px;margin:0 auto;}
+.tab{display:flex;background:#1677ff;border-radius:10px;overflow:hidden;margin-bottom:20px;}
+.tab-item{flex:1;text-align:center;line-height:50px;color:#fff;font-size:15px;}
+.tab-item.active{background:#0f5fcc;}
+.page{display:none;background:#fff;border-radius:10px;padding:20px;}
+.page.active{display:block;}
+input{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;margin:10px 0;font-size:16px;}
+button{padding:10px 18px;border:none;border-radius:8px;background:#1677ff;color:#fff;font-size:15px;}
+button.warn{background:#f53f3f;}
+.item{padding:15px;border-bottom:1px solid #eee;}
+.rank-head,.rank-row{display:flex;padding:12px 0;}
+.rank-head{font-weight:bold;border-bottom:1px solid #eee;}
+.r1{width:80px;text-align:center;}
+.r2{flex:1;}
+.r3{width:100px;text-align:center;}
+.hide{display:none;}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="tab">
+    <div class="tab-item active" data-page="rank">射手榜</div>
+    <div class="tab-item" data-page="history">历史记录</div>
+    <div class="tab-item" data-page="apply">提交申请</div>
+    <div class="tab-item" data-page="admin">管理登录</div>
+  </div>
+
+  <!-- 射手榜 -->
+  <div class="page active" id="rank"></div>
+
+  <!-- 历史记录 -->
+  <div class="page" id="history"></div>
+
+  <!-- 提交申请 -->
+  <div class="page" id="apply">
+    <h3>提交新球员</h3>
+    <input type="text" id="pName" placeholder="输入球员姓名">
+    <button onclick="applyPlayer()">提交</button>
+
+    <h3 style="margin-top:30px">提交比赛记录</h3>
+    <input type="text" id="mRemark" placeholder="比赛备注">
+    <div id="playerSel"></div>
+    <button onclick="applyMatch()">提交比赛</button>
+  </div>
+
+  <!-- 管理员 -->
+  <div class="page" id="admin">
+    <div id="loginBox">
+      <input type="password" id="pwd" placeholder="输入管理员密码">
+      <button onclick="login()">登录管理后台</button>
+    </div>
+    <div id="adminBox" class="hide">
+      <h3>待审核球员</h3>
+      <div id="waitPlayer"></div>
+      <h3 style="margin-top:20px">待审核比赛</h3>
+      <div id="waitMatch"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = "https://jsonplaceholder.typicode.com";
+const ADMIN_PWD = "20041202";
+let isAdmin = false;
+
+// 切换标签
+document.querySelectorAll('.tab-item').forEach(el=>{
+  el.onclick = function(){
+    document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    this.classList.add('active');
+    let page = this.dataset.page;
+    document.getElementById(page).classList.add('active');
+    if(page==='rank') getRank();
+    if(page==='history') getHistory();
+    if(page==='apply') getPlayerSel();
+    if(page==='admin' && isAdmin) getAuditList();
+  }
+})
+
+// 模拟接口 实际部署我帮你换成国内可联网数据库
+function getRank(){
+  document.getElementById('rank').innerHTML = `
+  <div class="rank-head">
+    <div class="r1">排名</div>
+    <div class="r2">球员</div>
+    <div class="r3">进球</div>
+  </div>
+  <div class="rank-row"><div class="r1">1</div><div class="r2">请先部署云端</div><div class="r3">0</div></div>
+  `;
+}
+function getHistory(){}
+function getPlayerSel(){}
+function applyPlayer(){alert('部署联网服务器后可用');}
+function applyMatch(){alert('部署联网服务器后可用');}
+
+function login(){
+  let pwd = document.getElementById('pwd').value;
+  if(pwd === ADMIN_PWD){
+    isAdmin = true;
+    document.getElementById('loginBox').classList.add('hide');
+    document.getElementById('adminBox').classList.remove('hide');
+    alert('管理员登录成功');
+  }else{
+    alert('密码错误');
+  }
+}
+</script>
+</body>
