@@ -1,114 +1,272 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>足球赛事记录-联机版</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>足球分级审核进球系统</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:"微软雅黑",sans-serif;background:#f5f5f5;padding:20px;}
-        .container{max-width:800px;margin:0 auto;background:#fff;padding:30px;border-radius:10px;box-shadow:0 0 10px #ccc;}
-        h1{text-align:center;margin-bottom:30px;color:#222;}
-        .add-form{margin-bottom:30px;}
-        input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:6px;font-size:16px;}
-        button{width:100%;padding:12px;background:#0066cc;color:#fff;border:none;border-radius:6px;font-size:16px;cursor:pointer;}
-        button:hover{background:#0052a3;}
-        table{width:100%;border-collapse:collapse;margin-top:20px;}
-        th,td{border:1px solid #ddd;padding:12px;text-align:center;}
-        th{background:#0066cc;color:#fff;}
-        .tip{color:green;text-align:center;margin:10px 0;}
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:Microsoft YaHei;background:#f2f3f5;padding:15px;}
+        .wrap {max-width:850px;margin:0 auto;background:#fff;border-radius:10px;padding:20px;}
+        h1 {text-align:center;margin-bottom:20px;color:#222;}
+        .box {margin:15px 0;padding:15px;border:1px solid #eee;border-radius:8px;}
+        input,select,textarea {width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:5px;font-size:16px;}
+        textarea {resize:none;height:80px;}
+        button {padding:10px 16px;border:none;border-radius:5px;cursor:pointer;font-size:15px;margin:4px;}
+        .btn-blue {background:#0066cc;color:#fff;}
+        .btn-red {background:#dc3545;color:#fff;}
+        .btn-green {background:#28a745;color:#fff;}
+        .hide {display:none;}
+        .tip {color:#666;margin:8px 0;}
+        .msg {padding:10px;border-radius:5px;margin:10px 0;text-align:center;display:none;}
+        .success {background:#d4edda;color:#155724;}
+        .error {background:#f8d7da;color:#721c24;}
     </style>
-    <!-- 引入Firebase云端数据库 -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>⚽ 足球赛事联机记录</h1>
-        <div class="tip">已开启云端联机，所有人数据实时同步</div>
+<div class="wrap">
+    <h1>⚽ 球员分级审核进球系统</h1>
+    <div id="msgBox" class="msg"></div>
 
-        <div class="add-form">
-            <input type="text" id="player" placeholder="输入球员姓名">
-            <input type="text" id="team" placeholder="输入所属球队">
-            <input type="number" id="goal" placeholder="输入进球数" min="0">
-            <button onclick="addRecord()">添加进球记录</button>
-        </div>
+    <!-- 第一步：提交球员名字待审核 -->
+    <div class="box">
+        <div class="tip">第一步：提交新球员姓名，等待管理员审核认证</div>
+        <input type="text" id="newPlayerName" placeholder="输入新球员姓名">
+        <button class="btn-blue" onclick="submitNewPlayer()">提交球员名字审核</button>
+    </div>
 
+    <!-- 第二步：选已认证球员 提交进球 -->
+    <div class="box">
+        <div class="tip">第二步：仅可选择已审核通过球员，提交进球信息</div>
+        <select id="playerSelect">
+            <option value="">请先选择已认证球员</option>
+        </select>
+        <input type="number" id="goalNum" placeholder="输入进球数" min="1">
+        <textarea id="matchInfo" placeholder="填写比赛信息"></textarea>
+        <button class="btn-blue" onclick="submitGoalRecord()">提交进球记录审核</button>
+    </div>
+
+    <!-- 管理员登录 -->
+    <div class="box">
+        <input type="password" id="adminPwd" placeholder="管理员密码登录后台">
+        <button class="btn-green" onclick="adminLogin()">进入管理后台</button>
+    </div>
+
+    <!-- 管理员后台 -->
+    <div id="adminPanel" class="box hide">
+        <h3>待审核球员名单</h3>
+        <div id="waitPlayerList"></div>
+
+        <h3 style="margin-top:20px;">待审核进球记录</h3>
+        <div id="waitGoalList"></div>
+    </div>
+
+    <!-- 公开射手榜 -->
+    <div class="box">
+        <h3>已审核通过射手榜</h3>
         <table>
             <thead>
                 <tr>
-                    <th>球员</th>
-                    <th>球队</th>
+                    <th>球员姓名</th>
                     <th>进球数</th>
-                    <th>操作</th>
+                    <th>比赛信息</th>
                 </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody id="rankList"></tbody>
         </table>
     </div>
+</div>
 
-    <script>
-        // 预置云端配置，直接可用
-        const firebaseConfig = {
-            apiKey: "AIzaSyB9X9w1t5sF5X7Z8xQ0W6E4R3T2Y1U0I9O8P7A6S5D4F3G2H1J",
-            authDomain: "football-record-online.firebaseapp.com",
-            databaseURL: "https://football-record-online-default-rtdb.firebaseio.com",
-            projectId: "football-record-online",
-            storageBucket: "football-record-online.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:abcdef1234567890abcdef"
-        };
+<script>
+const ADMIN_PWD = "123456";
+const firebaseConfig = {
+  apiKey: "AIzaSyB9X9w1t5sF5X7Z8xQ0W6E4R3T2Y1U0I9O8P7A6S5D4F3G2H1J",
+  authDomain: "football-record-online.firebaseapp.com",
+  databaseURL: "https://football-record-online-default-rtdb.firebaseio.com",
+  projectId: "football-record-online",
+  storageBucket: "football-record-online.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:abcdef1234567890abcdef"
+};
 
-        // 初始化Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-        const ref = db.ref("records");
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const waitPlayerRef = db.ref("waitPlayer");
+const okPlayerRef = db.ref("okPlayer");
+const waitGoalRef = db.ref("waitGoal");
+const okGoalRef = db.ref("okGoal");
 
-        // 添加记录到云端
-        function addRecord(){
-            let player = document.getElementById("player").value.trim();
-            let team = document.getElementById("team").value.trim();
-            let goal = document.getElementById("goal").value;
-            if(!player || !team || goal===""){
-                alert("请完整填写所有信息");
-                return;
-            }
-            let key = ref.push().key;
-            ref.child(key).set({
-                player:player,
-                team:team,
-                goal:goal
-            });
-            // 清空输入框
-            document.getElementById("player").value = "";
-            document.getElementById("team").value = "";
-            document.getElementById("goal").value = "";
-        }
+// 顶部提示
+function showMsg(text, isOk){
+    let box = document.getElementById("msgBox");
+    box.innerText = text;
+    box.className = "msg " + (isOk ? "success" : "error");
+    box.style.display = "block";
+    setTimeout(()=>box.style.display="none",2500);
+}
 
-        // 实时监听云端数据，自动刷新表格
-        ref.on("value",snap=>{
-            let data = snap.val();
-            let html = "";
-            for(let k in data){
-                let item = data[k];
-                html += `
-                <tr>
-                    <td>${item.player}</td>
-                    <td>${item.team}</td>
-                    <td>${item.goal}</td>
-                    <td><button onclick="delRecord('${k}')" style="background:#dc3545;">删除</button></td>
-                </tr>
-                `;
-            }
-            document.getElementById("tableBody").innerHTML = html;
+// 1. 提交新球员名字（加了完整提示）
+function submitNewPlayer(){
+    let name = document.getElementById("newPlayerName").value.trim();
+    if(!name){
+        showMsg("请输入球员姓名", false);
+        return;
+    }
+    waitPlayerRef.push({name:name})
+    .then(()=>{
+        showMsg("球员名字提交成功，等待管理员审核", true);
+        document.getElementById("newPlayerName").value = "";
+    })
+    .catch(()=>{
+        showMsg("提交失败，请稍后重试", false);
+    });
+}
+
+// 2. 提交进球记录
+function submitGoalRecord(){
+    let pid = document.getElementById("playerSelect").value;
+    let goal = document.getElementById("goalNum").value.trim();
+    let match = document.getElementById("matchInfo").value.trim();
+
+    if(!pid){
+        showMsg("请先选择已审核通过的球员", false);
+        return;
+    }
+    if(!goal || !match){
+        showMsg("请填写进球数和比赛信息", false);
+        return;
+    }
+    okPlayerRef.child(pid).once("value",snap=>{
+        let pName = snap.val().name;
+        waitGoalRef.push({
+            pid:pid,
+            pName:pName,
+            goal:goal,
+            match:match
+        }).then(()=>{
+            showMsg("进球记录提交成功，等待审核", true);
+            document.getElementById("goalNum").value = "";
+            document.getElementById("matchInfo").value = "";
         });
+    });
+}
 
-        // 删除云端记录
-        function delRecord(key){
-            if(confirm("确定删除这条记录？")){
-                ref.child(key).remove();
-            }
+// 管理员登录
+function adminLogin(){
+    let pwd = document.getElementById("adminPwd").value.trim();
+    if(pwd === ADMIN_PWD){
+        document.getElementById("adminPanel").classList.remove("hide");
+        showMsg("管理员登录成功", true);
+    }else{
+        showMsg("管理员密码错误", false);
+    }
+}
+
+// 审核球员通过
+function passPlayer(key){
+    waitPlayerRef.child(key).once("value",snap=>{
+        let val = snap.val();
+        okPlayerRef.push({name:val.name});
+        waitPlayerRef.child(key).remove();
+        showMsg("球员认证通过", true);
+    });
+}
+// 驳回球员
+function rejectPlayer(key){
+    waitPlayerRef.child(key).remove();
+    showMsg("已驳回该球员申请", true);
+}
+
+// 审核进球通过
+function passGoal(key){
+    waitGoalRef.child(key).once("value",snap=>{
+        let val = snap.val();
+        okGoalRef.push(val);
+        waitGoalRef.child(key).remove();
+        showMsg("进球记录审核通过，已上榜", true);
+    });
+}
+// 驳回进球
+function rejectGoal(key){
+    waitGoalRef.child(key).remove();
+    showMsg("已驳回该条进球记录", true);
+}
+
+// 渲染待审核球员
+waitPlayerRef.on("value",snap=>{
+    let data = snap.val();
+    let html = "";
+    if(!data){
+        html = "<p>暂无待审核球员</p>";
+    }else{
+        for(let k in data){
+            html += `
+            <div style="padding:8px;border-bottom:1px solid #eee;">
+                待认证球员：${data[k].name}
+                <button class="btn-green" onclick="passPlayer('${k}')">通过认证</button>
+                <button class="btn-red" onclick="rejectPlayer('${k}')">驳回</button>
+            </div>
+            `;
         }
-    </script>
+    }
+    document.getElementById("waitPlayerList").innerHTML = html;
+});
+
+// 渲染球员下拉
+okPlayerRef.on("value",snap=>{
+    let data = snap.val();
+    let html = '<option value="">请先选择已认证球员</option>';
+    if(data){
+        for(let k in data){
+            html += `<option value="${k}">${data[k].name}</option>`;
+        }
+    }
+    document.getElementById("playerSelect").innerHTML = html;
+});
+
+// 渲染待审核进球
+waitGoalRef.on("value",snap=>{
+    let data = snap.val();
+    let html = "";
+    if(!data){
+        html = "<p>暂无待审核进球记录</p>";
+    }else{
+        for(let k in data){
+            let item = data[k];
+            html += `
+            <div style="padding:8px;border-bottom:1px solid #eee;">
+                球员：${item.pName}｜进球：${item.goal}｜比赛：${item.match}
+                <button class="btn-green" onclick="passGoal('${k}')">通过</button>
+                <button class="btn-red" onclick="rejectGoal('${k}')">驳回</button>
+            </div>
+            `;
+        }
+    }
+    document.getElementById("waitGoalList").innerHTML = html;
+});
+
+// 渲染射手榜
+okGoalRef.on("value",snap=>{
+    let data = snap.val();
+    let html = "";
+    if(!data){
+        html = "<tr><td colspan='3'>暂无记录</td></tr>";
+    }else{
+        for(let k in data){
+            let item = data[k];
+            html += `
+            <tr>
+                <td>${item.pName}</td>
+                <td>${item.goal}</td>
+                <td>${item.match}</td>
+            </tr>
+        `;
+    }
+    document.getElementById("rankList").innerHTML = html;
+});
+</script>
 </body>
 </html>
