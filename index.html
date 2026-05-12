@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="pageTitle">深🐔🥚坪山公园球王榜</title>
+    <title id="pageTitle">深鸡蛋坪山公园球王榜</title>
     <style>
         * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC","Microsoft YaHei",sans-serif;}
         body {
@@ -56,9 +56,6 @@
         .nav .normal {
             background:#f1f5f9;
             color:#475569;
-        }
-        .nav .normal:hover {
-            background:#e2e8f0;
         }
 
         .page {display:none;}
@@ -123,12 +120,6 @@
             border:1px solid #e2e8f0;
             border-radius:8px;
             font-size:14px;
-            transition:border-color 0.3s ease;
-        }
-        input:focus, select:focus, textarea:focus {
-            outline:none;
-            border-color:#3b82f6;
-            box-shadow:0 0 0 3px rgba(59,130,246,0.1);
         }
         textarea {height:150px;resize:none;}
 
@@ -140,39 +131,30 @@
             padding:10px 16px;
             box-shadow:0 4px 12px rgba(59,130,246,0.3);
         }
-        .btn-blue:hover {transform:translateY(-1px); box-shadow:0 6px 16px rgba(59,130,246,0.4);}
-        
         .btn-green {
             background: linear-gradient(135deg, #10b981, #059669);
             color:#fff;
             padding:10px 16px;
             box-shadow:0 4px 12px rgba(16,185,129,0.3);
         }
-        .btn-green:hover {transform:translateY(-1px); box-shadow:0 6px 16px rgba(16,185,129,0.4);}
-        
         .btn-red {
             background: linear-gradient(135deg, #ef4444, #dc2626);
             color:#fff;
             padding:10px 16px;
             box-shadow:0 4px 12px rgba(239,68,68,0.3);
         }
-        .btn-red:hover {transform:translateY(-1px); box-shadow:0 6px 16px rgba(239,68,68,0.4);}
-        
         .btn-yellow {
             background: linear-gradient(135deg, #f59e0b, #d97706);
             color:#fff;
             padding:10px 16px;
             box-shadow:0 4px 12px rgba(245,158,11,0.3);
         }
-        .btn-yellow:hover {transform:translateY(-1px); box-shadow:0 6px 16px rgba(245,158,11,0.4);}
-        
         .btn-gray {
             background: linear-gradient(135deg, #64748b, #475569);
             color:#fff;
             padding:10px 16px;
             box-shadow:0 4px 12px rgba(100,116,139,0.3);
         }
-        .btn-gray:hover {transform:translateY(-1px); box-shadow:0 6px 16px rgba(100,116,139,0.4);}
 
         .tip {color:#64748b; margin:8px 0; font-size:13px; line-height:1.5;}
 
@@ -186,23 +168,14 @@
 
         /* 模态框 */
         .modal {position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6);
-        display:flex; justify-content:center; align-items:center; z-index:999; animation:modalFadeIn 0.3s ease;}
-        @keyframes modalFadeIn {
-            from{opacity:0;}
-            to{opacity:1;}
-        }
+        display:flex; justify-content:center; align-items:center; z-index:999;}
         .modal-content {
             background:#fff;
             padding:20px;
             border-radius:16px;
             width:90%;
             max-width:350px;
-            animation:modalSlideIn 0.3s ease;
             box-shadow:0 20px 60px rgba(0,0,0,0.3);
-        }
-        @keyframes modalSlideIn {
-            from{transform:translateY(-20px); opacity:0;}
-            to{transform:translateY(0); opacity:1;}
         }
         .modal-content h3 {
             margin-bottom:15px;
@@ -218,11 +191,6 @@
             cursor:pointer;
             background:#f1f5f9;
             border-left:4px solid #8b5cf6;
-            transition:all 0.3s ease;
-        }
-        .vote-option:hover {
-            background:#ede9fe;
-            transform:translateX(4px);
         }
         .vote-result {
             margin-top:6px;
@@ -237,11 +205,68 @@
             flex-wrap:wrap;
             margin-top:10px;
         }
+
+        /* 错误提示 */
+        .error-box {
+            background:#fee2e2;
+            border-left:4px solid #ef4444;
+            padding:10px;
+            border-radius:8px;
+            margin:10px 0;
+            color:#991b1b;
+            font-size:12px;
+        }
+
+        /* 善意组队专用样式 */
+        .match-info {
+            background:#e0f2fe;
+            border-left:4px solid #0ea5e9;
+            padding:12px;
+            border-radius:8px;
+            margin-bottom:15px;
+        }
+        .team-card {
+            background:#f0fdf4;
+            border-left:4px solid #22c55e;
+            padding:12px;
+            border-radius:8px;
+            margin:10px 0;
+        }
+        .team-card h4 {
+            margin-bottom:8px;
+            color:#166534;
+        }
+        .member-list {
+            display:flex;
+            flex-wrap:wrap;
+            gap:6px;
+            margin:8px 0;
+        }
+        .member-tag {
+            background:#dcfce7;
+            color:#166534;
+            padding:4px 8px;
+            border-radius:4px;
+            font-size:12px;
+        }
+        .captain-tag {
+            background:#fef3c7;
+            color:#92400e;
+            font-weight:bold;
+        }
+        .apply-item {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:6px 0;
+            border-bottom:1px solid #e2e8f0;
+        }
     </style>
 </head>
 <body>
 <div class="wrap">
     <h1 id="mainTitle">⚽ 深鸡蛋坪山公园球王榜</h1>
+    <div id="errorBox" class="error-box hide"></div>
 
     <div class="nav">
         <button class="active" onclick="switchPage('main')">主界面</button>
@@ -279,28 +304,50 @@
         </div>
     </div>
 
+    <!-- ===================== 全新善意组队页面 ===================== -->
     <div id="team" class="page">
         <div id="teamAuthBox" class="box">
             <h3>🔐 进入善意组队</h3>
-            <p class="tip">方式1：球员身份验证</p>
-            <select id="teamSelPlayer"><option value="">选择你的球员</option></select>
-            <input type="password" id="teamSelPwd" placeholder="2位数字密码" maxlength="2">
-            <button class="btn-blue" onclick="checkTeamAuth()">球员登录进入</button>
-
-            <p class="tip" style="margin-top:15px;">方式2：管理员直接进入</p>
-            <input type="password" id="teamAdminPwd" placeholder="输入管理员密码">
-            <button class="btn-yellow" onclick="adminEnterTeam()">管理员直接进入</button>
+            <p class="tip">请输入你的球员信息验证身份</p>
+            <select id="teamPlayerSelect"><option value="">选择你的球员</option></select>
+            <input type="password" id="teamPlayerPwd" placeholder="2位数字密码" maxlength="2">
+            <button class="btn-blue" onclick="loginToTeam()">进入善意组队</button>
         </div>
+        
         <div id="teamMainBox" class="hide">
+            <div id="currentMatchBox" class="match-info">
+                <h3>⚽ 当前比赛</h3>
+                <div id="matchInfoContent"></div>
+                <div class="btn-group" id="matchActionBtns"></div>
+            </div>
+
             <div class="box">
                 <h3>📋 报名接龙 <span id="signCountTip"></span></h3>
                 <div id="signList"></div>
                 <div class="btn-group">
-                    <button class="btn-blue" onclick="exportWechatSignup()">导出微信接龙</button>
-                    <button class="btn-green" onclick="refreshSignList()">刷新列表</button>
+                    <button class="btn-blue" onclick="signupMatch()">我要报名</button>
+                    <button class="btn-red" onclick="cancelSignup()">取消报名</button>
+                    <button class="btn-green" onclick="refreshTeamData()">刷新</button>
                 </div>
             </div>
-            <div class="box"><h3>👥 小队列表</h3><div id="teamList"></div></div>
+
+            <div class="box">
+                <h3>👥 小队列表 <span id="teamCountTip"></span></h3>
+                <div id="teamList"></div>
+                <div class="btn-group">
+                    <button class="btn-blue" onclick="openCreateTeamModal()">创建小队</button>
+                </div>
+            </div>
+
+            <div class="box">
+                <h3>📨 我的申请</h3>
+                <div id="myApplications"></div>
+            </div>
+
+            <div id="myTeamManageBox" class="box hide">
+                <h3>🛠️ 我的小队管理</h3>
+                <div id="myTeamManageContent"></div>
+            </div>
         </div>
     </div>
 
@@ -331,7 +378,6 @@
                 <input type="password" id="votePwd" placeholder="2位数字密码" maxlength="2">
                 <button class="btn-blue" onclick="submitVote()">提交投票</button>
             </div>
-            <div id="voteResults"></div>
         </div>
     </div>
 
@@ -344,11 +390,12 @@
 
         <div id="adminMainBox" class="hide">
             <div class="admin-nav">
-                <button class="active" onclick="switchAdminPage('title')">修改标题</button>
+                <button class="active" onclick="switchAdminPage('match')">比赛设置</button>
+                <button onclick="switchAdminPage('title')">修改标题</button>
                 <button onclick="switchAdminPage('time')">时间管理</button>
                 <button onclick="switchAdminPage('reward')">奖励规则</button>
                 <button onclick="switchAdminPage('vote')">投票管理</button>
-                <button onclick="switchAdminPage('allPlayer')">全部球员</button>
+                <button onclick="switchAdminPage('allPlayer')">球员管理</button>
                 <button onclick="switchAdminPage('waitPlayer')">
                     待审球员
                     <span id="waitPlayerBadge" class="badge hide">0</span>
@@ -357,24 +404,41 @@
                     待审进球
                     <span id="waitGoalBadge" class="badge hide">0</span>
                 </button>
+                <button onclick="switchAdminPage('waitTeam')">
+                    待审小队
+                    <span id="waitTeamBadge" class="badge hide">0</span>
+                </button>
                 <button class="btn-red" onclick="adminLogout()">退出</button>
             </div>
 
-            <div id="admin-title" class="admin-page active">
+            <div id="admin-match" class="admin-page active">
+                <div class="box">
+                    <h3>⚽ 设置当前比赛</h3>
+                    <input type="datetime-local" id="adminMatchTime">
+                    <input type="text" id="adminMatchLocation" placeholder="比赛地点" value="坪山公园">
+                    <textarea id="adminMatchNote" placeholder="比赛备注（可选）"></textarea>
+                    <button class="btn-green" onclick="setCurrentMatch()">创建新比赛</button>
+                    <button class="btn-red" onclick="closeCurrentMatch()">关闭当前比赛</button>
+                </div>
+            </div>
+
+            <div id="admin-title" class="admin-page">
                 <div class="box">
                     <h3>✏️ 修改网站标题</h3>
                     <input type="text" id="siteTitleInput" placeholder="输入网站新标题">
                     <button class="btn-blue" onclick="saveSiteTitle()">保存标题</button>
                 </div>
             </div>
+
             <div id="admin-time" class="admin-page">
                 <div class="box">
-                    <h3>⏰ 比赛时间管理</h3>
+                    <h3>⏰ 进球比赛时间管理</h3>
                     <input type="datetime-local" id="matchTimeInput">
                     <button class="btn-green" onclick="addMatchTime()">添加比赛时间</button>
                     <div id="matchTimeList"></div>
                 </div>
             </div>
+
             <div id="admin-reward" class="admin-page">
                 <div class="box">
                     <h3>📜 编辑奖励规则</h3>
@@ -382,25 +446,37 @@
                     <button class="btn-blue" onclick="saveRewardRules()">保存奖励规则</button>
                 </div>
             </div>
+
             <div id="admin-vote" class="admin-page">
                 <div class="box">
                     <h3>🗳️ 投票管理</h3>
                     <button class="btn-red" onclick="resetVote()">重置投票（清空所有票数）</button>
                 </div>
             </div>
+
             <div id="admin-allPlayer" class="admin-page">
-                <div class="box"><h3>👥 全部球员（可通过/拒绝/注销）</h3><div id="allPlayerList"></div></div>
+                <div class="box">
+                    <h3>👥 球员管理（可调整数据）</h3>
+                    <div id="allPlayerList"></div>
+                </div>
             </div>
+
             <div id="admin-waitPlayer" class="admin-page">
                 <div class="box"><h3>⏳ 待审核球员</h3><div id="waitPlayerList"></div></div>
             </div>
+
             <div id="admin-waitGoal" class="admin-page">
                 <div class="box"><h3>⚽ 待审核进球</h3><div id="waitGoalList"></div></div>
+            </div>
+
+            <div id="admin-waitTeam" class="admin-page">
+                <div class="box"><h3>👥 待审核小队</h3><div id="waitTeamList"></div></div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- 注册模态框 -->
 <div id="regModal" class="modal hide">
     <div class="modal-content">
         <h3>📝 注册新球员</h3>
@@ -413,6 +489,7 @@
     </div>
 </div>
 
+<!-- 进球模态框 -->
 <div id="goalModal" class="modal hide">
     <div class="modal-content">
         <h3>⚽ 提交进球</h3>
@@ -425,6 +502,48 @@
     </div>
 </div>
 
+<!-- 创建小队模态框 -->
+<div id="createTeamModal" class="modal hide">
+    <div class="modal-content">
+        <h3>👥 创建小队</h3>
+        <input type="text" id="teamNameInput" placeholder="小队名称">
+        <input type="text" id="joinCodeInput" placeholder="4位进队码" maxlength="4">
+        <div style="margin-top:15px; display:flex; gap:10px; justify-content:flex-end;">
+            <button class="btn-gray" onclick="closeCreateTeamModal()">取消</button>
+            <button class="btn-blue" onclick="submitCreateTeam()">创建</button>
+        </div>
+    </div>
+</div>
+
+<!-- 加入小队模态框 -->
+<div id="joinTeamModal" class="modal hide">
+    <div class="modal-content">
+        <h3>🔑 加入小队</h3>
+        <p id="joinTeamName"></p>
+        <input type="text" id="joinTeamCodeInput" placeholder="输入进队码（可选）">
+        <div style="margin-top:15px; display:flex; gap:10px; justify-content:flex-end;">
+            <button class="btn-gray" onclick="closeJoinTeamModal()">取消</button>
+            <button class="btn-blue" onclick="submitJoinTeam()">申请加入</button>
+        </div>
+    </div>
+</div>
+
+<!-- 调整球员数据模态框 -->
+<div id="adjustPlayerModal" class="modal hide">
+    <div class="modal-content">
+        <h3>📊 调整球员数据</h3>
+        <p id="adjustPlayerName"></p>
+        <p class="tip">只能增加，不能减少</p>
+        <input type="number" id="addGoalsInput" placeholder="增加进球数" min="0" value="0">
+        <input type="number" id="addMatchesInput" placeholder="增加场次数" min="0" value="0">
+        <div style="margin-top:15px; display:flex; gap:10px; justify-content:flex-end;">
+            <button class="btn-gray" onclick="closeAdjustPlayerModal()">取消</button>
+            <button class="btn-blue" onclick="submitAdjustPlayer()">确认调整</button>
+        </div>
+    </div>
+</div>
+
+<!-- 消息模态框 -->
 <div id="msgModal" class="modal hide">
     <div class="modal-content" style="text-align:center;">
         <p id="msgText" style="font-size:16px;margin-bottom:20px;"></p>
@@ -433,134 +552,37 @@
 </div>
 
 <script>
-    // 🔴 这里改成你自己的Worker地址！！！
+    // ==============================================
+    // 🔴 这里必须改成你自己的Worker地址！！！
+    // ==============================================
     const API = "https://footballpoint.top";
+    // ==============================================
+    
     const ADMIN_PWD = "20041202";
     let refreshTimer;
     let currentGoalPlayerId;
     let currentGoalPassword;
+    let currentPlayerId;
+    let currentPlayerPwd;
+    let currentJoinTeamId;
+    let currentAdjustPlayerId;
+    let playerCache = [];
 
-    // 页面加载初始化
-    window.onload = async function() {
-        try {
-            await loadAllApprovedPlayers();
-            await loadAllPlayersForTeamSelect();
-            await loadMatchTimes();
-            await loadCustomTitle();
-            await loadRewardRules();
-            await loadVoteInfo();
-            console.log("页面初始化成功");
-        } catch (e) {
-            console.error("初始化错误:", e);
-            alert("页面加载失败，请刷新重试");
-        }
+    // 全局错误捕获
+    window.onerror = function(message, source, lineno, colno, error) {
+        showError("JS错误：" + message + " 行号：" + lineno);
+        return true;
+    };
+
+    // 显示错误
+    function showError(msg) {
+        const box = document.getElementById("errorBox");
+        box.innerText = msg;
+        box.classList.remove("hide");
+        console.error(msg);
     }
 
-    // 加载网站标题
-    async function loadCustomTitle() {
-        const res = await fetch(API + "/getCustomTitle");
-        const d = await res.json();
-        if(d.title) {
-            document.getElementById("pageTitle").innerText = d.title;
-            document.getElementById("mainTitle").innerText = "⚽ " + d.title;
-        }
-    }
-
-    // 加载奖励规则
-    async function loadRewardRules() {
-        const res = await fetch(API + "/getRewardRules");
-        const d = await res.json();
-        document.getElementById("rewardContent").innerText = d.content;
-        document.getElementById("adminRewardInput").value = d.content;
-    }
-
-    // 加载投票信息
-    async function loadVoteInfo() {
-        const res = await fetch(API + "/getVoteInfo");
-        const d = await res.json();
-        document.getElementById("voteTitle").innerText = d.title;
-        
-        let optionsHtml = "";
-        let totalVotes = 0;
-        Object.values(d.results).forEach(v=>totalVotes+=v);
-        
-        d.options.forEach(opt=>{
-            let votes = d.results[opt.id] || 0;
-            let percent = totalVotes>0 ? Math.round(votes/totalVotes*100) : 0;
-            optionsHtml += `
-            <div class="vote-option" onclick="selectVoteOption('${opt.id}')">
-                ${opt.name}
-                <div class="vote-result">${votes}票 (${percent}%)</div>
-            </div>
-            `;
-        });
-        document.getElementById("voteOptions").innerHTML = optionsHtml || "<p>暂无投票选项</p>";
-
-        let playerHtml = "<option value=''>选择你的球员</option>";
-        d.options.forEach(opt=>{
-            playerHtml += `<option value="${opt.id}">${opt.name}</option>`;
-        });
-        document.getElementById("votePlayerSelect").innerHTML = playerHtml;
-    }
-
-    // 加载已通过球员列表（主界面下拉框）
-    async function loadAllApprovedPlayers() {
-        const res = await fetch(API + "/getApprovedPlayer");
-        const list = await res.json();
-        let html = "<option value=''>请选择已认证球员</option>";
-        list.forEach(p => {
-            html += `<option value="${p.id}" data-pwd="${p.password}">${p.name}</option>`;
-        });
-        document.getElementById("playerSelect").innerHTML = html;
-    }
-
-    // 加载比赛时间列表
-    async function loadMatchTimes() {
-        const res = await fetch(API + "/getGoalMatchTimes");
-        const list = await res.json();
-        let html = "<option value=''>选择比赛时间</option>";
-        list.forEach(t => {
-            html += `<option value="${t}">${new Date(t).toLocaleString()}</option>`;
-        });
-        document.getElementById("matchTimeSelect").innerHTML = html;
-    }
-
-    // 加载所有球员（善意组队下拉框）
-    async function loadAllPlayersForTeamSelect() {
-        const res = await fetch(API + "/getAllPlayer");
-        const list = await res.json();
-        let html = "<option value=''>选择你的球员</option>";
-        list.filter(p => p.status === "approved").forEach(p => {
-            html += `<option value="${p.id}">${p.name}</option>`;
-        });
-        document.getElementById("teamSelPlayer").innerHTML = html;
-    }
-
-    function switchPage(pageId){
-        document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-        document.querySelectorAll(".nav button").forEach(b=>b.className="normal");
-        document.getElementById(pageId).classList.add("active");
-        event.target.className="active";
-
-        if(pageId==="rank") loadRankList();
-        if(pageId==="admin") refreshBadge();
-        if(pageId==="team") loadAllPlayersForTeamSelect();
-        if(pageId==="reward") loadRewardRules();
-        if(pageId==="vote") loadVoteInfo();
-    }
-    function switchAdminPage(pageId){
-        document.querySelectorAll(".admin-page").forEach(p=>p.classList.remove("active"));
-        document.querySelectorAll(".admin-nav button").forEach(b=>b.className="");
-        document.getElementById("admin-"+pageId).classList.add("active");
-        event.target.className="active";
-
-        if(pageId==="waitGoal") loadWaitGoalList();
-        if(pageId==="allPlayer") loadAllPlayer();
-        if(pageId==="waitPlayer") loadWaitPlayerList();
-        if(pageId==="time") loadMatchTimeList();
-        if(pageId==="reward") loadRewardRules();
-    }
-
+    // 显示消息
     function showMsg(txt){
         document.getElementById("msgText").innerText=txt;
         document.getElementById("msgModal").classList.remove("hide");
@@ -568,454 +590,157 @@
     function closeMsgModal(){
         document.getElementById("msgModal").classList.add("hide");
     }
-    function openRegModal(){document.getElementById("regModal").classList.remove("hide");}
-    function closeRegModal(){document.getElementById("regModal").classList.remove("hide");}
-    function openGoalModal(){
-        const select = document.getElementById("playerSelect");
-        const timeSelect = document.getElementById("matchTimeSelect");
-        if(!select.value || !timeSelect.value){
-            showMsg("请选择球员和比赛时间");
-            return;
+
+    // 页面切换
+    function switchPage(pageId){
+        try {
+            document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+            document.querySelectorAll(".nav button").forEach(b=>b.className="normal");
+            document.getElementById(pageId).classList.add("active");
+            event.target.className="active";
+
+            if(pageId==="rank") loadRankList();
+            if(pageId==="admin") refreshBadge();
+            if(pageId==="team") loadTeamPlayerSelect();
+            if(pageId==="reward") loadRewardRules();
+            if(pageId==="vote") loadVoteInfo();
+        } catch (e) {
+            showError("页面切换错误：" + e.message);
         }
-        currentGoalPlayerId = select.value;
-        currentGoalPassword = select.options[select.selectedIndex].dataset.pwd;
-        document.getElementById("goalPlayerName").innerText = `球员：${select.options[select.selectedIndex].text}`;
-        document.getElementById("goalModal").classList.remove("hide");
     }
-    function closeGoalModal(){document.getElementById("goalModal").classList.remove("hide");}
+
+    // 管理页面切换
+    function switchAdminPage(pageId){
+        try {
+            document.querySelectorAll(".admin-page").forEach(p=>p.classList.remove("active"));
+            document.querySelectorAll(".admin-nav button").forEach(b=>b.className="");
+            document.getElementById("admin-"+pageId).classList.add("active");
+            event.target.className="active";
+
+            if(pageId==="waitGoal") loadWaitGoalList();
+            if(pageId==="waitTeam") loadWaitTeamList();
+            if(pageId==="allPlayer") loadAllPlayer();
+            if(pageId==="waitPlayer") loadWaitPlayerList();
+            if(pageId==="time") loadMatchTimeList();
+            if(pageId==="reward") loadRewardRules();
+        } catch (e) {
+            showError("管理页面切换错误：" + e.message);
+        }
+    }
+
+    // 模态框
+    function openRegModal(){document.getElementById("regModal").classList.remove("hide");}
+    function closeRegModal(){document.getElementById("regModal").classList.add("hide");}
+    function openGoalModal(){
+        try {
+            const select = document.getElementById("playerSelect");
+            const timeSelect = document.getElementById("matchTimeSelect");
+            if(!select.value || !timeSelect.value){
+                showMsg("请选择球员和比赛时间");
+                return;
+            }
+            currentGoalPlayerId = select.value;
+            currentGoalPassword = select.options[select.selectedIndex].dataset.pwd;
+            document.getElementById("goalPlayerName").innerText = `球员：${select.options[select.selectedIndex].text}`;
+            document.getElementById("goalModal").classList.remove("hide");
+        } catch (e) {
+            showError("打开进球模态框错误：" + e.message);
+        }
+    }
+    function closeGoalModal(){document.getElementById("goalModal").classList.add("hide");}
+    function openCreateTeamModal(){document.getElementById("createTeamModal").classList.remove("hide");}
+    function closeCreateTeamModal(){document.getElementById("createTeamModal").classList.add("hide");}
+    function closeJoinTeamModal(){document.getElementById("joinTeamModal").classList.add("hide");}
+    function closeAdjustPlayerModal(){document.getElementById("adjustPlayerModal").classList.add("hide");}
 
     // 提交进球
     async function submitGoal(){
-        const location = document.getElementById("goalLocation").value.trim();
-        const time = document.getElementById("matchTimeSelect").value;
-        const goal = parseInt(document.getElementById("goalCount").value);
-        await fetch(API+"/addGoal",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({
-                pid: currentGoalPlayerId,
-                password: currentGoalPassword,
-                goal: goal,
-                location: location,
-                time: time
-            })
-        });
-        showMsg("进球已提交，等待管理员审核");
-        closeGoalModal();
-    }
-
-    function adminEnterTeam(){
-        let pwd = document.getElementById("teamAdminPwd").value.trim();
-        if(pwd === ADMIN_PWD){
-            document.getElementById("teamAuthBox").classList.add("hide");
-            document.getElementById("teamMainBox").classList.remove("hide");
-            showMsg("管理员已进入善意组队");
-            loadSignList();
-            loadTeamList();
-        }else{
-            showMsg("管理员密码错误");
+        try {
+            const location = document.getElementById("goalLocation").value.trim();
+            const time = document.getElementById("matchTimeSelect").value;
+            const goal = parseInt(document.getElementById("goalCount").value);
+            await fetch(API+"/addGoal",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({
+                    pid: currentGoalPlayerId,
+                    password: currentGoalPassword,
+                    goal: goal,
+                    location: location,
+                    time: time
+                })
+            });
+            showMsg("进球已提交，等待管理员审核");
+            closeGoalModal();
+        } catch (e) {
+            showError("提交进球错误：" + e.message);
         }
     }
 
-    async function exportWechatSignup(){
-        const res = await fetch(API+"/getSignupList");
-        const list = await res.json();
-        let text = "🏃 坪山公园踢球接龙\n";
-        list.forEach((name,idx)=>{
-            text += `${idx+1}. ${name}\n`;
-        });
-        text += "\n接龙格式：序号. 姓名";
-        navigator.clipboard.writeText(text).then(()=>{
-            showMsg("已复制微信接龙格式，直接粘贴发微信群");
-        }).catch(()=>{
-            alert(text);
-        });
-    }
-
-    async function loadSignList(){
-        const res = await fetch(API+"/getSignupList");
-        const list = await res.json();
-        document.getElementById("signCountTip").innerText = `已报名：${list.length}/27人`;
-        let html = "";
-        list.forEach((name,idx)=>{
-            html += `<div style="padding:6px 0;border-bottom:1px solid #e2e8f0;">${idx+1}. ${name}</div>`;
-        });
-        document.getElementById("signList").innerHTML = html || "<p>暂无报名</p>";
-    }
-    function refreshSignList(){loadSignList();}
-
-    async function parseWechatSignup(){
-        let text = document.getElementById("wechatText").value.trim();
-        if(!text){
-            showMsg("请粘贴微信接龙内容");
-            return;
-        }
-        let reg = /\d+\.\s*([\u4e00-\u9fa5a-zA-Z]+)/g;
-        let names = [];
-        let match;
-        while((match = reg.exec(text))!==null){
-            names.push(match[1]);
-        }
-        if(names.length===0){
-            showMsg("未解析到任何姓名，请检查接龙格式");
-            return;
-        }
-        const res = await fetch(API+"/batchWechatImport",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({names})
-        });
-        const d = await res.json();
-        document.getElementById("importResult").innerText = `解析成功${names.length}人 | 新增注册${d.add}人 | 已存在${d.exist}人 | 全部自动报名完成`;
-        showMsg("导入完成，已自动注册并报名");
-        await loadAllApprovedPlayers();
-        await loadAllPlayersForTeamSelect();
-    }
-
-    async function submitReg(){
-        const name = document.getElementById("regName").value.trim();
-        const pwd = document.getElementById("regPwd").value.trim();
-        if(!name || !/^\d{2}$/.test(pwd)){
-            showMsg("请输入姓名和2位数字密码");
-            return;
-        }
-        const res = await fetch(API+"/regPlayer",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({name,pwd})
-        });
-        const d = await res.json();
-        if(d.ok){
-            showMsg("注册成功，等待管理员审核");
-            closeRegModal();
-        }else{
-            showMsg(d.msg);
+    // ===================== 善意组队核心功能 =====================
+    async function loadTeamPlayerSelect() {
+        try {
+            const res = await fetch(API + "/getAllPlayer");
+            const list = await res.json();
+            playerCache = list;
+            let html = "<option value=''>选择你的球员</option>";
+            list.filter(p => p.status === "approved").forEach(p => {
+                html += `<option value="${p.id}">${p.name}</option>`;
+            });
+            document.getElementById("teamPlayerSelect").innerHTML = html;
+        } catch (e) {
+            showError("加载球员列表错误：" + e.message);
         }
     }
 
-    async function adminLogin(){
-        const pwd = document.getElementById("adminInputPwd").value.trim();
-        if(pwd !== ADMIN_PWD){
-            showMsg("管理员密码错误");
-            return;
-        }
-        document.getElementById("adminLoginBox").classList.add("hide");
-        document.getElementById("adminMainBox").classList.remove("hide");
-        showMsg("登录成功");
-        loadAllAdminData();
-        refreshTimer = setInterval(refreshBadge,3000);
-    }
-    function adminLogout(){
-        clearInterval(refreshTimer);
-        document.getElementById("adminLoginBox").classList.remove("hide");
-        document.getElementById("adminMainBox").classList.add("hide");
-        showMsg("已退出管理员登录");
-    }
-
-    async function refreshBadge(){
-        const res = await fetch(API+"/getBadgeCount");
-        const d = await res.json();
-        if(d.waitPlayer>0){
-            document.getElementById("waitPlayerBadge").innerText = d.waitPlayer;
-            document.getElementById("waitPlayerBadge").classList.remove("hide");
-        }else{
-            document.getElementById("waitPlayerBadge").classList.add("hide");
-        }
-        if(d.waitGoal>0){
-            document.getElementById("waitGoalBadge").innerText = d.waitGoal;
-            document.getElementById("waitGoalBadge").classList.remove("hide");
-        }else{
-            document.getElementById("waitGoalBadge").classList.add("hide");
-        }
-        const total = d.waitPlayer + d.waitGoal;
-        if(total>0){
-            document.getElementById("adminBadge").innerText = total;
-            document.getElementById("adminBadge").classList.remove("hide");
-        }else{
-            document.getElementById("adminBadge").classList.add("hide");
+    async function loginToTeam() {
+        try {
+            const pid = document.getElementById("teamPlayerSelect").value;
+            const pwd = document.getElementById("teamPlayerPwd").value;
+            if(!pid || !pwd){
+                showMsg("请选择球员并输入密码");
+                return;
+            }
+            
+            const res = await fetch(API+"/checkPlayerAuth",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({pid,pwd})
+            });
+            const d = await res.json();
+            if(d.ok){
+                currentPlayerId = pid;
+                currentPlayerPwd = pwd;
+                document.getElementById("teamAuthBox").classList.add("hide");
+                document.getElementById("teamMainBox").classList.remove("hide");
+                showMsg("验证成功");
+                await refreshTeamData();
+            }else{
+                showMsg("验证失败，请检查密码");
+            }
+        } catch (e) {
+            showError("登录错误：" + e.message);
         }
     }
 
-    // 加载射手榜
-    async function loadRankList(){
-        const res = await fetch(API+"/getApprovedPlayer");
-        const list = await res.json();
-        list.sort((a,b)=>(b.totalGoals||0)-(a.totalGoals||0));
-        let html = "<table><tr><th>排名</th><th>姓名</th><th>进球</th><th>场次</th></tr>";
-        list.forEach((item,idx)=>{
-            let cls = "";
-            if(idx===0) cls="rank-1";
-            if(idx===1) cls="rank-2";
-            if(idx===2) cls="rank-3";
-            html += `<tr><td class="${cls}">${idx+1}</td><td>${item.name}</td><td>${item.totalGoals||0}</td><td>${item.totalMatches||0}</td></tr>`;
-        });
-        html += "</table>";
-        document.getElementById("rankList").innerHTML = html;
-    }
-
-    async function checkTeamAuth(){
-        const pid = document.getElementById("teamSelPlayer").value;
-        const pwd = document.getElementById("teamSelPwd").value;
-        if(!pid || !pwd){
-            showMsg("请选择球员并输入密码");
-            return;
-        }
-        const res = await fetch(API+"/checkPlayerAuth",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({pid,pwd})
-        });
-        const d = await res.json();
-        if(d.ok){
-            document.getElementById("teamAuthBox").classList.add("hide");
-            document.getElementById("teamMainBox").classList.remove("hide");
-            showMsg("验证成功，进入组队");
-            loadSignList();
-            loadTeamList();
-        }else{
-            showMsg("该球员未审核通过，无法进入");
+    async function refreshTeamData() {
+        try {
+            await loadCurrentMatch();
+            await loadSignupList();
+            await loadTeamList();
+            await loadMyStatus();
+        } catch (e) {
+            showError("刷新数据错误：" + e.message);
         }
     }
 
-    // 加载小队列表
-    async function loadTeamList(){
-        const res = await fetch(API+"/getApprovedTeams");
-        const d = await res.json();
-        let html = "";
-        d.teams.forEach(t=>{
-            let captainName = "未知";
-            const res2 = await fetch(API+"/getAllPlayer");
-            const players = await res2.json();
-            const captain = players.find(p=>p.id===t.captainId);
-            if(captain) captainName = captain.name;
-            html += `<div class="box" style="border-left-color:#8b5cf6;"><h4>${t.name}</h4><p>队长：${captainName}</p></div>`;
-        });
-        document.getElementById("teamList").innerHTML = html || "<p>暂无小队</p>";
-    }
-
-    async function loadAllAdminData(){
-        await loadAllPlayer();
-        await loadWaitPlayerList();
-        await loadWaitGoalList();
-        await loadMatchTimeList();
-        await loadRewardRules();
-    }
-
-    async function loadAllPlayer(){
-        const res = await fetch(API+"/getAllPlayer");
-        const list = await res.json();
-        let html = "";
-        list.forEach(item=>{
-            let statusTxt = "";
-            if(item.status==="pending") statusTxt="待审核";
-            if(item.status==="approved") statusTxt="已通过";
-            if(item.status==="rejected") statusTxt="已拒绝";
-            if(item.status==="cancelled") statusTxt="已注销";
-
-            html += `
-            <div style="padding:8px 0;border-bottom:1px solid #e2e8f0;">
-                <div style="margin-bottom:6px;">
-                    <strong>${item.name}</strong> | 密码：${item.password} | 进球：${item.totalGoals||0} | 场次：${item.totalMatches||0}
-                </div>
-                <div style="color:#64748b; font-size:12px; margin-bottom:6px;">状态：${statusTxt}</div>
-                <div class="btn-group">
-                    <button class="btn-green" style="padding:6px 10px; font-size:12px;" onclick="passPlayer(${item.id})">通过</button>
-                    <button class="btn-yellow" style="padding:6px 10px; font-size:12px;" onclick="rejectPlayer(${item.id})">拒绝</button>
-                    <button class="btn-red" style="padding:6px 10px; font-size:12px;" onclick="cancelPlayer(${item.id})">注销</button>
-                </div>
-            </div>
-            `;
-        });
-        document.getElementById("allPlayerList").innerHTML = html;
-    }
-
-    // 加载待审核球员
-    async function loadWaitPlayerList(){
-        const res = await fetch(API+"/getAllPlayer");
-        const list = await res.json();
-        const waitList = list.filter(p=>p.status==="pending");
-        let html = "";
-        waitList.forEach(item=>{
-            html += `
-            <div style="padding:8px 0;border-bottom:1px solid #e2e8f0;">
-                <div style="margin-bottom:6px;"><strong>${item.name}</strong> | 密码：${item.password}</div>
-                <div class="btn-group">
-                    <button class="btn-green" style="padding:6px 10px; font-size:12px;" onclick="passPlayer(${item.id})">通过</button>
-                    <button class="btn-red" style="padding:6px 10px; font-size:12px;" onclick="rejectPlayer(${item.id})">拒绝</button>
-                </div>
-            </div>
-            `;
-        });
-        document.getElementById("waitPlayerList").innerHTML = html || "<p>暂无待审核球员</p>";
-    }
-
-    // 加载待审核进球
-    async function loadWaitGoalList(){
-        // 临时解决方案：直接从后端获取待审核进球
-        // 这里需要后端加一个/getWaitGoals接口，我先临时用模拟数据，你可以后续加上
-        // 为了快速修复，我先写死一个示例，你可以在后端加上这个接口
-        document.getElementById("waitGoalList").innerHTML = `
-            <div style="padding:8px 0;border-bottom:1px solid #e2e8f0;">
-                <div style="margin-bottom:6px;"><strong>测试球员</strong> | 进球：1 | 时间：2026-05-12</div>
-                <div class="btn-group">
-                    <button class="btn-green" style="padding:6px 10px; font-size:12px;" onclick="passGoal(123)">通过</button>
-                    <button class="btn-red" style="padding:6px 10px; font-size:12px;" onclick="rejectGoal(123)">拒绝</button>
-                </div>
-            </div>
-        `;
-    }
-
-    // 加载比赛时间列表
-    async function loadMatchTimeList(){
-        const res = await fetch(API+"/getGoalMatchTimes");
-        const list = await res.json();
-        let html = "";
-        list.forEach(t=>{
-            html += `
-            <div style="padding:8px 0;border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
-                <span>${new Date(t).toLocaleString()}</span>
-                <button class="btn-red" style="padding:6px 10px; font-size:12px;" onclick="removeMatchTime('${t}')">删除</button>
-            </div>
-            `;
-        });
-        document.getElementById("matchTimeList").innerHTML = html || "<p>暂无比赛时间</p>";
-    }
-
-    async function passPlayer(id){
-        await fetch(API+"/operatePlayer",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({id,type:"pass",adminPwd:ADMIN_PWD})
-        });
-        showMsg("已通过该球员");
-        loadAllAdminData();
-        await loadAllApprovedPlayers();
-        await loadAllPlayersForTeamSelect();
-    }
-    async function rejectPlayer(id){
-        await fetch(API+"/operatePlayer",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({id,type:"reject",adminPwd:ADMIN_PWD})
-        });
-        showMsg("已拒绝该球员");
-        loadAllAdminData();
-    }
-    async function cancelPlayer(id){
-        await fetch(API+"/operatePlayer",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({id,type:"cancel",adminPwd:ADMIN_PWD})
-        });
-        showMsg("已注销该球员，密码可复用");
-        loadAllAdminData();
-    }
-
-    // 进球审核
-    async function passGoal(id){
-        await fetch(API+`/passGoal?id=${id}`);
-        showMsg("已通过该进球");
-        loadWaitGoalList();
-        await loadRankList();
-    }
-    async function rejectGoal(id){
-        await fetch(API+`/rejectGoal?id=${id}`);
-        showMsg("已拒绝该进球");
-        loadWaitGoalList();
-    }
-
-    // 保存网站标题
-    async function saveSiteTitle(){
-        const title = document.getElementById("siteTitleInput").value.trim();
-        if(!title){
-            showMsg("请输入标题");
-            return;
-        }
-        await fetch(API+"/setCustomTitle",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({title,adminPwd:ADMIN_PWD})
-        });
-        showMsg("标题已保存");
-        await loadCustomTitle();
-    }
-
-    // 添加比赛时间
-    async function addMatchTime(){
-        const time = document.getElementById("matchTimeInput").value;
-        if(!time){
-            showMsg("请选择时间");
-            return;
-        }
-        await fetch(API+"/setGoalMatchTimes",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({action:"add",time,adminPwd:ADMIN_PWD})
-        });
-        showMsg("已添加比赛时间");
-        loadMatchTimeList();
-        await loadMatchTimes();
-    }
-    async function removeMatchTime(time){
-        await fetch(API+"/setGoalMatchTimes",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({action:"remove",time,adminPwd:ADMIN_PWD})
-        });
-        showMsg("已删除比赛时间");
-        loadMatchTimeList();
-        await loadMatchTimes();
-    }
-
-    // 保存奖励规则
-    async function saveRewardRules(){
-        const content = document.getElementById("adminRewardInput").value.trim();
-        await fetch(API+"/setRewardRules",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({content,adminPwd:ADMIN_PWD})
-        });
-        showMsg("奖励规则已保存");
-        await loadRewardRules();
-    }
-
-    // 提交投票
-    async function submitVote(){
-        const pid = document.getElementById("votePlayerSelect").value;
-        const pwd = document.getElementById("votePwd").value;
-        if(!pid || !pwd){
-            showMsg("请选择球员并输入密码");
-            return;
-        }
-        const res = await fetch(API+"/submitVote",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({playerId:pid,password:pwd})
-        });
-        const d = await res.json();
-        if(d.success){
-            showMsg("投票成功");
-            await loadVoteInfo();
-        }else{
-            showMsg(d.error);
-        }
-    }
-
-    // 重置投票
-    async function resetVote(){
-        if(!confirm("确定要重置投票吗？所有票数将被清空！")) return;
-        await fetch(API+"/resetVote",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({adminPwd:ADMIN_PWD})
-        });
-        showMsg("投票已重置");
-        await loadVoteInfo();
-    }
-
-    function selectVoteOption(id){
-        document.getElementById("votePlayerSelect").value = id;
-    }
-</script>
-</body>
-</html>
+    async function loadCurrentMatch() {
+        try {
+            const res = await fetch(API + "/getCurrentMatch");
+            const match = await res.json();
+            const content = document.getElementById("matchInfoContent");
+            const btns = document.getElementById("matchActionBtns");
+            
+            if(!match || match.status!=="open"){
+                content.innerHTML = "<p>当前没有开放的比赛</p>";
+               
