@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>深🐔🥚坪山公园射手王</title>
+    <title>深🐔🥚坪山公园进球榜</title>
     <style>
         * {margin:0;padding:0;box-sizing:border-box;}
         body {font-family:Microsoft YaHei;background:#f2f3f5;padding:15px;}
@@ -16,6 +16,7 @@
         .btn-red {background:#dc3545;color:#fff;}
         .btn-green {background:#28a745;color:#fff;}
         .btn-gray {background:#6c757d;color:#fff;}
+        .btn-yellow {background:#ffc107;color:#212529;}
         .hide {display:none !important;}
         .tip {color:#666;margin:8px 0;}
         .msg {padding:10px;border-radius:5px;margin:10px 0;text-align:center;display:none;}
@@ -34,21 +35,28 @@
         .rank-1 {color:#ffc107;font-weight:bold;}
         .rank-2 {color:#6c757d;font-weight:bold;}
         .rank-3 {color:#cd7f32;font-weight:bold;}
+        .vote-option {padding:10px;border:1px solid #eee;border-radius:5px;margin:8px 0;cursor:pointer;transition:all 0.2s;}
+        .vote-option:hover {background:#f8f9fa;}
+        .vote-option.selected {background:#0066cc;color:#fff;}
+        .vote-bar {height:20px;background:#e9ecef;border-radius:10px;margin-top:5px;overflow:hidden;}
+        .vote-progress {height:100%;background:#0066cc;transition:width 0.5s;}
     </style>
 </head>
 <body>
     <div class="wrap">
-        <h1>⚽ 深🐔🥚球王</h1>
+        <h1>⚽ 谁是深🐔🥚坪山公园球王？</h1>
         <div class="tip" style="text-align:center;color:#999;margin-bottom:20px;">当前：云端模式（数据永久保存）</div>
         
         <div class="nav">
             <button class="btn-blue active" onclick="showPage('main')">主界面</button>
             <button class="btn-gray" onclick="showPage('rank')">射手榜</button>
+            <button class="btn-gray" onclick="showPage('vote')">投票</button>
             <button class="btn-gray" onclick="showPage('admin')">管理后台</button>
         </div>
 
         <div id="msgBox" class="msg"></div>
 
+        <!-- 主界面 -->
         <div id="mainPage">
             <div class="box">
                 <div class="tip">第一步：注册新球员（需设置6位数字密码），等待管理员审核认证</div>
@@ -64,6 +72,7 @@
             </div>
         </div>
 
+        <!-- 射手榜界面 -->
         <div id="rankPage" class="hide">
             <div class="box">
                 <h3>🏆 射手榜（按总进球数排名）</h3>
@@ -71,6 +80,25 @@
             </div>
         </div>
 
+        <!-- 投票界面 -->
+        <div id="votePage" class="hide">
+            <div class="box">
+                <h3 id="voteTitle">最佳球员投票</h3>
+                <div id="adminVoteControls" class="hide">
+                    <input type="text" id="newVoteTitle" placeholder="输入新的投票题目">
+                    <button class="btn-yellow" onclick="setVoteTitle()">设置投票题目</button>
+                    <button class="btn-red" onclick="resetVote()">重置所有投票</button>
+                </div>
+                <div id="voteOptions"></div>
+                <div class="box" id="votePasswordBox">
+                    <input type="password" id="votePlayerPwd" placeholder="输入你的球员密码进行投票">
+                    <button class="btn-blue" onclick="submitVote()">提交投票</button>
+                </div>
+                <div id="voteResults"></div>
+            </div>
+        </div>
+
+        <!-- 管理后台界面 -->
         <div id="adminPage" class="hide">
             <div class="box">
                 <input type="password" id="adminPwd" placeholder="输入管理员密码登录">
@@ -96,7 +124,7 @@
         </div>
     </div>
 
-    <!-- 注册球员弹窗（新增6位密码输入） -->
+    <!-- 注册球员弹窗 -->
     <div id="registerModal" class="modal hide">
         <div class="modal-content">
             <h3>注册新球员</h3>
@@ -109,7 +137,7 @@
         </div>
     </div>
 
-    <!-- 提交进球弹窗（新增球员密码、地点、时间输入） -->
+    <!-- 提交进球弹窗 -->
     <div id="goalModal" class="modal hide">
         <div class="modal-content">
             <h3>提交进球记录</h3>
@@ -130,8 +158,10 @@
         const ADMIN_PWD = "20041202";
         const API_URL = "https://footballpoint.top";
         let selectedPlayerId = "";
+        let selectedVoteOption = null;
+        let isAdminLoggedIn = false;
 
-        // 页面加载时自动设置当前时间
+        // 页面加载初始化
         window.onload = function () {
             const now = new Date();
             const formattedTime = now.toISOString().slice(0, 16);
@@ -153,12 +183,16 @@
         function showPage(pageName) {
             document.getElementById("mainPage").classList.add("hide");
             document.getElementById("rankPage").classList.add("hide");
+            document.getElementById("votePage").classList.add("hide");
             document.getElementById("adminPage").classList.add("hide");
+            
             document.querySelectorAll(".nav button").forEach(btn => btn.className = "btn-gray");
             event.target.className = "btn-blue active";
+            
             document.getElementById(pageName + "Page").classList.remove("hide");
 
             if (pageName === "rank") renderRank();
+            if (pageName === "vote") renderVote();
             if (pageName === "admin") {
                 renderRegisteredPlayers();
                 renderWaitPlayer();
@@ -191,7 +225,7 @@
             document.getElementById(modalId).classList.add("hide");
         }
 
-        // 提交新球员（带6位密码验证）
+        // 提交新球员
         async function submitNewPlayer() {
             const name = document.getElementById("registerName").value.trim();
             const pwd = document.getElementById("registerPwd").value.trim();
@@ -218,7 +252,7 @@
             }
         }
 
-        // 提交进球记录（带球员密码验证+地点时间）
+        // 提交进球记录
         async function submitGoalRecord() {
             const pwd = document.getElementById("playerPwd").value.trim();
             const goal = parseInt(document.getElementById("goalNum").value);
@@ -259,10 +293,150 @@
             }
         }
 
+        // 投票系统功能
+        async function renderVote() {
+            try {
+                const res = await fetch(`${API_URL}/vote`);
+                const voteData = await res.json();
+                
+                document.getElementById("voteTitle").innerText = voteData.title || "最佳球员投票";
+                
+                // 显示管理员投票控制
+                if (isAdminLoggedIn) {
+                    document.getElementById("adminVoteControls").classList.remove("hide");
+                    document.getElementById("newVoteTitle").value = voteData.title || "";
+                } else {
+                    document.getElementById("adminVoteControls").classList.add("hide");
+                }
+
+                // 渲染投票选项
+                let optionsHtml = "";
+                voteData.options.forEach(player => {
+                    optionsHtml += `
+                    <div class="vote-option" data-id="${player.id}" onclick="selectVoteOption(${player.id})">
+                        ${player.name}
+                    </div>
+                    `;
+                });
+                document.getElementById("voteOptions").innerHTML = optionsHtml;
+
+                // 渲染投票结果
+                renderVoteResults(voteData);
+            } catch (err) {
+                document.getElementById("voteOptions").innerHTML = "<p>加载投票失败</p>";
+            }
+        }
+
+        function selectVoteOption(playerId) {
+            document.querySelectorAll(".vote-option").forEach(opt => opt.classList.remove("selected"));
+            document.querySelector(`.vote-option[data-id="${playerId}"]`).classList.add("selected");
+            selectedVoteOption = playerId;
+        }
+
+        async function submitVote() {
+            if (!selectedVoteOption) {
+                showMsg("请先选择一个投票选项", false);
+                return;
+            }
+            const pwd = document.getElementById("votePlayerPwd").value.trim();
+            if (!pwd || pwd.length !== 6 || !/^\d{6}$/.test(pwd)) {
+                showMsg("请输入正确的6位球员密码", false);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/vote`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        playerId: selectedVoteOption,
+                        password: pwd
+                    })
+                });
+
+                const result = await response.json();
+                if (!response.ok) {
+                    throw new Error(result.error || "投票失败");
+                }
+
+                showMsg("投票成功！", true);
+                document.getElementById("votePlayerPwd").value = "";
+                selectedVoteOption = null;
+                renderVote();
+            } catch (err) {
+                showMsg("投票失败：" + err.message, false);
+            }
+        }
+
+        async function setVoteTitle() {
+            const newTitle = document.getElementById("newVoteTitle").value.trim();
+            if (!newTitle) {
+                showMsg("请输入投票题目", false);
+                return;
+            }
+
+            try {
+                await fetch(`${API_URL}/setVoteTitle`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ title: newTitle, adminPwd: ADMIN_PWD })
+                });
+                showMsg("投票题目设置成功", true);
+                renderVote();
+            } catch (err) {
+                showMsg("设置失败：" + err.message, false);
+            }
+        }
+
+        async function resetVote() {
+            if (!confirm("确定要重置所有投票吗？此操作不可恢复！")) return;
+
+            try {
+                await fetch(`${API_URL}/resetVote`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ adminPwd: ADMIN_PWD })
+                });
+                showMsg("投票已重置", true);
+                renderVote();
+            } catch (err) {
+                showMsg("重置失败：" + err.message, false);
+            }
+        }
+
+        function renderVoteResults(voteData) {
+            const totalVotes = Object.values(voteData.votes).reduce((a, b) => a + b, 0);
+            let resultsHtml = `<h4 style="margin-top:20px;">投票结果（总票数：${totalVotes}）</h4>`;
+            
+            // 按票数排序
+            const sortedOptions = voteData.options.map(player => ({
+                ...player,
+                votes: voteData.votes[player.id] || 0
+            })).sort((a, b) => b.votes - a.votes);
+
+            sortedOptions.forEach(player => {
+                const percentage = totalVotes > 0 ? Math.round((player.votes / totalVotes) * 100) : 0;
+                resultsHtml += `
+                <div style="margin:10px 0;">
+                    <div style="display:flex;justify-content:space-between;">
+                        <span>${player.name}</span>
+                        <span>${player.votes}票 (${percentage}%)</span>
+                    </div>
+                    <div class="vote-bar">
+                        <div class="vote-progress" style="width:${percentage}%"></div>
+                    </div>
+                </div>
+                `;
+            });
+
+            document.getElementById("voteResults").innerHTML = resultsHtml;
+        }
+
         // 管理员功能
         function adminLogin() {
             const pwd = document.getElementById("adminPwd").value.trim();
             if (pwd === ADMIN_PWD) {
+                isAdminLoggedIn = true;
                 document.getElementById("adminPanel").classList.remove("hide");
                 showMsg("管理员登录成功", true);
                 renderRegisteredPlayers();
@@ -272,6 +446,7 @@
                 showMsg("密码错误", false);
             }
         }
+
         async function passPlayer(id) {
             await fetch(`${API_URL}/passPlayer?id=${id}`);
             showMsg("球员认证通过", true);
@@ -279,25 +454,65 @@
             renderWaitPlayer();
             renderPlayerSelect();
         }
+
         async function rejectPlayer(id) {
             await fetch(`${API_URL}/rejectPlayer?id=${id}`);
             showMsg("已驳回球员申请", true);
             renderRegisteredPlayers();
             renderWaitPlayer();
         }
+
+        async function deletePlayer(id) {
+            if (!confirm("确定要删除该球员吗？所有相关数据将被永久删除！")) return;
+            
+            try {
+                await fetch(`${API_URL}/deletePlayer?id=${id}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ adminPwd: ADMIN_PWD })
+                });
+                showMsg("球员已删除", true);
+                renderRegisteredPlayers();
+                renderWaitPlayer();
+                renderPlayerSelect();
+                renderRank();
+            } catch (err) {
+                showMsg("删除失败：" + err.message, false);
+            }
+        }
+
+        async function revokePlayerApproval(id) {
+            if (!confirm("确定要撤销该球员的认证吗？球员将回到待审核状态")) return;
+            
+            try {
+                await fetch(`${API_URL}/revokePlayer?id=${id}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ adminPwd: ADMIN_PWD })
+                });
+                showMsg("球员认证已撤销", true);
+                renderRegisteredPlayers();
+                renderWaitPlayer();
+                renderPlayerSelect();
+            } catch (err) {
+                showMsg("撤销失败：" + err.message, false);
+            }
+        }
+
         async function passGoal(id) {
             await fetch(`${API_URL}/passGoal?id=${id}`);
             showMsg("进球审核通过，已计入射手榜", true);
             renderWaitGoal();
             renderRank();
         }
+
         async function rejectGoal(id) {
             await fetch(`${API_URL}/rejectGoal?id=${id}`);
             showMsg("已驳回进球记录", true);
             renderWaitGoal();
         }
 
-        // 渲染已注册球员信息（后台显示）
+        // 渲染已注册球员信息（新增删除和撤销按钮）
         async function renderRegisteredPlayers() {
             try {
                 const res = await fetch(`${API_URL}/allPlayers`);
@@ -305,9 +520,23 @@
                 let html = list.length ? "" : "<p>暂无注册球员</p>";
                 list.forEach(item => {
                     const status = item.status === "approved" ? "已认证" : "待审核";
+                    let actionButtons = "";
+                    
+                    if (item.status === "approved") {
+                        actionButtons = `
+                        <button class="btn-yellow" onclick="revokePlayerApproval(${item.id})">撤销认证</button>
+                        <button class="btn-red" onclick="deletePlayer(${item.id})">删除</button>
+                        `;
+                    } else {
+                        actionButtons = `
+                        <button class="btn-red" onclick="deletePlayer(${item.id})">删除</button>
+                        `;
+                    }
+
                     html += `
                     <div style="padding:8px;border-bottom:1px solid #eee;">
-                        姓名：${item.name} | 密码：${item.password} | 总进球：${item.totalGoals || 0} | 状态：${status}
+                        姓名：${item.name} | 密码：${item.password} | 总进球：${item.totalGoals || 0} | 场次：${item.totalMatches || 0} | 状态：${status}
+                        <div style="margin-top:5px;">${actionButtons}</div>
                     </div>
                     `;
                 });
@@ -324,13 +553,14 @@
                 const list = await res.json();
                 let html = '<option value="">请先选择已认证球员</option>';
                 list.forEach(item => {
-                    html += `<option value="${item.id}">${item.name} (总进球：${item.totalGoals || 0})</option>`;
+                    html += `<option value="${item.id}">${item.name} (进球：${item.totalGoals || 0} | 场次：${item.totalMatches || 0})</option>`;
                 });
                 document.getElementById("playerSelect").innerHTML = html;
             } catch (err) {
                 document.getElementById("playerSelect").innerHTML = '<option value="">加载失败</option>';
             }
         }
+
         async function renderWaitPlayer() {
             try {
                 const res = await fetch(`${API_URL}/waitPlayers`);
@@ -342,6 +572,7 @@
                         ${item.name}
                         <button class="btn-green" onclick="passPlayer(${item.id})">通过认证</button>
                         <button class="btn-red" onclick="rejectPlayer(${item.id})">驳回</button>
+                        <button class="btn-red" onclick="deletePlayer(${item.id})">删除</button>
                     </div>
                     `;
                 });
@@ -350,6 +581,7 @@
                 document.getElementById("waitPlayerList").innerHTML = "<p>加载失败</p>";
             }
         }
+
         async function renderWaitGoal() {
             try {
                 const res = await fetch(`${API_URL}/waitMatches`);
@@ -370,19 +602,20 @@
                 document.getElementById("waitGoalList").innerHTML = "<p>加载失败</p>";
             }
         }
+
         async function renderRank() {
             try {
                 const res = await fetch(`${API_URL}/players`);
                 const list = await res.json();
                 list.sort((a, b) => (b.totalGoals || 0) - (a.totalGoals || 0));
-                let html = "<table><thead><tr><th>排名</th><th>球员姓名</th><th>总进球数</th></tr></thead><tbody>";
+                let html = "<table><thead><tr><th>排名</th><th>球员姓名</th><th>总进球数</th><th>场次</th></tr></thead><tbody>";
                 list.forEach((item, index) => {
                     if (!item.totalGoals) return;
                     let rankClass = "";
                     if (index === 0) rankClass = "rank-1";
                     if (index === 1) rankClass = "rank-2";
                     if (index === 2) rankClass = "rank-3";
-                    html += `<tr><td class="${rankClass}">${index + 1}</td><td>${item.name}</td><td>${item.totalGoals}</td></tr>`;
+                    html += `<tr><td class="${rankClass}">${index + 1}</td><td>${item.name}</td><td>${item.totalGoals}</td><td>${item.totalMatches || 0}</td></tr>`;
                 });
                 html += "</tbody></table>";
                 document.getElementById("rankList").innerHTML = html;
