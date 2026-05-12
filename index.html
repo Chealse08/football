@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>足球分级审核进球系统 - 云端模式</title>
+    <title>深🐔🥚坪山公园射手王</title>
     <style>
         * {margin:0;padding:0;box-sizing:border-box;}
         body {font-family:Microsoft YaHei;background:#f2f3f5;padding:15px;}
@@ -38,7 +38,7 @@
 </head>
 <body>
     <div class="wrap">
-        <h1>⚽ 深🐔🥚坪山公园射手王</h1>
+        <h1>⚽ 深🐔🥚球王</h1>
         <div class="tip" style="text-align:center;color:#999;margin-bottom:20px;">当前：云端模式（数据永久保存）</div>
         
         <div class="nav">
@@ -51,12 +51,12 @@
 
         <div id="mainPage">
             <div class="box">
-                <div class="tip">第一步：注册新球员，等待管理员审核认证</div>
+                <div class="tip">第一步：注册新球员（需设置6位数字密码），等待管理员审核认证</div>
                 <button class="btn-blue" onclick="openRegisterModal()">注册新球员</button>
             </div>
 
             <div class="box">
-                <div class="tip">第二步：选择已审核通过球员，提交进球记录</div>
+                <div class="tip">第二步：选择已审核通过球员，输入球员密码，提交进球记录</div>
                 <select id="playerSelect">
                     <option value="">请先选择已认证球员</option>
                 </select>
@@ -79,22 +79,29 @@
 
             <div id="adminPanel" class="hide">
                 <div class="box">
+                    <h3>已注册球员信息（含密码）</h3>
+                    <div id="registeredPlayersList"></div>
+                </div>
+
+                <div class="box">
                     <h3>待审核球员名单</h3>
                     <div id="waitPlayerList"></div>
                 </div>
+
                 <div class="box">
-                    <h3>待审核进球记录</h3>
+                    <h3>待审核进球记录（含地点时间）</h3>
                     <div id="waitGoalList"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 注册球员弹窗（默认隐藏） -->
+    <!-- 注册球员弹窗（新增6位密码输入） -->
     <div id="registerModal" class="modal hide">
         <div class="modal-content">
             <h3>注册新球员</h3>
             <input type="text" id="registerName" placeholder="输入球员姓名">
+            <input type="password" id="registerPwd" placeholder="设置6位数字密码" maxlength="6" pattern="[0-9]{6}">
             <div class="modal-buttons">
                 <button class="btn-gray" onclick="closeModal('registerModal')">取消</button>
                 <button class="btn-blue" onclick="submitNewPlayer()">确认注册</button>
@@ -102,12 +109,15 @@
         </div>
     </div>
 
-    <!-- 提交进球弹窗（默认隐藏） -->
+    <!-- 提交进球弹窗（新增球员密码、地点、时间输入） -->
     <div id="goalModal" class="modal hide">
         <div class="modal-content">
             <h3>提交进球记录</h3>
             <p id="selectedPlayerName"></p>
+            <input type="password" id="playerPwd" placeholder="输入该球员的6位密码" maxlength="6">
             <input type="number" id="goalNum" placeholder="输入进球数" min="1" value="1">
+            <input type="text" id="matchLocation" placeholder="比赛地点（可选）">
+            <input type="datetime-local" id="matchTime" value="">
             <div class="modal-buttons">
                 <button class="btn-gray" onclick="closeModal('goalModal')">取消</button>
                 <button class="btn-blue" onclick="submitGoalRecord()">确认提交</button>
@@ -120,6 +130,14 @@
         const ADMIN_PWD = "20041202";
         const API_URL = "https://footballpoint.top";
         let selectedPlayerId = "";
+
+        // 页面加载时自动设置当前时间
+        window.onload = function () {
+            const now = new Date();
+            const formattedTime = now.toISOString().slice(0, 16);
+            document.getElementById("matchTime").value = formattedTime;
+            renderPlayerSelect();
+        };
 
         // 消息提示
         function showMsg(text, isOk) {
@@ -142,14 +160,16 @@
 
             if (pageName === "rank") renderRank();
             if (pageName === "admin") {
+                renderRegisteredPlayers();
                 renderWaitPlayer();
                 renderWaitGoal();
             }
         }
 
-        // 弹窗控制（修复自动弹出问题）
+        // 弹窗控制
         function openRegisterModal() {
             document.getElementById("registerName").value = "";
+            document.getElementById("registerPwd").value = "";
             document.getElementById("registerModal").classList.remove("hide");
         }
         function openGoalModal() {
@@ -158,27 +178,38 @@
                 showMsg("请先选择已认证球员", false);
                 return;
             }
-            const playerName = document.getElementById("playerSelect").selectedOptions[0].text;
+            const playerName = document.getElementById("playerSelect").selectedOptions[0].text.split(" ")[0];
             document.getElementById("selectedPlayerName").innerText = `球员：${playerName}`;
+            document.getElementById("playerPwd").value = "";
             document.getElementById("goalNum").value = "1";
+            document.getElementById("matchLocation").value = "";
+            const now = new Date();
+            document.getElementById("matchTime").value = now.toISOString().slice(0, 16);
             document.getElementById("goalModal").classList.remove("hide");
         }
         function closeModal(modalId) {
             document.getElementById(modalId).classList.add("hide");
         }
 
-        // 提交新球员
+        // 提交新球员（带6位密码验证）
         async function submitNewPlayer() {
             const name = document.getElementById("registerName").value.trim();
+            const pwd = document.getElementById("registerPwd").value.trim();
+            
             if (!name) {
                 showMsg("请输入球员姓名", false);
                 return;
             }
+            if (!pwd || pwd.length !== 6 || !/^\d{6}$/.test(pwd)) {
+                showMsg("请输入6位数字密码", false);
+                return;
+            }
+            
             try {
                 await fetch(`${API_URL}/addPlayer`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name })
+                    body: JSON.stringify({ name, password: pwd })
                 });
                 showMsg("球员注册成功，等待管理员审核！", true);
                 closeModal("registerModal");
@@ -187,23 +218,40 @@
             }
         }
 
-        // 提交进球记录（已删除比赛队伍输入）
+        // 提交进球记录（带球员密码验证+地点时间）
         async function submitGoalRecord() {
+            const pwd = document.getElementById("playerPwd").value.trim();
             const goal = parseInt(document.getElementById("goalNum").value);
+            const location = document.getElementById("matchLocation").value.trim();
+            const time = document.getElementById("matchTime").value;
+            
+            if (!pwd || pwd.length !== 6 || !/^\d{6}$/.test(pwd)) {
+                showMsg("请输入正确的6位数字密码", false);
+                return;
+            }
             if (!goal || goal < 1) {
                 showMsg("请输入合法进球数", false);
                 return;
             }
+            
             try {
-                await fetch(`${API_URL}/addGoal`, {
+                const response = await fetch(`${API_URL}/addGoal`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         pid: selectedPlayerId,
+                        password: pwd,
                         goal: goal,
-                        match: "日常赛事" // 后台自动填充，无需用户输入
+                        location: location || "未填写",
+                        time: time || new Date().toISOString()
                     })
                 });
+                
+                const result = await response.json();
+                if (!response.ok) {
+                    throw new Error(result.error || "密码错误");
+                }
+                
                 showMsg("进球记录提交成功，等待审核！", true);
                 closeModal("goalModal");
             } catch (err) {
@@ -217,6 +265,7 @@
             if (pwd === ADMIN_PWD) {
                 document.getElementById("adminPanel").classList.remove("hide");
                 showMsg("管理员登录成功", true);
+                renderRegisteredPlayers();
                 renderWaitPlayer();
                 renderWaitGoal();
             } else {
@@ -226,12 +275,14 @@
         async function passPlayer(id) {
             await fetch(`${API_URL}/passPlayer?id=${id}`);
             showMsg("球员认证通过", true);
+            renderRegisteredPlayers();
             renderWaitPlayer();
             renderPlayerSelect();
         }
         async function rejectPlayer(id) {
             await fetch(`${API_URL}/rejectPlayer?id=${id}`);
             showMsg("已驳回球员申请", true);
+            renderRegisteredPlayers();
             renderWaitPlayer();
         }
         async function passGoal(id) {
@@ -244,6 +295,26 @@
             await fetch(`${API_URL}/rejectGoal?id=${id}`);
             showMsg("已驳回进球记录", true);
             renderWaitGoal();
+        }
+
+        // 渲染已注册球员信息（后台显示）
+        async function renderRegisteredPlayers() {
+            try {
+                const res = await fetch(`${API_URL}/allPlayers`);
+                const list = await res.json();
+                let html = list.length ? "" : "<p>暂无注册球员</p>";
+                list.forEach(item => {
+                    const status = item.status === "approved" ? "已认证" : "待审核";
+                    html += `
+                    <div style="padding:8px;border-bottom:1px solid #eee;">
+                        姓名：${item.name} | 密码：${item.password} | 总进球：${item.totalGoals || 0} | 状态：${status}
+                    </div>
+                    `;
+                });
+                document.getElementById("registeredPlayersList").innerHTML = html;
+            } catch (err) {
+                document.getElementById("registeredPlayersList").innerHTML = "<p>加载失败</p>";
+            }
         }
 
         // 数据渲染
@@ -285,9 +356,10 @@
                 const list = await res.json();
                 let html = list.length ? "" : "<p>暂无待审核进球记录</p>";
                 list.forEach(item => {
+                    const time = new Date(item.time).toLocaleString();
                     html += `
                     <div style="padding:8px;border-bottom:1px solid #eee;">
-                        ${item.pName}｜进球：${item.goal}
+                        球员：${item.pName}｜进球：${item.goal}｜地点：${item.location}｜时间：${time}
                         <button class="btn-green" onclick="passGoal(${item.id})">通过</button>
                         <button class="btn-red" onclick="rejectGoal(${item.id})">驳回</button>
                     </div>
@@ -318,11 +390,6 @@
                 document.getElementById("rankList").innerHTML = "<p>加载失败</p>";
             }
         }
-
-        // 页面加载初始化：只加载数据，不打开任何弹窗
-        window.onload = function () {
-            renderPlayerSelect();
-        };
     </script>
 </body>
 </html>
