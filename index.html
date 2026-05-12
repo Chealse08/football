@@ -16,7 +16,7 @@
         .btn-red {background:#dc3545;color:#fff;}
         .btn-green {background:#28a745;color:#fff;}
         .btn-gray {background:#6c757d;color:#fff;}
-        .btn-yellow {background:#ffc107;color:#212529;}
+        .btn-yellow {background:#ffc107;color:#212521;}
         .hide {display:none !important;}
         .tip {color:#666;margin:8px 0;}
         .msg {padding:10px;border-radius:5px;margin:10px 0;text-align:center;display:none;}
@@ -104,7 +104,6 @@
             <div id="adminPanel" class="hide">
                 <div class="box">
                     <h3>✅ 管理员操作区</h3>
-                    <button class="btn-red" onclick="undoGoal()">撤销最后一个进球</button>
                 </div>
 
                 <div class="box">
@@ -120,6 +119,12 @@
                 <div class="box">
                     <h3>待审核进球记录（含地点时间）</h3>
                     <div id="waitGoalList"></div>
+                </div>
+
+                <!-- 已通过进球记录（可撤销选定） -->
+                <div class="box">
+                    <h3>✅ 已通过进球记录（可撤销）</h3>
+                    <div id="passedGoalsList"></div>
                 </div>
             </div>
         </div>
@@ -145,7 +150,6 @@
             <input type="number" id="goalNum" placeholder="输入进球数" min="1" value="1">
             <input type="text" id="matchLocation" placeholder="比赛地点（可选）">
             
-            <!-- 球员只能选择，不能输入时间 -->
             <select id="matchTimeSelect" style="padding:10px;width:100%;margin:6px 0;">
                 <option value="2025-11-01T15:00">2025-11-01 15:00</option>
                 <option value="2025-11-08T15:00">2025-11-08 15:00</option>
@@ -193,6 +197,7 @@
                 renderRegisteredPlayers();
                 renderWaitPlayer();
                 renderWaitGoal();
+                renderPassedGoals();
             }
         }
 
@@ -217,7 +222,6 @@
             document.getElementById(modalId).classList.add("hide");
         }
 
-        // 注册：2位密码 + 不重复
         async function submitNewPlayer() {
             const name = document.getElementById("registerName").value.trim();
             const pwd = document.getElementById("registerPwd").value.trim();
@@ -242,7 +246,6 @@
             }
         }
 
-        // 提交进球：只能选时间
         async function submitGoalRecord() {
             const pwd = document.getElementById("playerPwd").value.trim();
             const goal = parseInt(document.getElementById("goalNum").value);
@@ -256,13 +259,7 @@
                 const res = await fetch(`${API_URL}/addGoal`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        pid: selectedPlayerId, 
-                        password: pwd, 
-                        goal, 
-                        location: location || "未填写", 
-                        time 
-                    })
+                    body: JSON.stringify({ pid: selectedPlayerId, password: pwd, goal, location: location || "未填写", time })
                 });
                 const result = await res.json();
                 if (!res.ok) throw new Error(result.error || "密码错误");
@@ -365,6 +362,7 @@
                 renderRegisteredPlayers();
                 renderWaitPlayer();
                 renderWaitGoal();
+                renderPassedGoals();
             } else {
                 showMsg("密码错误", false);
             }
@@ -398,6 +396,7 @@
                 renderWaitPlayer();
                 renderPlayerSelect();
                 renderRank();
+                renderPassedGoals();
             } catch (e) {
                 showMsg("删除失败", false);
             }
@@ -421,20 +420,22 @@
             }
         }
 
-        async function undoGoal() {
-            if (!confirm("确定撤销最后一个进球？")) return;
+        // ✅ 撤销选定的进球（保留申请记录）
+        async function undoGoal(goalId) {
+            if (!confirm("确定撤销该进球？球员数据会扣回，申请记录保留")) return;
             try {
                 const res = await fetch(`${API_URL}/undoGoal`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ adminPwd: ADMIN_PWD })
+                    body: JSON.stringify({ goalId, adminPwd: ADMIN_PWD })
                 });
                 const j = await res.json();
                 if (j.success) {
                     showMsg("撤销成功", true);
+                    renderPassedGoals();
                     renderRank();
                 } else {
-                    showMsg(j.error || "失败", false);
+                    showMsg(j.error || "撤销失败", false);
                 }
             } catch {
                 showMsg("请求失败", false);
@@ -445,6 +446,7 @@
             await fetch(`${API_URL}/passGoal?id=${id}`);
             showMsg("已通过", true);
             renderWaitGoal();
+            renderPassedGoals();
             renderRank();
         }
 
@@ -513,6 +515,29 @@
                 document.getElementById("waitGoalList").innerHTML = html;
             } catch {
                 document.getElementById("waitGoalList").innerHTML = "<p>加载失败</p>";
+            }
+        }
+
+        // ✅ 渲染已通过进球列表（带撤销按钮）
+        async function renderPassedGoals() {
+            if (!isAdminLoggedIn) return;
+            try {
+                const res = await fetch(`${API_URL}/`);
+                const data = await res.json();
+                const list = data.matches || [];
+                let html = list.length ? "" : "<p>暂无已通过进球</p>";
+                list.forEach(item => {
+                    const time = new Date(item.time).toLocaleString();
+                    html += `
+                    <div style="padding:8px;border-bottom:1px solid #eee;">
+                        球员：${item.pName}｜进球：${item.goal}｜地点：${item.location}｜时间：${time}
+                        <button class="btn-red" onclick="undoGoal(${item.id})">撤销该进球</button>
+                    </div>
+                    `;
+                });
+                document.getElementById("passedGoalsList").innerHTML = html;
+            } catch (e) {
+                document.getElementById("passedGoalsList").innerHTML = "<p>加载失败</p>";
             }
         }
 
