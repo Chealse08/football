@@ -56,10 +56,9 @@
 
         <div id="msgBox" class="msg"></div>
 
-        <!-- 主界面 -->
         <div id="mainPage">
             <div class="box">
-                <div class="tip">第一步：注册新球员（需设置6位数字密码），等待管理员审核认证</div>
+                <div class="tip">第一步：注册新球员（需设置2位数字密码），等待管理员审核认证</div>
                 <button class="btn-blue" onclick="openRegisterModal()">注册新球员</button>
             </div>
 
@@ -72,7 +71,6 @@
             </div>
         </div>
 
-        <!-- 射手榜界面 -->
         <div id="rankPage" class="hide">
             <div class="box">
                 <h3>🏆 射手榜（按总进球数排名）</h3>
@@ -80,7 +78,6 @@
             </div>
         </div>
 
-        <!-- 投票界面 -->
         <div id="votePage" class="hide">
             <div class="box">
                 <h3 id="voteTitle">最佳球员投票</h3>
@@ -98,7 +95,6 @@
             </div>
         </div>
 
-        <!-- 管理后台界面 -->
         <div id="adminPage" class="hide">
             <div class="box">
                 <input type="password" id="adminPwd" placeholder="输入管理员密码登录">
@@ -129,12 +125,11 @@
         </div>
     </div>
 
-    <!-- 注册球员弹窗 -->
     <div id="registerModal" class="modal hide">
         <div class="modal-content">
             <h3>注册新球员</h3>
             <input type="text" id="registerName" placeholder="输入球员姓名">
-            <input type="password" id="registerPwd" placeholder="设置6位数字密码" maxlength="6" pattern="[0-9]{6}">
+            <input type="password" id="registerPwd" placeholder="设置2位数字密码" maxlength="2" pattern="[0-9]{2}">
             <div class="modal-buttons">
                 <button class="btn-gray" onclick="closeModal('registerModal')">取消</button>
                 <button class="btn-blue" onclick="submitNewPlayer()">确认注册</button>
@@ -142,15 +137,23 @@
         </div>
     </div>
 
-    <!-- 提交进球弹窗 -->
     <div id="goalModal" class="modal hide">
         <div class="modal-content">
             <h3>提交进球记录</h3>
             <p id="selectedPlayerName"></p>
-            <input type="password" id="playerPwd" placeholder="输入该球员的6位密码" maxlength="6">
+            <input type="password" id="playerPwd" placeholder="输入该球员的2位密码" maxlength="2">
             <input type="number" id="goalNum" placeholder="输入进球数" min="1" value="1">
             <input type="text" id="matchLocation" placeholder="比赛地点（可选）">
-            <input type="datetime-local" id="matchTime" value="">
+            
+            <!-- 球员只能选择，不能输入时间 -->
+            <select id="matchTimeSelect" style="padding:10px;width:100%;margin:6px 0;">
+                <option value="2025-11-01T15:00">2025-11-01 15:00</option>
+                <option value="2025-11-08T15:00">2025-11-08 15:00</option>
+                <option value="2025-11-15T15:00">2025-11-15 15:00</option>
+                <option value="2025-11-22T15:00">2025-11-22 15:00</option>
+                <option value="2025-11-29T15:00">2025-11-29 15:00</option>
+            </select>
+
             <div class="modal-buttons">
                 <button class="btn-gray" onclick="closeModal('goalModal')">取消</button>
                 <button class="btn-blue" onclick="submitGoalRecord()">确认提交</button>
@@ -166,9 +169,6 @@
         let isAdminLoggedIn = false;
 
         window.onload = function () {
-            const now = new Date();
-            const formattedTime = now.toISOSlice(0, 16);
-            document.getElementById("matchTime").value = formattedTime;
             renderPlayerSelect();
         };
 
@@ -210,8 +210,6 @@
             document.getElementById("playerPwd").value = "";
             document.getElementById("goalNum").value = "1";
             document.getElementById("matchLocation").value = "";
-            const now = new Date();
-            document.getElementById("matchTime").value = now.toISOString().slice(0, 16);
             document.getElementById("goalModal").classList.remove("hide");
         }
 
@@ -219,17 +217,24 @@
             document.getElementById(modalId).classList.add("hide");
         }
 
+        // 注册：2位密码 + 不重复
         async function submitNewPlayer() {
             const name = document.getElementById("registerName").value.trim();
             const pwd = document.getElementById("registerPwd").value.trim();
             if (!name) { showMsg("请输入球员姓名", false); return; }
-            if (!pwd || pwd.length !== 6 || !/^\d{6}$/.test(pwd)) { showMsg("请输入6位数字密码", false); return; }
+            if (!pwd || pwd.length !== 2 || !/^\d{2}$/.test(pwd)) { showMsg("请输入2位数字密码", false); return; }
+            
             try {
-                await fetch(`${API_URL}/addPlayer`, {
+                const res = await fetch(`${API_URL}/addPlayer`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ name, password: pwd })
                 });
+                const data = await res.json();
+                if (!data.success) {
+                    showMsg(data.error, false);
+                    return;
+                }
                 showMsg("球员注册成功，等待管理员审核！", true);
                 closeModal("registerModal");
             } catch (err) {
@@ -237,21 +242,30 @@
             }
         }
 
+        // 提交进球：只能选时间
         async function submitGoalRecord() {
             const pwd = document.getElementById("playerPwd").value.trim();
             const goal = parseInt(document.getElementById("goalNum").value);
             const location = document.getElementById("matchLocation").value.trim();
-            const time = document.getElementById("matchTime").value;
-            if (!pwd || pwd.length !== 6 || !/^\d{6}$/.test(pwd)) { showMsg("请输入正确密码", false); return; }
+            const time = document.getElementById("matchTimeSelect").value;
+
+            if (!pwd || pwd.length !== 2 || !/^\d{2}$/.test(pwd)) { showMsg("请输入正确2位密码", false); return; }
             if (!goal || goal < 1) { showMsg("请输入合法进球数", false); return; }
+            
             try {
                 const res = await fetch(`${API_URL}/addGoal`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ pid: selectedPlayerId, password: pwd, goal, location: location || "未填写", time })
+                    body: JSON.stringify({ 
+                        pid: selectedPlayerId, 
+                        password: pwd, 
+                        goal, 
+                        location: location || "未填写", 
+                        time 
+                    })
                 });
                 const result = await res.json();
-                if (!res.ok) throw new Error(result.error);
+                if (!res.ok) throw new Error(result.error || "密码错误");
                 showMsg("提交成功，等待审核！", true);
                 closeModal("goalModal");
             } catch (err) {
@@ -259,7 +273,6 @@
             }
         }
 
-        // 投票
         async function renderVote() {
             try {
                 const res = await fetch(`${API_URL}/vote`);
@@ -291,7 +304,7 @@
         async function submitVote() {
             if (!selectedVoteOption) { showMsg("请选择候选人", false); return; }
             const pwd = document.getElementById("votePlayerPwd").value.trim();
-            if (!pwd || pwd.length !== 6) { showMsg("密码错误", false); return; }
+            if (!pwd || pwd.length !== 2) { showMsg("请输入2位球员密码", false); return; }
             try {
                 const res = await fetch(`${API_URL}/vote`, {
                     method: "POST",
@@ -343,7 +356,6 @@
             document.getElementById("voteResults").innerHTML = html;
         }
 
-        // 管理员
         function adminLogin() {
             const p = document.getElementById("adminPwd").value.trim();
             if (p === ADMIN_PWD) {
@@ -372,7 +384,6 @@
             renderWaitPlayer();
         }
 
-        // ✅ 修复：删除球员
         async function deletePlayer(id) {
             if (!confirm("确定删除？数据不可恢复")) return;
             try {
@@ -392,7 +403,6 @@
             }
         }
 
-        // ✅ 修复：撤销认证
         async function revokePlayerApproval(id) {
             if (!confirm("确定撤销认证？")) return;
             try {
@@ -411,7 +421,6 @@
             }
         }
 
-        // ✅ 修复：撤销进球
         async function undoGoal() {
             if (!confirm("确定撤销最后一个进球？")) return;
             try {
