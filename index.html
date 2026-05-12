@@ -214,6 +214,34 @@
     const ADMIN_PWD = "20041202";
     let refreshTimer;
 
+    // 页面加载时自动加载球员列表
+    window.onload = async function() {
+        await loadAllApprovedPlayers();
+        await loadAllPlayersForTeamSelect();
+    }
+
+    // 加载已通过球员列表（主界面下拉框）
+    async function loadAllApprovedPlayers() {
+        const res = await fetch(API + "/getApprovedPlayer");
+        const list = await res.json();
+        let html = "<option value=''>请选择已认证球员</option>";
+        list.forEach(p => {
+            html += `<option value="${p.id}">${p.name}</option>`;
+        });
+        document.getElementById("playerSelect").innerHTML = html;
+    }
+
+    // 加载所有球员（善意组队下拉框）
+    async function loadAllPlayersForTeamSelect() {
+        const res = await fetch(API + "/getAllPlayer");
+        const list = await res.json();
+        let html = "<option value=''>选择你的球员</option>";
+        list.filter(p => p.status === "approved").forEach(p => {
+            html += `<option value="${p.id}">${p.name}</option>`;
+        });
+        document.getElementById("teamSelPlayer").innerHTML = html;
+    }
+
     function switchPage(pageId){
         document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
         document.querySelectorAll(".nav button").forEach(b=>b.className="normal");
