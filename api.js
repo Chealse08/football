@@ -1,5 +1,4 @@
 // 深鸡蛋坪山公园球王榜 - API 调用模块
-
 import { API_URL } from './config.js';
 
 class ApiService {
@@ -161,8 +160,8 @@ class ApiService {
         return await this.get('/vote');
     }
 
-    async postVote(playerId, password) {
-        return await this.post('/vote', { playerId, password });
+    async postVote(playerId, password, candidateId) {
+        return await this.post('/vote', { playerId, password, candidateId });
     }
 
     async setVoteTitle(title, adminPwd) {
