@@ -503,60 +503,7 @@
 
         // ======================
         // 组队页身份验证
-        // ======================
-        async function authTeamPage() {
-            const pid = document.getElementById("teamAuthPlayerSelect").value;
-            const pwd = document.getElementById("teamAuthPwd").value.trim();
-            if(!pid || pwd.length !== 2) {
-                showMsg("请选择球员并输入正确的2位密码", false);
-                return;
-            }
-            // 验证密码
-            const res = await fetch(API_URL+"/players");
-            const players = await res.json();
-            const player = players.find(p => p.id == pid);
-            if(!player || player.password !== pwd) {
-                showMsg("密码错误", false);
-                return;
-            }
-            // 验证成功
-            currentPlayerId = pid;
-            currentPlayerPwd = pwd;
-            document.getElementById("teamAuthSection").classList.add("hide");
-            document.getElementById("teamContentSection").classList.remove("hide");
-            await loadTeamContent();
-            showMsg("身份验证成功", true);
-        }
-
-        // ======================
-        // 投票页身份验证
-        // ======================
-        async function authVotePage() {
-            const pid = document.getElementById("voteAuthPlayerSelect").value;
-            const pwd = document.getElementById("voteAuthPwd").value.trim();
-            if(!pid || pwd.length !== 2) {
-                showMsg("请选择球员并输入正确的2位密码", false);
-                return;
-            }
-            // 验证密码（只从已审核通过的球员中验证）
-            const res = await fetch(API_URL+"/players");
-            const players = await res.json();
-            const player = players.find(p => p.id == pid);
-            if(!player || player.password !== pwd) {
-                showMsg("密码错误", false);
-                return;
-            }
-            // 验证成功
-            currentVotePlayerId = pid;
-            currentVotePlayerPwd = pwd;
-            document.getElementById("voteAuthSection").classList.add("hide");
-            document.getElementById("voteContentSection").classList.remove("hide");
-            await renderVote();
-            showMsg("身份验证成功", true);
-        }
- 
-        // ======================
-        // 比赛组队核心功能
+                // 比赛组队核心功能
         // ======================
         async function loadTeamContent() {
             await loadCurrentMatch();
