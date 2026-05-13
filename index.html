@@ -154,19 +154,30 @@
 
         <!-- 投票页面 -->
         <div id="votePage" class="hide">
-            <div class="box">
-                <h3 id="voteTitle">最佳球员投票</h3>
-                <div id="adminVoteControls" class="hide">
-                    <input type="text" id="newVoteTitle" placeholder="投票题目">
-                    <button class="btn-yellow" onclick="setVoteTitle()">修改题目</button>
-                    <button class="btn-red" onclick="resetVote()">重置投票</button>
-                </div>
-                <div id="voteOptions"></div>
+        <!-- 身份验证区域 -->
+            <div id="voteAuthSection">
                 <div class="box">
-                    <input type="password" id="votePlayerPwd" placeholder="球员2位密码">
-                    <button class="btn-blue" onclick="submitVote()">投票</button>
+                    <h3>🔐 请验证球员身份</h3>
+                    <select id="voteAuthPlayerSelect"><option value="">请选择你的球员</option></select>
+                    <input type="password" id="voteAuthPwd" placeholder="球员2位密码" maxlength="2">
+                    <button class="btn-blue" onclick="authVotePage()">进入投票</button>    
+                  </div>
                 </div>
-                <div id="voteResults"></div>
+            <!-- 投票内容区域（验证通过后显示） -->
+            <div id="voteContentSection" class="hide">
+                <div class="box">
+                    <h3 id="voteTitle">最佳球员投票</h3>
+                    <div id="adminVoteControls" class="hide">
+                        <input type="text" id="newVoteTitle" placeholder="投票题目">
+                        <button class="btn-yellow" onclick="setVoteTitle()">修改题目</button>
+                        <button class="btn-red" onclick="resetVote()">重置投票</button>
+                    </div>
+                    <div id="voteOptions"></div>
+                    <div class="box">
+                        <button class="btn-blue" onclick="submitVote()">投票</button>
+                    </div>
+                    <div id="voteResults"></div>
+                </div>
             </div>
         </div>
 
@@ -275,6 +286,8 @@
         let currentTeamId = null;
         let currentPlayerId = null; // 组队页验证后的当前球员ID
         let currentPlayerPwd = null; // 组队页验证后的当前球员密码
+        let currentVotePlayerId = null; // 投票页验证后的当前球员ID
+        let currentVotePlayerPwd = null; // 投票页验证后的当前球员密码
 
         window.onload = async function () {
             await loadCustomTitle();
@@ -308,7 +321,23 @@
             
             if(pageName==="rank")renderRank();
             if(pageName==="reward")loadReward();
-            if(pageName==="vote")renderVote();
+            if(pageName==="vote"){
+                // 检查是否已验证
+                if(currentVotePlayerId) {
+                    document.getElementById("voteAuthSection").classList.add("hide");
+                    document.getElementById("voteContentSection").classList.remove("hide");
+                    await renderVote();
+                } else {
+                    document.getElementById("voteAuthSection").classList.remove("hide");
+                    document.getElementById("voteContentSection").classList.add("hide");
+                    // 只加载已审核通过的球员
+                    const r = await fetch(API_URL+"/players");
+                    const list = await r.json();
+                    let h = `<option value="">请选择</option>`;
+                    list.forEach(it=>h+=`<option value="${it.id}">${it.name}</option>`);
+                    document.getElementById("voteAuthPlayerSelect").innerHTML = h;
+                }
+            }
             if(pageName==="admin"){
                 renderRegisteredPlayers();
                 renderWaitPlayer();
@@ -411,6 +440,33 @@
             showMsg("身份验证成功", true);
         }
 
+        // ======================
+        // 投票页身份验证
+        // ======================
+        async function authVotePage() {
+            const pid = document.getElementById("voteAuthPlayerSelect").value;
+            const pwd = document.getElementById("voteAuthPwd").value.trim();
+            if(!pid || pwd.length !== 2) {
+                showMsg("请选择球员并输入正确的2位密码", false);
+                return;
+            }
+            // 验证密码（只从已审核通过的球员中验证）
+            const res = await fetch(API_URL+"/players");
+            const players = await res.json();
+            const player = players.find(p => p.id == pid);
+            if(!player || player.password !== pwd) {
+                showMsg("密码错误", false);
+                return;
+            }
+            // 验证成功
+            currentVotePlayerId = pid;
+            currentVotePlayerPwd = pwd;
+            document.getElementById("voteAuthSection").classList.add("hide");
+            document.getElementById("voteContentSection").classList.remove("hide");
+            await renderVote();
+            showMsg("身份验证成功", true);
+        }
+ 
         // ======================
         // 比赛组队核心功能
         // ======================
@@ -870,17 +926,20 @@
             selectedVoteOption=id;
         }
         async function submitVote(){
-            if(!selectedVoteOption){showMsg("请先选择候选人",false);return;}
-            const p=document.getElementById("votePlayerPwd").value.trim();
-            if(p.length!=2){showMsg("请输入2位球员密码",false);return;}
+            if(!currentVotePlayerId || !currentVotePlayerPwd){
+                showMsg("请先验证身份",false);return;
+            }
+            if(!selectedVoteOption){
+                showMsg("请先选择候选人",false);return;
+            }
             try {
                 const r=await fetch(API_URL+"/vote",{
                     method:"POST",headers:{"Content-Type":"application/json"},
-                    body:JSON.stringify({playerId:selectedVoteOption,password:p})
+                    body:JSON.stringify({playerId:currentVotePlayerId,password:currentVotePlayerPwd})
                 });
                 const j=await r.json();
                 showMsg(j.success?"投票成功！":(j.error||"投票失败"),j.success);
-                if(j.success){document.getElementById("votePlayerPwd").value="";selectedVoteOption=null;renderVote();}
+                if(j.success){selectedVoteOption=null;renderVote();}
             } catch(e) {
                 showMsg("投票请求失败，请重试",false);
             }     
