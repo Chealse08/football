@@ -327,7 +327,7 @@
                     document.getElementById("teamAuthSection").classList.remove("hide");
                     document.getElementById("teamContentSection").classList.add("hide");
                     // 加载球员选择框
-                    const r = await fetch(API_URL+"/Players");
+                    const r = await fetch(API_URL+"/players");
                     const list = await r.json();
                     let h = `<option value="">请选择</option>`;
                     list.forEach(it=>h+=`<option value="${it.id}">${it.name}</option>`);
@@ -395,7 +395,7 @@
                 return;
             }
             // 验证密码
-            const res = await fetch(API_URL+"/Players");
+            const res = await fetch(API_URL+"/players");
             const players = await res.json();
             const player = players.find(p => p.id == pid);
             if(!player || player.password !== pwd) {
@@ -1015,7 +1015,7 @@
 
         // 射手榜
         async function renderRank(){
-            const r=await fetch(API_URL+"/Players");
+            const r=await fetch(API_URL+"/players");
             const list=await r.json();
             list.sort((a,b)=>(b.totalGoals||0)-(a.totalGoals||0));
             let h="<table><tr><th>排名</th><th>球员</th><th>进球</th><th>场次</th></tr>";
