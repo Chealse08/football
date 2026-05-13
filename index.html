@@ -70,6 +70,19 @@
 
         <!-- 主界面 -->
         <div id="mainPage">
+            <!-- 全局球员登录区域 -->
+            <div id="globalAuthSection" class="box">
+                <h3>🔐 球员登录</h3>
+                <div id="loginForm">
+                    <select id="globalPlayerSelect"><option value="">请选择你的球员</option></select>
+                    <input type="password" id="globalPlayerPwd" placeholder="球员2位密码" maxlength="2">
+                    <button class="btn-blue" onclick="globalLogin()">登录</button>
+                </div>
+                <div id="loggedInInfo" class="hide">
+                    <p>当前球员：<strong id="loggedInPlayerName"></strong></p>
+                    <button class="btn-red" onclick="globalLogout()">退出登录</button>
+                </div>
+            </div>
             <div class="box">
                 <div class="tip">注册球员（2位数字密码，不重复）</div>
                 <button class="btn-blue" onclick="openRegisterModal()">注册新球员</button>
@@ -86,15 +99,21 @@
             <div class="box"><h3>🏆 射手榜</h3><div id="rankList"></div></div>
         </div>
 
-        <!-- 善意组队页面（密码保护） -->
+        <!-- 善意组队页面 -->
         <div id="teamPage" class="hide">
-            <!-- 身份验证区域 -->
-            <div id="teamAuthSection">
+            <!-- 已登录显示 -->
+            <div id="teamLoggedInSection" class="hide">
                 <div class="box">
-                    <h3>🔐 请验证球员身份</h3>
-                    <select id="teamAuthPlayerSelect"><option value="">请选择你的球员</option></select>
-                    <input type="password" id="teamAuthPwd" placeholder="球员2位密码" maxlength="2">
-                    <button class="btn-blue" onclick="authTeamPage()">进入组队页面</button>
+                <h3>🔐 当前球员：<span id="teamLoggedInPlayerName"></span></h3>
+                    <button class="btn-red" onclick="teamPageLogout()">退出登录</button>    
+                </div>
+            </div>
+
+            <!-- 未登录提示 -->
+            <div id="teamNotLoggedInSection">
+                <div class="box">
+                    <h3>请先在主界面登录</h3>
+                    <p>点击顶部"主界面"进行球员登录</p>
                 </div>
             </div>
 
@@ -155,15 +174,20 @@
         <!-- 投票页面 -->
         <div id="votePage" class="hide">
         <!-- 身份验证区域 -->
-            <div id="voteAuthSection">
+            <!-- 已登录显示 -->
+            <div id="voteLoggedInSection" class="hide">
+                    <h3>🔐 当前球员：<span id="voteLoggedInPlayerName"></span></h3>
+                    <button class="btn-red" onclick="votePageLogout()">退出登录</button>
+            </div>
+        <!-- 未登录提示 -->
+            <div id="voteNotLoggedInSection">
                 <div class="box">
-                    <h3>🔐 请验证球员身份</h3>
-                    <select id="voteAuthPlayerSelect"><option value="">请选择你的球员</option></select>
-                    <input type="password" id="voteAuthPwd" placeholder="球员2位密码" maxlength="2">
-                    <button class="btn-blue" onclick="authVotePage()">进入投票</button>    
-                  </div>
+                    <h3>请先在主界面登录</h3>
+                    <p>点击顶部"主界面"进行球员登录</p>
                 </div>
-            <!-- 投票内容区域（验证通过后显示） -->
+            </div>
+ 
+            <!-- 投票内容区域（登录后显示） -->
             <div id="voteContentSection" class="hide">
                 <div class="box">
                     <h3 id="voteTitle">最佳球员投票</h3>
@@ -288,14 +312,81 @@
         let currentPlayerPwd = null; // 组队页验证后的当前球员密码
         let currentVotePlayerId = null; // 投票页验证后的当前球员ID
         let currentVotePlayerPwd = null; // 投票页验证后的当前球员密码
+        let globalLoggedInPlayer = null; // 全局登录的球员信息
+ 
 
         window.onload = async function () {
             await loadCustomTitle();
             await loadReward();
             renderPlayerSelect();
             loadGoalMatchTimes();
+            initGlobalLogin();
         };
 
+        // 初始化全局登录状态
+        async function initGlobalLogin() {
+            const r = await fetch(API_URL+"/players");
+            const list = await r.json();
+            let h = `<option value="">请选择</option>`;
+            list.forEach(it=>h+=`<option value="${it.id}">${it.name}</option>`);
+            document.getElementById("globalPlayerSelect").innerHTML = h;
+            
+            if(globalLoggedInPlayer) {
+                document.getElementById("loginForm").classList.add("hide");
+                document.getElementById("loggedInInfo").classList.remove("hide");
+                document.getElementById("loggedInPlayerName").innerText = globalLoggedInPlayer.name;
+            } else {
+                document.getElementById("loginForm").classList.remove("hide");
+                document.getElementById("loggedInInfo").classList.add("hide");
+            }
+        }
+                // 全局登录
+        async function globalLogin() {
+            const pid = document.getElementById("globalPlayerSelect").value;
+            const pwd = document.getElementById("globalPlayerPwd").value.trim();
+            if(!pid || pwd.length !== 2) {
+                showMsg("请选择球员并输入正确的2位密码", false);
+                return;
+            }
+            const r = await fetch(API_URL+"/players");
+            const players = await r.json();
+            const player = players.find(p => p.id == pid);
+            if(!player || player.password !== pwd) {
+                showMsg("密码错误", false);
+                return;
+            }
+            globalLoggedInPlayer = player;
+            currentPlayerId = player.id;
+            currentPlayerPwd = player.password;
+            currentVotePlayerId = player.id;
+            currentVotePlayerPwd = player.password;
+            initGlobalLogin();
+            showMsg("登录成功", true);
+        }
+        // 全局退出
+        function globalLogout() {
+            globalLoggedInPlayer = null;
+            currentPlayerId = null;
+            currentPlayerPwd = null;
+            currentVotePlayerId = null;
+            currentVotePlayerPwd = null;
+            initGlobalLogin();
+            showMsg("已退出登录", true);
+        }
+ 
+        // 组队页退出（只清除组队页状态）
+        function teamPageLogout() {
+            currentPlayerId = null;
+            currentPlayerPwd = null;
+            globalLogout();
+        }
+ 
+        // 投票页退出（只清除投票页状态）
+        function votePageLogout() {
+            currentVotePlayerId = null;
+            currentVotePlayerPwd = null;
+            globalLogout();
+        }
         // 弹窗提示
         function showMsg(text, isOk) {
             const msgText = document.getElementById("msgText");
@@ -324,18 +415,17 @@
             if(pageName==="vote"){
                 // 检查是否已验证
                 if(currentVotePlayerId) {
-                    document.getElementById("voteAuthSection").classList.add("hide");
+                    // 使用全局登录状态
+                if(globalLoggedInPlayer) {
+                    document.getElementById("voteNotLoggedInSection").classList.add("hide");
+                    document.getElementById("voteLoggedInSection").classList.remove("hide");
+                    document.getElementById("voteLoggedInPlayerName").innerText = globalLoggedInPlayer.name;
                     document.getElementById("voteContentSection").classList.remove("hide");
                     await renderVote();
                 } else {
-                    document.getElementById("voteAuthSection").classList.remove("hide");
+                    document.getElementById("voteNotLoggedInSection").classList.remove("hide");
+                    document.getElementById("voteLoggedInSection").classList.add("hide");
                     document.getElementById("voteContentSection").classList.add("hide");
-                    // 只加载已审核通过的球员
-                    const r = await fetch(API_URL+"/players");
-                    const list = await r.json();
-                    let h = `<option value="">请选择</option>`;
-                    list.forEach(it=>h+=`<option value="${it.id}">${it.name}</option>`);
-                    document.getElementById("voteAuthPlayerSelect").innerHTML = h;
                 }
             }
             if(pageName==="admin"){
@@ -347,20 +437,18 @@
                 renderPendingTeams();
             }
             if(pageName==="team"){
-                // 检查是否已验证
-                if(currentPlayerId) {
-                    document.getElementById("teamAuthSection").classList.add("hide");
-                    document.getElementById("teamContentSection").classList.remove("hide");
+             // 使用全局登录状态
+              if(globalLoggedInPlayer) {
+                document.getElementById("teamNotLoggedInSection").classList.add("hide");
+                document.getElementById("teamLoggedInSection").classList.remove("hide");
+                document.getElementById("teamLoggedInPlayerName").innerText = globalLoggedInPlayer.name;  
+                document.getElementById("teamContentSection").classList.remove("hide");
                     await loadTeamContent();
                 } else {
-                    document.getElementById("teamAuthSection").classList.remove("hide");
+                    document.getElementById("teamNotLoggedInSection").classList.remove("hide");
+                    document.getElementById("teamLoggedInSection").classList.add("hide");
                     document.getElementById("teamContentSection").classList.add("hide");
                     // 加载球员选择框
-                    const r = await fetch(API_URL+"/players");
-                    const list = await r.json();
-                    let h = `<option value="">请选择</option>`;
-                    list.forEach(it=>h+=`<option value="${it.id}">${it.name}</option>`);
-                    document.getElementById("teamAuthPlayerSelect").innerHTML = h;
                 }
             }
         }
@@ -935,11 +1023,7 @@
             try {
                 const r=await fetch(API_URL+"/vote",{
                     method:"POST",headers:{"Content-Type":"application/json"},
-                    body:JSON.stringify({
-                        playerId:currentVotePlayerId,    // 投票人ID
-                        password:currentVotePlayerPwd,   // 投票人密码
-                        candidateId:selectedVoteOption   // 候选人ID
-                    })
+                    body:JSON.stringify({playerId:currentVotePlayerId,password:currentVotePlayerPwd})
                 });
                 const j=await r.json();
                 showMsg(j.success?"投票成功！":(j.error||"投票失败"),j.success);
