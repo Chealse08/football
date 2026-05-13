@@ -327,7 +327,7 @@
                     document.getElementById("teamAuthSection").classList.remove("hide");
                     document.getElementById("teamContentSection").classList.add("hide");
                     // 加载球员选择框
-                    const r = await fetch(API_URL+"/allPlayers");
+                    const r = await fetch(API_URL+"/Players");
                     const list = await r.json();
                     let h = `<option value="">请选择</option>`;
                     list.forEach(it=>h+=`<option value="${it.id}">${it.name}</option>`);
