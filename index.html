@@ -60,13 +60,13 @@
         <div class="tip" style="text-align:center;color:#999;">数据云端永久保存</div>
         
         <div class="nav">
-            <button class="btn-blue active" onclick="showPage('main')">主界面</button>
-            <button class="btn-gray" onclick="showPage('rank')">射手榜</button>
-            <button class="btn-gray" onclick="showPage('team')">善意组队</button>
-            <button class="btn-gray" onclick="showPage('reward')">奖励规则</button>
-            <button class="btn-gray" onclick="showPage('vote')">投票</button>
-            <button class="btn-gray" onclick="showPage('admin')">管理后台</button>
-        </div>
+            <button class="btn-blue active" data-page="main" onclick="showPage('main')">主界面</button>
+            <button class="btn-gray" data-page="rank" onclick="showPage('rank')">射手榜</button>
+            <button class="btn-gray" data-page="team" onclick="showPage('team')">善意组队</button>
+            <button class="btn-gray" data-page="reward" onclick="showPage('reward')">奖励规则</button>
+            <button class="btn-gray" data-page="vote" onclick="showPage('vote')">投票</button>
+            <button class="btn-gray" data-page="admin" onclick="showPage('admin')">管理后台</button>
+                   </div>
 
         <!-- 主界面 -->
         <div id="mainPage">
@@ -325,28 +325,52 @@
 
         // 初始化全局登录状态
         async function initGlobalLogin() {
-            const r = await fetch(API_URL+"/players");
-            const list = await r.json();
-            let h = `<option value="">请选择</option>`;
-            list.forEach(it=>h+=`<option value="${it.id}">${it.name}</option>`);
-            document.getElementById("globalPlayerSelect").innerHTML = h;
-            
-            if(globalLoggedInPlayer) {
-                document.getElementById("loginForm").classList.add("hide");
-                document.getElementById("loggedInInfo").classList.remove("hide");
-                document.getElementById("loggedInPlayerName").innerText = globalLoggedInPlayer.name;
-            } else {
-                document.getElementById("loginForm").classList.remove("hide");
-                document.getElementById("loggedInInfo").classList.add("hide");
+          try {
+                const r = await fetch(API_URL+"/players");
+                const list = await r.json();
+                let h = `<option value="">请选择</option>`;
+                list.forEach(it=>h+=`<option value="${it.id}">${it.name}</option>`);
+                document.getElementById("globalPlayerSelect").innerHTML = h;
+                
+                if(globalLoggedInPlayer) {
+                    document.getElementById("loginForm").classList.add("hide");
+                    document.getElementById("loggedInInfo").classList.remove("hide");
+                    document.getElementById("loggedInPlayerName").innerText = globalLoggedInPlayer.name;
+                } else {
+                    document.getElementById("loginForm").classList.remove("hide");
+                    document.getElementById("loggedInInfo").classList.add("hide");
+                }
+            } catch(e) {
+                console.error("初始化登录状态失败:", e);
+                showMsg("加载球员列表失败", false);  
             }
         }
                 // 全局登录
         async function globalLogin() {
-            const pid = document.getElementById("globalPlayerSelect").value;
-            const pwd = document.getElementById("globalPlayerPwd").value.trim();
-            if(!pid || pwd.length !== 2) {
-                showMsg("请选择球员并输入正确的2位密码", false);
-                return;
+            try {
+                const pid = document.getElementById("globalPlayerSelect").value;
+                const pwd = document.getElementById("globalPlayerPwd").value.trim();
+                if(!pid || pwd.length !== 2) {
+                    showMsg("请选择球员并输入正确的2位密码", false);
+                    return;
+                }
+                const r = await fetch(API_URL+"/players");
+                const players = await r.json();
+                const player = players.find(p => p.id == pid);
+                if(!player || player.password !== pwd) {
+                    showMsg("密码错误", false);
+                    return;
+                }
+                globalLoggedInPlayer = player;
+                currentPlayerId = player.id;
+                currentPlayerPwd = player.password;
+                currentVotePlayerId = player.id;
+                currentVotePlayerPwd = player.password;
+                initGlobalLogin();
+                showMsg("登录成功", true);
+            } catch(e) {
+               console.error("登录失败:", e);
+                showMsg("登录失败，请重试", false);
             }
             const r = await fetch(API_URL+"/players");
             const players = await r.json();
@@ -355,13 +379,6 @@
                 showMsg("密码错误", false);
                 return;
             }
-            globalLoggedInPlayer = player;
-            currentPlayerId = player.id;
-            currentPlayerPwd = player.password;
-            currentVotePlayerId = player.id;
-            currentVotePlayerPwd = player.password;
-            initGlobalLogin();
-            showMsg("登录成功", true);
         }
         // 全局退出
         function globalLogout() {
@@ -407,7 +424,12 @@
             document.getElementById("votePage").classList.add("hide");
             document.getElementById("adminPage").classList.add("hide");
             document.querySelectorAll(".nav button").forEach(b=>b.className="btn-gray");
-            event.target.className="btn-blue active";
+            // 通过 data-page 属性查找并激活按钮
+            document.querySelectorAll(".nav button").forEach(b=>{
+                if(b.getAttribute("data-page") === pageName) {
+                    b.className="btn-blue active";
+                }
+            });
             document.getElementById(pageName+"Page").classList.remove("hide");
             
             if(pageName==="rank")renderRank();
