@@ -1,5 +1,4 @@
 // 深鸡蛋坪山公园球王榜 - 主入口模块
-
 import { api } from './api.js';
 import { initGlobalLogin, globalLogin, globalLogout, teamPageLogout, votePageLogout, getGlobalLoginState } from './auth.js';
 import { loadTeamContent, signupMatch, cancelSignup, createMatch, endMatch, openCreateTeamModal, submitCreateTeam, submitJoinTeam, approveJoin, rejectJoin, kickMember } from './team.js';
@@ -68,9 +67,7 @@ export async function showPage(pageName) {
         }
     });
     document.getElementById(pageName + "Page").classList.remove("hide");
-
     const { globalLoggedInPlayer } = getGlobalLoginState();
-
     if (pageName === "rank") {
         renderRank();
     }
@@ -262,7 +259,6 @@ function initEventListeners() {
             showPage(page);
         });
     });
-
     document.getElementById("globalLoginBtn").addEventListener("click", globalLogin);
     document.getElementById("globalLogoutBtn").addEventListener("click", globalLogout);
     document.getElementById("openRegisterBtn").addEventListener("click", openRegisterModal);
@@ -271,7 +267,6 @@ function initEventListeners() {
     document.getElementById("closeGoalModalBtn").addEventListener("click", () => closeModal("goalModal"));
     document.getElementById("submitNewPlayerBtn").addEventListener("click", submitNewPlayer);
     document.getElementById("submitGoalRecordBtn").addEventListener("click", submitGoalRecord);
-
     document.getElementById("teamPageLogoutBtn").addEventListener("click", teamPageLogout);
     document.getElementById("signupMatchBtn").addEventListener("click", signupMatch);
     document.getElementById("cancelSignupBtn").addEventListener("click", cancelSignup);
@@ -282,17 +277,14 @@ function initEventListeners() {
     document.getElementById("closeCreateTeamModalBtn").addEventListener("click", () => closeModal("createTeamModal"));
     document.getElementById("submitJoinTeamBtn").addEventListener("click", submitJoinTeam);
     document.getElementById("closeJoinTeamModalBtn").addEventListener("click", () => closeModal("joinTeamModal"));
-
     document.getElementById("votePageLogoutBtn").addEventListener("click", votePageLogout);
     document.getElementById("submitVoteBtn").addEventListener("click", submitVote);
     document.getElementById("setVoteTitleBtn").addEventListener("click", setVoteTitle);
     document.getElementById("resetVoteBtn").addEventListener("click", resetVote);
-
     document.getElementById("adminLoginBtn").addEventListener("click", adminLogin);
     document.getElementById("saveCustomTitleBtn").addEventListener("click", saveCustomTitle);
     document.getElementById("addGoalMatchTimeBtn").addEventListener("click", addGoalMatchTime);
     document.getElementById("saveRewardBtn").addEventListener("click", saveReward);
-
     document.getElementById("closeMsgModalBtn").addEventListener("click", closeMsgModal);
 }
 
