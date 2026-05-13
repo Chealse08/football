@@ -826,19 +826,43 @@
 
         // 投票
         async function renderVote(){
-            const r=await fetch(API_URL+"/vote");
-            const d=await r.json();
-            document.getElementById("voteTitle").innerText=d.title;
-            document.getElementById("adminVoteControls").classList.toggle("hide",!isAdminLoggedIn);
-            let h="";d.options.forEach(o=>{h+=`<div class="vote-option" data-id="${o.id}" onclick="selectVoteOption(${o.id})">${o.name}</div>`;});
-            document.getElementById("voteOptions").innerHTML=h;
-            let total=Object.values(d.votes).reduce((a,b)=>a+b,0);
-            let rs=`<h4>总票：${total}</h4>`;
-            d.options.map(p=>({...p,v:d.votes[p.id]||0})).sort((a,b)=>b.v-a.v).forEach(x=>{
-                const per=total?Math.round(x.v/total*100):0;
-                rs+=`<div style="margin:6px 0;"><div style="display:flex;justify-content:space-between;"><span>${x.name}</span><span>${x.v}票 ${per}%</span></div><div class="vote-bar"><div class="vote-progress" style="width:${per}%"></div></div></div>`;
-            });
-            document.getElementById("voteResults").innerHTML=rs;
+            try {
+                const r=await fetch(API_URL+"/vote");
+                if(!r.ok) throw new Error("API请求失败");
+                const d=await r.json();
+                if(!d) throw new Error("数据为空");
+                
+                document.getElementById("voteTitle").innerText=d.title || "最佳球员投票";
+                document.getElementById("adminVoteControls").classList.toggle("hide",!isAdminLoggedIn);
+                
+                const options = d.options || [];
+                let h="";
+                if(options.length === 0) {
+                    h = "<p style='color:#999;'>暂无投票选项</p>";
+                } else {
+                    options.forEach(o=>{
+                        h+=`<div class="vote-option" data-id="${o.id}" onclick="selectVoteOption(${o.id})">${o.name}</div>`;
+                    });
+                }
+                document.getElementById("voteOptions").innerHTML=h;
+                
+                const votes = d.votes || {};
+                let total=0;
+                try {
+                    total=Object.values(votes).reduce((a,b)=>a+b,0);
+                } catch(e) { total = 0; }
+                
+                let rs=`<h4>总票：${total}</h4>`;
+                options.map(p=>({...p,v:votes[p.id]||0})).sort((a,b)=>b.v-a.v).forEach(x=>{
+                    const per=total?Math.round(x.v/total*100):0;
+                    rs+=`<div style="margin:6px 0;"><div style="display:flex;justify-content:space-between;"><span>${x.name}</span><span>${x.v}票 ${per}%</span></div><div class="vote-bar"><div class="vote-progress" style="width:${per}%"></div></div></div>`;
+                });
+                document.getElementById("voteResults").innerHTML=rs;
+            } catch(e) {
+                console.error("投票加载失败:", e);
+                document.getElementById("voteOptions").innerHTML="<p style='color:red;'>投票加载失败，请刷新重试</p>";
+                document.getElementById("voteResults").innerHTML="";
+            }
         }
         function selectVoteOption(id){
             document.querySelectorAll(".vote-option").forEach(o=>o.classList.remove("selected"));
@@ -849,13 +873,17 @@
             if(!selectedVoteOption){showMsg("请先选择候选人",false);return;}
             const p=document.getElementById("votePlayerPwd").value.trim();
             if(p.length!=2){showMsg("请输入2位球员密码",false);return;}
-            const r=await fetch(API_URL+"/vote",{
-                method:"POST",headers:{"Content-Type":"application/json"},
-                body:JSON.stringify({playerId:selectedVoteOption,password:p})
-            });
-            const j=await r.json();
-            showMsg(j.success?"投票成功！":j.error,j.success);
-            if(j.success){document.getElementById("votePlayerPwd").value="";selectedVoteOption=null;renderVote();}
+            try {
+                const r=await fetch(API_URL+"/vote",{
+                    method:"POST",headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify({playerId:selectedVoteOption,password:p})
+                });
+                const j=await r.json();
+                showMsg(j.success?"投票成功！":(j.error||"投票失败"),j.success);
+                if(j.success){document.getElementById("votePlayerPwd").value="";selectedVoteOption=null;renderVote();}
+            } catch(e) {
+                showMsg("投票请求失败，请重试",false);
+            }     
         }
         async function setVoteTitle(){
             const t=document.getElementById("newVoteTitle").value.trim();
