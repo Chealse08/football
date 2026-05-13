@@ -19,14 +19,13 @@
 /workspace
 ├── index.html          # 主入口文件
 ├── styles.css          # 样式文件
-├── js/
-│   ├── config.js       # 配置（API_URL, 管理员密码等）
-│   ├── api.js          # API 调用封装
-│   ├── auth.js         # 登录/认证相关功能
-│   ├── team.js         # 组队功能
-│   ├── vote.js         # 投票功能
-│   ├── admin.js        # 管理后台功能
-│   └── main.js         # 主入口，页面初始化和路由
+├── config.js           # 配置（API_URL, 管理员密码等）
+├── api.js              # API 调用封装
+├── auth.js             # 登录/认证相关功能
+├── team.js             # 组队功能
+├── vote.js             # 投票功能
+├── admin.js            # 管理后台功能
+└── main.js             # 主入口，页面初始化和路由
 ```
 
 ### 后端 API
@@ -35,20 +34,23 @@
 
 ## 3. 全局状态管理
 
-```javascript
-// 在 main.js 中管理
-window.APP_STATE = {
-    isAdminLoggedIn: false,
-    currentPlayerId: null,
-    currentPlayerPwd: null,
-    globalLoggedInPlayer: null,
-    currentVotePlayerId: null,
-    currentVotePlayerPwd: null,
-    currentTeamId: null,
-    selectedPlayerId: null,
-    selectedVoteOption: null
-};
-```
+状态由各个模块分别管理和导出：
+
+- **auth.js**: 管理登录状态
+  - `globalLoggedInPlayer` - 当前登录的球员对象
+  - `currentPlayerId` - 当前球员ID
+  - `currentPlayerPwd` - 当前球员密码
+  - `currentVotePlayerId` - 投票时使用的球员ID
+  - `currentVotePlayerPwd` - 投票时使用的密码
+
+- **admin.js**: 管理管理员状态
+  - `isAdminLoggedIn` - 管理员是否已登录
+
+- **team.js**: 管理组队状态
+  - `currentTeamId` - 当前操作的小队ID
+
+- **vote.js**: 管理投票状态
+  - `selectedVoteOption` - 选中的投票选项
 
 ## 4. 模块职责
 
@@ -109,12 +111,12 @@ window.APP_STATE = {
 ### 全局登录
 1. 用户在主界面选择球员并输入密码
 2. 调用 `globalLogin()` 验证
-3. 成功后设置 `APP_STATE.globalLoggedInPlayer`
+3. 成功后设置 `auth.js` 中的 `globalLoggedInPlayer` 等状态
 4. 更新所有页面的登录状态显示
 
 ### 页面退出
-- `teamPageLogout()`: 只清除组队页相关状态
-- `votePageLogout()`: 只清除投票页相关状态
+- `teamPageLogout()`: 清除组队页和全局状态
+- `votePageLogout()`: 清除投票页和全局状态
 - `globalLogout()`: 清除所有全局状态
 
 ## 7. 命名规范
@@ -131,6 +133,7 @@ window.APP_STATE = {
 
 | 端点 | 方法 | 用途 |
 |------|------|------|
+| / | GET | 获取射手榜数据 |
 | /players | GET | 获取球员列表 |
 | /addPlayer | POST | 注册球员 |
 | /addGoal | POST | 提交进球 |
@@ -138,7 +141,16 @@ window.APP_STATE = {
 | /waitPlayers | GET | 待审核球员 |
 | /waitMatches | GET | 待审核进球 |
 | /passPlayer | GET | 审核通过球员 |
+| /rejectPlayer | GET | 驳回球员申请 |
+| /deletePlayer | POST | 删除球员 |
+| /revokePlayer | POST | 撤销球员认证 |
+| /setPlayerMatches | POST | 设置球员场次 |
+| /adminAddGoal | POST | 管理员追加进球 |
 | /passGoal | GET | 审核通过进球 |
+| /rejectGoal | GET | 驳回进球申请 |
+| /undoGoal | POST | 撤销已通过的进球 |
+| /getGoalMatchTimes | GET | 获取进球比赛时间列表 |
+| /setGoalMatchTimes | POST | 添加/删除进球比赛时间 |
 | /getCurrentMatch | GET | 获取当前比赛 |
 | /createMatch | POST | 创建比赛 |
 | /endMatch | POST | 结束比赛 |
@@ -148,10 +160,16 @@ window.APP_STATE = {
 | /getApprovedTeams | GET | 获取已通过小队 |
 | /createTeam | POST | 创建小队 |
 | /joinTeam | POST | 加入小队 |
+| /approveJoin | POST | 队长审核加入申请 |
+| /rejectJoin | POST | 队长拒绝加入申请 |
+| /kickMember | POST | 队长踢出成员 |
 | /getPendingTeams | GET | 待审核小队 |
 | /approveTeam | POST | 审核通过小队 |
 | /rejectTeam | POST | 拒绝小队 |
+| /getMyTeamAndApplications | GET | 获取球员的小队和申请记录 |
 | /vote | GET/POST | 投票 |
+| /setVoteTitle | POST | 设置投票标题 |
+| /resetVote | POST | 重置投票 |
 | /getReward | GET | 获取奖励规则 |
 | /setReward | POST | 设置奖励规则 |
 | /getCustomTitle | GET | 获取自定义标题 |
