@@ -372,13 +372,6 @@
                console.error("登录失败:", e);
                 showMsg("登录失败，请重试", false);
             }
-            const r = await fetch(API_URL+"/players");
-            const players = await r.json();
-            const player = players.find(p => p.id == pid);
-            if(!player || player.password !== pwd) {
-                showMsg("密码错误", false);
-                return;
-            }
         }
         // 全局退出
         function globalLogout() {
