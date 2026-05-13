@@ -935,7 +935,11 @@
             try {
                 const r=await fetch(API_URL+"/vote",{
                     method:"POST",headers:{"Content-Type":"application/json"},
-                    body:JSON.stringify({playerId:currentVotePlayerId,password:currentVotePlayerPwd})
+                    body:JSON.stringify({
+                        playerId:currentVotePlayerId,    // 投票人ID
+                        password:currentVotePlayerPwd,   // 投票人密码
+                        candidateId:selectedVoteOption   // 候选人ID
+                    })
                 });
                 const j=await r.json();
                 showMsg(j.success?"投票成功！":(j.error||"投票失败"),j.success);
