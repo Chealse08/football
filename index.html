@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">深鸡蛋坪山公园球王榜</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="wrap">
         <h1 id="mainTitle">⚽ 深鸡蛋坪山公园球王榜</h1>
-        <div class="tip" style="text-align:center;color:#999;">数据云端永久保存</div>
         
+        <!-- 导航栏 -->
         <div class="nav">
-            <button class="btn-blue active" data-page="main">主界面</button>
+            <button class="btn-blue active" data-page="main">首页</button>
             <button class="btn-gray" data-page="rank">射手榜</button>
             <button class="btn-gray" data-page="team">善意组队</button>
             <button class="btn-gray" data-page="reward">奖励规则</button>
@@ -21,226 +21,221 @@
         </div>
 
         <!-- 主界面 -->
-        <div id="mainPage">
-            <div id="globalAuthSection" class="box">
-                <h3>🔐 球员登录</h3>
+        <div id="mainPage" class="page">
+            <div class="box">
+                <h3>球员登录</h3>
                 <div id="loginForm">
-                    <select id="globalPlayerSelect"><option value="">请选择你的球员</option></select>
-                    <input type="password" id="globalPlayerPwd" placeholder="球员2位密码" maxlength="2">
-                    <button class="btn-blue" id="globalLoginBtn">登录</button>
+                    <select id="globalPlayerSelect"></select>
+                    <input type="password" id="globalPlayerPwd" placeholder="请输入2位数字密码">
+                    <button id="globalLoginBtn" class="btn-blue">登录</button>
+                    <button id="openRegisterBtn" class="btn-green">注册新球员</button>
                 </div>
                 <div id="loggedInInfo" class="hide">
-                    <p>当前球员：<strong id="loggedInPlayerName"></strong></p>
-                    <button class="btn-red" id="globalLogoutBtn">退出登录</button>
+                    <p>已登录：<span id="loggedInPlayerName"></span></p>
+                    <button id="globalLogoutBtn" class="btn-red">退出登录</button>
                 </div>
             </div>
+
             <div class="box">
-                <div class="tip">注册球员（2位数字密码，不重复）</div>
-                <button class="btn-blue" id="openRegisterBtn">注册新球员</button>
+                <h3>提交进球</h3>
+                <select id="playerSelect"></select>
+                <button id="openGoalBtn" class="btn-blue">提交进球记录</button>
             </div>
+
             <div class="box">
-                <div class="tip">选择球员 → 选比赛时间 → 提交进球</div>
-                <select id="playerSelect"><option value="">请选择已认证球员</option></select>
-                <button class="btn-blue" id="openGoalBtn">提交进球记录</button>
+                <h3>最近进球</h3>
+                <div id="passedGoalsList"></div>
             </div>
         </div>
 
-        <!-- 射手榜 -->
-        <div id="rankPage" class="hide">
-            <div class="box"><h3>🏆 射手榜</h3><div id="rankList"></div></div>
+        <!-- 射手榜页面 -->
+        <div id="rankPage" class="page hide">
+            <div class="box">
+                <h3>射手榜</h3>
+                <div id="rankList"></div>
+            </div>
         </div>
 
-        <!-- 善意组队页面 -->
-        <div id="teamPage" class="hide">
+        <!-- 组队页面 -->
+        <div id="teamPage" class="page hide">
+            <div id="teamNotLoggedInSection" class="box">
+                <p>请先在首页登录后再使用组队功能</p>
+            </div>
             <div id="teamLoggedInSection" class="hide">
-                <div class="box">
-                <h3>🔐 当前球员：<span id="teamLoggedInPlayerName"></span></h3>
-                    <button class="btn-red" id="teamPageLogoutBtn">退出登录</button>    
-                </div>
-            </div>
-
-            <div id="teamNotLoggedInSection">
-                <div class="box">
-                    <h3>请先在主界面登录</h3>
-                    <p>点击顶部"主界面"进行球员登录</p>
-                </div>
-            </div>
-
-            <div id="teamContentSection" class="hide">
-                <div class="box">
-                    <h3>⚽ 当前比赛</h3>
-                    <div id="currentMatch"></div>
-                    <div id="adminMatchControls" class="hide">
-                        <input type="datetime-local" id="matchTimeInput">
-                        <input type="text" id="matchLocationInput" placeholder="比赛地点">
-                        <button class="btn-green" id="createMatchBtn">创建比赛</button>
-                        <button class="btn-red" id="endMatchBtn">结束比赛</button>
+                <p>已登录：<span id="teamLoggedInPlayerName"></span></p>
+                <button id="teamPageLogoutBtn" class="btn-red">退出登录</button>
+                
+                <div id="teamContentSection">
+                    <div class="box">
+                        <h3>当前比赛</h3>
+                        <div id="currentMatch"></div>
+                        <div id="adminMatchControls" class="hide">
+                            <input type="datetime-local" id="matchTimeInput">
+                            <input type="text" id="matchLocationInput" placeholder="比赛地点">
+                            <button id="createMatchBtn" class="btn-blue">创建比赛</button>
+                            <button id="endMatchBtn" class="btn-red">结束比赛</button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="box">
-                    <h3>📋 报名接龙（最多27人）</h3>
-                    <div id="signupCount" class="tip"></div>
-                    <div id="signupList" class="signup-list"></div>
-                    <div id="signupControls">
-                        <button class="btn-blue" id="signupMatchBtn">我要报名</button>
-                        <button class="btn-red" id="cancelSignupBtn">取消报名</button>
+                    <div class="box">
+                        <h3>报名接龙 <span id="signupCount">已报名：0/27人</span></h3>
+                        <button id="signupMatchBtn" class="btn-green">我要报名</button>
+                        <button id="cancelSignupBtn" class="btn-red">取消报名</button>
+                        <div id="signupList" class="signup-list"></div>
                     </div>
-                </div>
 
-                <div class="box">
-                    <h3>🏃 小队列表</h3>
-                    <div id="teamList"></div>
-                    <div style="margin-top:15px;">
-                        <button class="btn-blue" id="openCreateTeamBtn">申请创建小队</button>
+                    <div class="box">
+                        <h3>已通过的小队</h3>
+                        <button id="openCreateTeamBtn" class="btn-blue">创建小队</button>
+                        <div id="teamList"></div>
                     </div>
-                </div>
 
-                <div id="myTeamSection" class="box hide">
-                    <h3>👥 我的信息</h3>
-                    <div id="myTeamInfo"></div>
+                    <div id="myTeamSection" class="box hide">
+                        <div id="myTeamInfo"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 奖励页面 -->
-        <div id="rewardPage" class="hide">
+        <!-- 奖励规则页面 -->
+        <div id="rewardPage" class="page hide">
             <div class="box">
-                <h3>🏆 赛季奖励规则</h3>
+                <h3>奖励规则</h3>
                 <div id="rewardContent" class="content-text"></div>
-                <div id="adminRewardEdit" class="hide" style="margin-top:15px;">
-                    <textarea id="rewardInput" placeholder="输入奖励规则，支持换行"></textarea>
-                    <button class="btn-blue" id="saveRewardBtn">保存奖励规则</button>
+                <div id="adminRewardEdit" class="hide">
+                    <textarea id="rewardInput"></textarea>
+                    <button id="saveRewardBtn" class="btn-blue">保存奖励规则</button>
                 </div>
             </div>
         </div>
 
         <!-- 投票页面 -->
-        <div id="votePage" class="hide">
+        <div id="votePage" class="page hide">
+            <div id="voteNotLoggedInSection" class="box">
+                <p>请先在首页登录后再使用投票功能</p>
+            </div>
             <div id="voteLoggedInSection" class="hide">
-                    <h3>🔐 当前球员：<span id="voteLoggedInPlayerName"></span></h3>
-                    <button class="btn-red" id="votePageLogoutBtn">退出登录</button>
-            </div>
-            <div id="voteNotLoggedInSection">
-                <div class="box">
-                    <h3>请先在主界面登录</h3>
-                    <p>点击顶部"主界面"进行球员登录</p>
-                </div>
-            </div>
-
-            <div id="voteContentSection" class="hide">
-                <div class="box">
-                    <h3 id="voteTitle">最佳球员投票</h3>
-                    <div id="adminVoteControls" class="hide">
-                        <input type="text" id="newVoteTitle" placeholder="投票题目">
-                        <button class="btn-yellow" id="setVoteTitleBtn">修改题目</button>
-                        <button class="btn-red" id="resetVoteBtn">重置投票</button>
-                    </div>
-                    <div id="voteOptions"></div>
+                <p>已登录：<span id="voteLoggedInPlayerName"></span></p>
+                <button id="votePageLogoutBtn" class="btn-red">退出登录</button>
+                
+                <div id="voteContentSection">
                     <div class="box">
-                        <button class="btn-blue" id="submitVoteBtn">投票</button>
+                        <h3 id="voteTitle">最佳球员投票</h3>
+                        <div id="adminVoteControls" class="hide">
+                            <input type="text" id="newVoteTitle" placeholder="新投票标题">
+                            <button id="setVoteTitleBtn" class="btn-blue">修改标题</button>
+                            <button id="resetVoteBtn" class="btn-red">重置投票</button>
+                        </div>
+                        <div id="voteOptions"></div>
+                        <button id="submitVoteBtn" class="btn-blue">提交投票</button>
+                        <div id="voteResults"></div>
                     </div>
-                    <div id="voteResults"></div>
                 </div>
             </div>
         </div>
 
-        <!-- 管理后台 -->
-        <div id="adminPage" class="hide">
+        <!-- 管理后台页面 -->
+        <div id="adminPage" class="page hide">
             <div class="box">
-                <input type="password" id="adminPwd" placeholder="管理员密码">
-                <button class="btn-green" id="adminLoginBtn">登录</button>
+                <h3>管理员登录</h3>
+                <input type="password" id="adminPwd" placeholder="请输入管理员密码">
+                <button id="adminLoginBtn" class="btn-blue">登录</button>
             </div>
 
             <div id="adminPanel" class="hide">
                 <div class="box">
-                    <h3>📛 修改网站标题</h3>
-                    <input type="text" id="customTitleInput" placeholder="输入新标题">
-                    <button class="btn-blue" id="saveCustomTitleBtn">保存标题</button>
-                </div>
-
-                <div class="box">
-                    <h3>📅 进球比赛时间管理</h3>
+                    <h3>系统设置</h3>
+                    <input type="text" id="customTitleInput" placeholder="自定义网站标题">
+                    <button id="saveCustomTitleBtn" class="btn-blue">保存标题</button>
+                    
+                    <h4>比赛时间管理</h4>
                     <input type="datetime-local" id="goalMatchTimeInput">
-                    <button class="btn-green" id="addGoalMatchTimeBtn">添加时间</button>
+                    <button id="addGoalMatchTimeBtn" class="btn-blue">添加比赛时间</button>
                     <div id="goalMatchTimeList"></div>
                 </div>
 
                 <div class="box">
-                    <h3>👤 球员管理（设置场次｜追加进球）</h3>
+                    <h3>已注册球员</h3>
                     <div id="registeredPlayersList"></div>
                 </div>
 
-                <div class="box"><h3>待审核球员</h3><div id="waitPlayerList"></div></div>
-                <div class="box"><h3>待审核进球</h3><div id="waitGoalList"></div></div>
-                <div class="box"><h3>✅ 已通过进球（可撤销）</h3><div id="passedGoalsList"></div></div>
-                <div class="box"><h3>⏳ 待审核小队</h3><div id="pendingTeamsList"></div></div>
+                <div class="box">
+                    <h3>待审核球员</h3>
+                    <div id="waitPlayerList"></div>
+                </div>
+
+                <div class="box">
+                    <h3>待审核进球</h3>
+                    <div id="waitGoalList"></div>
+                </div>
+
+                <div class="box">
+                    <h3>待审核小队</h3>
+                    <div id="pendingTeamsList"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- 注册弹窗 -->
+    <!-- 弹窗 -->
     <div id="registerModal" class="modal hide">
         <div class="modal-content">
-            <h3>注册球员</h3>
-            <input type="text" id="registerName" placeholder="姓名">
-            <input type="password" id="registerPwd" placeholder="2位数字密码" maxlength="2">
+            <h3>注册新球员</h3>
+            <input type="text" id="registerName" placeholder="球员姓名">
+            <input type="password" id="registerPwd" placeholder="设置2位数字密码">
             <div class="modal-buttons">
-                <button class="btn-gray" id="closeRegisterModalBtn">取消</button>
-                <button class="btn-blue" id="submitNewPlayerBtn">注册</button>
+                <button id="closeRegisterModalBtn" class="btn-gray">取消</button>
+                <button id="submitNewPlayerBtn" class="btn-blue">注册</button>
             </div>
         </div>
     </div>
 
-    <!-- 提交进球弹窗 -->
     <div id="goalModal" class="modal hide">
         <div class="modal-content">
-            <h3>提交进球</h3>
+            <h3>提交进球记录</h3>
             <p id="selectedPlayerName"></p>
-            <input type="password" id="playerPwd" placeholder="2位密码" maxlength="2">
-            <input type="number" id="goalNum" min="1" value="1" placeholder="进球数">
-            <input type="text" id="matchLocation" placeholder="地点">
+            <input type="password" id="playerPwd" placeholder="请输入你的2位密码">
+            <input type="number" id="goalNum" value="1" min="1" placeholder="进球数">
+            <input type="text" id="matchLocation" placeholder="比赛地点（可选）">
             <select id="matchTimeSelect"></select>
             <div class="modal-buttons">
-                <button class="btn-gray" id="closeGoalModalBtn">取消</button>
-                <button class="btn-blue" id="submitGoalRecordBtn">提交</button>
+                <button id="closeGoalModalBtn" class="btn-gray">取消</button>
+                <button id="submitGoalRecordBtn" class="btn-blue">提交</button>
             </div>
         </div>
     </div>
 
-    <!-- 创建小队弹窗 -->
     <div id="createTeamModal" class="modal hide">
         <div class="modal-content">
-            <h3>申请创建小队</h3>
+            <h3>创建小队</h3>
             <input type="text" id="teamName" placeholder="小队名称">
-            <input type="text" id="teamCode" placeholder="4位进队码" maxlength="4">
+            <input type="text" id="teamCode" placeholder="设置4位进队码">
             <div class="modal-buttons">
-                <button class="btn-gray" id="closeCreateTeamModalBtn">取消</button>
-                <button class="btn-blue" id="submitCreateTeamBtn">提交申请</button>
+                <button id="closeCreateTeamModalBtn" class="btn-gray">取消</button>
+                <button id="submitCreateTeamBtn" class="btn-blue">提交申请</button>
             </div>
         </div>
     </div>
 
-    <!-- 加入小队弹窗 -->
     <div id="joinTeamModal" class="modal hide">
         <div class="modal-content">
-            <h3>加入小队</h3>
-            <input type="text" id="joinTeamCode" placeholder="进队码（可选，直接加入）">
+            <h3>申请加入小队</h3>
+            <input type="text" id="joinTeamCode" placeholder="输入进队码（直接加入）或留空等待审核">
             <div class="modal-buttons">
-                <button class="btn-gray" id="closeJoinTeamModalBtn">取消</button>
-                <button class="btn-blue" id="submitJoinTeamBtn">申请加入</button>
+                <button id="closeJoinTeamModalBtn" class="btn-gray">取消</button>
+                <button id="submitJoinTeamBtn" class="btn-blue">提交申请</button>
             </div>
         </div>
     </div>
 
-    <!-- 全局消息弹窗 -->
     <div id="msgModal" class="modal hide">
         <div class="modal-content msg-modal-content">
-            <div id="msgText" class="msg-text"></div>
-            <button class="btn-blue" id="closeMsgModalBtn">确定</button>
+            <p id="msgText" class="msg-text"></p>
+            <button id="closeMsgModalBtn" class="btn-blue">确定</button>
         </div>
     </div>
 
+    <!-- 引入JavaScript模块 -->
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
