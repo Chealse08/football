@@ -1926,3 +1926,586 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* ==================== 侧边栏管理小入口 ==================== */
+.admin-entry {
+    padding: 10px 20px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    user-select: none;
+}
+
+.admin-entry:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== 校长杯年度选择 ==================== */
+.cup-year-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    background: var(--accent-light);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.cup-year-selector label {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.cup-year-selector select {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.cup-year-selector select:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+}
+
+.btn-history {
+    padding: 8px 16px;
+    background: var(--accent-blue);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: auto;
+    transition: all 0.3s ease;
+}
+
+.btn-history:hover {
+    background: var(--sidebar-hover);
+}
+
+/* ==================== 榜单标签 ==================== */
+.rank-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--accent-light);
+}
+
+.rank-tab {
+    padding: 10px 18px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #666;
+}
+
+.rank-tab:hover {
+    background: var(--accent-light);
+    color: var(--accent-blue);
+}
+
+.rank-tab.active {
+    background: var(--accent-blue);
+    color: #fff;
+}
+
+/* ==================== 榜单面板 ==================== */
+.rank-panel {
+    display: none;
+}
+
+.rank-panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* 球员表格 */
+.player-table th:nth-child(2),
+.player-table td:nth-child(2) {
+    text-align: left;
+}
+
+/* ==================== 奖项展示 ==================== */
+.awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.award-card {
+    text-align: center;
+    padding: 30px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #fff 100%);
+    border: 2px solid var(--accent-light);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.award-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.award-card.main-award {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    border-color: #ffd700;
+    grid-column: span 1;
+}
+
+.award-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.award-card h3 {
+    font-size: 22px;
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+}
+
+.award-card.main-award h3 {
+    color: #8b6914;
+}
+
+.award-player {
+    margin: 20px 0;
+}
+
+.player-photo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--sidebar-hover) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    overflow: hidden;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.player-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.award-player h4 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.player-team {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.award-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 15px;
+}
+
+/* ==================== 历年校长杯模态框 ==================== */
+.history-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.history-item {
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-item h4 {
+    color: var(--accent-blue);
+    margin-bottom: 5px;
+}
+
+.history-item p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ==================== 校队切换和照片墙 ==================== */
+.team-switch {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.team-switch-btn {
+    padding: 12px 24px;
+    background: #f0f0f0;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #666;
+}
+
+.team-switch-btn:hover {
+    background: var(--accent-light);
+    color: var(--accent-blue);
+}
+
+.team-switch-btn.active {
+    background: var(--accent-blue);
+    color: #fff;
+    border-color: var(--accent-blue);
+}
+
+.team-gallery {
+    display: none;
+}
+
+.team-gallery.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+.player-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.player-card {
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.player-card:hover {
+    transform: translateY(-3px);
+}
+
+.player-card-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--sidebar-hover) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.player-card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.player-card-number {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.player-card-name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.player-card-pos {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 教练照片墙 */
+.coach-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.coach-card-photo {
+    text-align: center;
+    padding: 20px;
+    background: var(--accent-light);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.coach-card-photo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.coach-photo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--sidebar-hover) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    overflow: hidden;
+    border: 3px solid #fff;
+}
+
+.coach-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.coach-card-photo h4 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.coach-card-photo .coach-title {
+    font-size: 14px;
+    color: var(--accent-blue);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.coach-card-photo .coach-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ==================== 主裁照片样式 ==================== */
+.ref-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--sidebar-hover) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    overflow: hidden;
+}
+
+.ref-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ==================== 照片上传按钮 ==================== */
+.upload-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.upload-btn:hover {
+    background: #218838;
+}
+
+.photo-preview {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background: #f0f0f0;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.photo-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ==================== 管理后台校长杯管理 ==================== */
+.cup-year-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.cup-year-tab {
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.cup-year-tab.active {
+    background: var(--accent-blue);
+    color: #fff;
+}
+
+/* 子标签 */
+.sub-rank-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.sub-rank-tab {
+    padding: 8px 14px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.sub-rank-tab.active {
+    background: var(--accent-light);
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.add-year-btn {
+    padding: 8px 16px;
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-left: auto;
+    transition: all 0.3s ease;
+}
+
+.add-year-btn:hover {
+    background: #218838;
+}
+
+/* ==================== 响应式新样式 ==================== */
+@media (max-width: 768px) {
+    .cup-year-selector {
+        flex-wrap: wrap;
+    }
+
+    .btn-history {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .rank-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .rank-tab {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .awards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .team-switch {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+    }
+
+    .team-switch-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .player-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .coach-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .player-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .coach-gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== 模态框通用样式 ==================== */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

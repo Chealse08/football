@@ -57,11 +57,12 @@
                 <span class="icon">📞</span>
                 <span class="text">联系我们</span>
             </button>
-            <button class="nav-btn" id="adminBtn" data-page="admin" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px;">
-                <span class="icon">⚙️</span>
-                <span class="text">管理后台</span>
-            </button>
         </nav>
+
+        <!-- 管理入口小图标 -->
+        <div class="admin-entry" id="adminEntryBtn" title="管理后台">
+            <span>🔧</span>
+        </div>
 
         <div class="sidebar-footer">
             <p>© 2025 深鸡蛋足球协会</p>
@@ -326,31 +327,7 @@
                 </div>
 
                 <h3 style="margin-top: 30px; margin-bottom: 20px; color: var(--accent-blue);">主裁风采</h3>
-                <div class="referee-grid">
-                    <div class="referee-card">
-                        <div class="ref-avatar">⚽</div>
-                        <h4>张伟</h4>
-                        <p class="ref-level">国家级裁判</p>
-                        <p class="ref-desc">执法经验10年，曾执法多场全国性赛事</p>
-                    </div>
-                    <div class="referee-card">
-                        <div class="ref-avatar">⚽</div>
-                        <h4>李明</h4>
-                        <p class="ref-level">一级裁判</p>
-                        <p class="ref-desc">执法经验8年，擅长控制比赛节奏</p>
-                    </div>
-                    <div class="referee-card">
-                        <div class="ref-avatar">⚽</div>
-                        <h4>王强</h4>
-                        <p class="ref-level">一级裁判</p>
-                        <p class="ref-desc">执法经验6年，判罚精准果断</p>
-                    </div>
-                    <div class="referee-card">
-                        <div class="ref-avatar">⚽</div>
-                        <h4>刘洋</h4>
-                        <p class="ref-level">二级裁判</p>
-                        <p class="ref-desc">执法经验4年，年轻有为</p>
-                    </div>
+                <div class="referee-grid" id="refereeGridDisplay">
                 </div>
 
                 <div class="referee-info" style="margin-top: 30px;">
@@ -370,137 +347,155 @@
                 <h2>院队风采</h2>
                 <p class="intro">各学院足球队风采展示，这里有最热血的青春，最精彩的对决！</p>
 
-                <div class="team-grid">
-                    <div class="team-card">
-                        <div class="team-logo">🔵</div>
-                        <h3>计算机学院</h3>
-                        <p class="team-slogan">代码写得好，足球踢得棒</p>
-                        <div class="team-info">
-                            <span>🏆 2次冠军</span>
-                            <span>👥 25人</span>
-                        </div>
+                <!-- 校长杯年度选择 -->
+                <div class="cup-year-selector">
+                    <label>🏆 校长杯：</label>
+                    <select id="cupYearSelect" onchange="changeCupYear(this.value)">
+                        <option value="2025">2025年校长杯</option>
+                        <option value="2024">2024年校长杯</option>
+                        <option value="2023">2023年校长杯</option>
+                    </select>
+                    <button class="btn-history" onclick="showCupHistory()">📚 历年回顾</button>
+                </div>
+
+                <!-- 榜单标签 -->
+                <div class="rank-tabs">
+                    <button class="rank-tab active" data-rank="ranking" onclick="switchRankTab('ranking')">🏆 积分榜</button>
+                    <button class="rank-tab" data-rank="goals" onclick="switchRankTab('goals')">⚽ 进球榜</button>
+                    <button class="rank-tab" data-rank="assists" onclick="switchRankTab('assists')">🎯 助攻榜</button>
+                    <button class="rank-tab" data-rank="rookie" onclick="switchRankTab('rookie')">🌟 最佳新秀</button>
+                    <button class="rank-tab" data-rank="golden" onclick="switchRankTab('golden')">👑 金球奖</button>
+                    <button class="rank-tab" data-rank="glove" onclick="switchRankTab('glove')">🧤 金手套奖</button>
+                </div>
+
+                <!-- 球队展示 -->
+                <div class="team-grid" id="collegeTeamsGrid">
+                    <!-- 动态加载 -->
+                </div>
+
+                <!-- 积分榜 -->
+                <div id="rank-ranking" class="rank-panel active">
+                    <div class="ranking-section">
+                        <h3 style="margin-bottom: 20px; color: var(--accent-blue);" id="rankingTitle">2025年校长杯积分榜</h3>
+                        <table class="ranking-table" id="rankingTableDisplay">
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>球队</th>
+                                    <th>场次</th>
+                                    <th>胜</th>
+                                    <th>平</th>
+                                    <th>负</th>
+                                    <th>积分</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rankingBodyDisplay">
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="team-card">
-                        <div class="team-logo">🔴</div>
-                        <h3>机械工程学院</h3>
-                        <p class="team-slogan">机械机械，永不言败</p>
-                        <div class="team-info">
-                            <span>🏆 1次冠军</span>
-                            <span>👥 28人</span>
-                        </div>
+                </div>
+
+                <!-- 进球榜 -->
+                <div id="rank-goals" class="rank-panel">
+                    <div class="ranking-section">
+                        <h3 style="margin-bottom: 20px; color: var(--accent-blue);">射手榜</h3>
+                        <table class="ranking-table player-table">
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>球员</th>
+                                    <th>球队</th>
+                                    <th>号码</th>
+                                    <th>进球数</th>
+                                </tr>
+                            </thead>
+                            <tbody id="goalsBody">
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="team-card">
-                        <div class="team-logo">🟢</div>
-                        <h3>经济管理学院</h3>
-                        <p class="team-slogan">经管经管，锐不可当</p>
-                        <div class="team-info">
-                            <span>🏆 3次冠军</span>
-                            <span>👥 22人</span>
-                        </div>
+                </div>
+
+                <!-- 助攻榜 -->
+                <div id="rank-assists" class="rank-panel">
+                    <div class="ranking-section">
+                        <h3 style="margin-bottom: 20px; color: var(--accent-blue);">助攻榜</h3>
+                        <table class="ranking-table player-table">
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>球员</th>
+                                    <th>球队</th>
+                                    <th>号码</th>
+                                    <th>助攻数</th>
+                                </tr>
+                            </thead>
+                            <tbody id="assistsBody">
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="team-card">
-                        <div class="team-logo">🟡</div>
-                        <h3>电气工程学院</h3>
-                        <p class="team-slogan">电气电气，充满电力</p>
-                        <div class="team-info">
-                            <span>🏆 1次冠军</span>
-                            <span>👥 26人</span>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-logo">🟣</div>
-                        <h3>土木工程学院</h3>
-                        <p class="team-slogan">土木土木，牢不可破</p>
-                        <div class="team-info">
-                            <span>🏆 0次冠军</span>
-                            <span>👥 24人</span>
-                        </div>
-                    </div>
-                    <div class="team-card">
-                        <div class="team-logo">🟠</div>
-                        <h3>艺术设计学院</h3>
-                        <p class="team-slogan">艺术足球，赏心悦目</p>
-                        <div class="team-info">
-                            <span>🏆 0次冠军</span>
-                            <span>👥 20人</span>
+                </div>
+
+                <!-- 最佳新秀 -->
+                <div id="rank-rookie" class="rank-panel">
+                    <div class="awards-grid">
+                        <div class="award-card">
+                            <div class="award-icon">🌟</div>
+                            <h3>最佳新秀奖</h3>
+                            <div class="award-player" id="rookieWinner">
+                                <div class="player-photo">📷</div>
+                                <h4>待定</h4>
+                                <p class="player-team">待定</p>
+                            </div>
+                            <p class="award-desc">评选当届表现最出色的新人球员</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="ranking-section" style="margin-top: 30px;">
-                    <h3 style="margin-bottom: 20px; color: var(--accent-blue);">积分榜</h3>
-                    <table class="ranking-table">
-                        <thead>
-                            <tr>
-                                <th>排名</th>
-                                <th>球队</th>
-                                <th>场次</th>
-                                <th>胜</th>
-                                <th>平</th>
-                                <th>负</th>
-                                <th>积分</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="rank-badge rank-1">1</span></td>
-                                <td>经济管理学院</td>
-                                <td>5</td>
-                                <td>4</td>
-                                <td>1</td>
-                                <td>0</td>
-                                <td><strong>13</strong></td>
-                            </tr>
-                            <tr>
-                                <td><span class="rank-badge rank-2">2</span></td>
-                                <td>计算机学院</td>
-                                <td>5</td>
-                                <td>3</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td><strong>11</strong></td>
-                            </tr>
-                            <tr>
-                                <td><span class="rank-badge rank-3">3</span></td>
-                                <td>机械工程学院</td>
-                                <td>5</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td><strong>9</strong></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>电气工程学院</td>
-                                <td>5</td>
-                                <td>2</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td><strong>7</strong></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>土木工程学院</td>
-                                <td>5</td>
-                                <td>1</td>
-                                <td>0</td>
-                                <td>4</td>
-                                <td><strong>3</strong></td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>艺术设计学院</td>
-                                <td>5</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>5</td>
-                                <td><strong>0</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- 金球奖 -->
+                <div id="rank-golden" class="rank-panel">
+                    <div class="awards-grid">
+                        <div class="award-card main-award">
+                            <div class="award-icon">👑</div>
+                            <h3>金球奖</h3>
+                            <div class="award-player" id="goldenWinner">
+                                <div class="player-photo">📷</div>
+                                <h4>待定</h4>
+                                <p class="player-team">待定</p>
+                            </div>
+                            <p class="award-desc">本届校长杯最有价值球员</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 金手套奖 -->
+                <div id="rank-glove" class="rank-panel">
+                    <div class="awards-grid">
+                        <div class="award-card">
+                            <div class="award-icon">🧤</div>
+                            <h3>金手套奖</h3>
+                            <div class="award-player" id="gloveWinner">
+                                <div class="player-photo">📷</div>
+                                <h4>待定</h4>
+                                <p class="player-team">待定</p>
+                            </div>
+                            <p class="award-desc">本届校长杯最佳守门员</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- 历年校长杯模态框 -->
+        <div id="cupHistoryModal" class="modal">
+            <div class="modal-content admin-modal" style="max-width: 600px;">
+                <h3>历年校长杯回顾</h3>
+                <div class="history-list" id="historyList">
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-confirm" onclick="closeCupHistory()">关闭</button>
+                </div>
+            </div>
+        </div>
 
         <!-- 校队风采 -->
         <section id="schoolteam" class="page">
@@ -508,69 +503,34 @@
                 <h2>校队风采</h2>
                 <p class="intro">深鸡蛋大学校足球队 - 代表学校最高水平的足球队伍，征战各大高校联赛！</p>
 
-                <div class="school-hero">
-                    <div class="school-badge">🏆</div>
-                    <div class="school-info">
-                        <h3>深鸡蛋大学校足球队</h3>
-                        <p>成立于2018年，现有队员30名，教练2名</p>
-                        <div class="school-honors">
-                            <span>🥇 市高校联赛冠军 x2</span>
-                            <span>🥈 省高校联赛季军 x1</span>
-                            <span>🏅 最佳组织奖 x3</span>
-                        </div>
+                <div class="school-hero" id="schoolHeroDisplay">
+                </div>
+
+                <!-- 队伍切换 -->
+                <div class="team-switch">
+                    <button class="team-switch-btn active" data-team="men" onclick="switchSchoolTeam('men')">⚽ 男子校队</button>
+                    <button class="team-switch-btn" data-team="women" onclick="switchSchoolTeam('women')">⚽ 女子校队</button>
+                    <button class="team-switch-btn" data-team="coaches" onclick="switchSchoolTeam('coaches')">👨‍🏫 教练团队</button>
+                </div>
+
+                <!-- 男子校队照片墙 -->
+                <div id="men-team" class="team-gallery active">
+                    <h3 style="margin: 20px 0; color: var(--accent-blue);">男子校队阵容</h3>
+                    <div class="player-gallery" id="menPlayersGallery">
                     </div>
                 </div>
 
-                <h3 style="margin-top: 30px; margin-bottom: 20px; color: var(--accent-blue);">教练团队</h3>
-                <div class="coach-grid">
-                    <div class="coach-card">
-                        <div class="coach-avatar">👨‍🏫</div>
-                        <h4>陈指导</h4>
-                        <p class="coach-title">主教练</p>
-                        <p class="coach-desc">前职业球员，拥有亚足联A级教练证书，执教经验丰富</p>
-                    </div>
-                    <div class="coach-card">
-                        <div class="coach-avatar">👨‍🏫</div>
-                        <h4>林指导</h4>
-                        <p class="coach-title">助理教练</p>
-                        <p class="coach-desc">体育学院足球专业毕业，专注青训和体能训练</p>
+                <!-- 女子校队照片墙 -->
+                <div id="women-team" class="team-gallery">
+                    <h3 style="margin: 20px 0; color: var(--accent-blue);">女子校队阵容</h3>
+                    <div class="player-gallery" id="womenPlayersGallery">
                     </div>
                 </div>
 
-                <h3 style="margin-top: 30px; margin-bottom: 20px; color: var(--accent-blue);">球队阵容</h3>
-                <div class="squad-section">
-                    <div class="squad-group">
-                        <h4>前锋</h4>
-                        <div class="player-chips">
-                            <span class="player-chip">7号 - 小飞</span>
-                            <span class="player-chip">9号 - 阿龙</span>
-                            <span class="player-chip">11号 - 小杰</span>
-                        </div>
-                    </div>
-                    <div class="squad-group">
-                        <h4>中场</h4>
-                        <div class="player-chips">
-                            <span class="player-chip">8号 - 队长 阿辉</span>
-                            <span class="player-chip">10号 - 阿文</span>
-                            <span class="player-chip">14号 - 小宇</span>
-                            <span class="player-chip">16号 - 阿凯</span>
-                        </div>
-                    </div>
-                    <div class="squad-group">
-                        <h4>后卫</h4>
-                        <div class="player-chips">
-                            <span class="player-chip">3号 - 阿强</span>
-                            <span class="player-chip">4号 - 小峰</span>
-                            <span class="player-chip">5号 - 大磊</span>
-                            <span class="player-chip">2号 - 阿杰</span>
-                        </div>
-                    </div>
-                    <div class="squad-group">
-                        <h4>守门员</h4>
-                        <div class="player-chips">
-                            <span class="player-chip">1号 - 阿晨</span>
-                            <span class="player-chip">22号 - 小涛</span>
-                        </div>
+                <!-- 教练团队照片 -->
+                <div id="coaches-team" class="team-gallery">
+                    <h3 style="margin: 20px 0; color: var(--accent-blue);">教练团队</h3>
+                    <div class="coach-gallery" id="coachesGallery">
                     </div>
                 </div>
 

@@ -13,14 +13,90 @@ const defaultData = {
         { id: 7, name: '外国语学院', slogan: '外语外语，世界之窗', icon: '⚫', champions: 0, members: 18 },
         { id: 8, name: '生物医药学院', slogan: '生医生医，健康第一', icon: '⚪', champions: 0, members: 20 }
     ],
-    ranking: [
-        { team: '经济管理学院', played: 5, win: 4, draw: 1, loss: 0, points: 13 },
-        { team: '计算机学院', played: 5, win: 3, draw: 2, loss: 0, points: 11 },
-        { team: '机械工程学院', played: 5, win: 3, draw: 0, loss: 2, points: 9 },
-        { team: '电气工程学院', played: 5, win: 2, draw: 1, loss: 2, points: 7 },
-        { team: '土木工程学院', played: 5, win: 1, draw: 0, loss: 4, points: 3 },
-        { team: '艺术设计学院', played: 5, win: 0, draw: 0, loss: 5, points: 0 }
-    ],
+    cupYears: ['2025', '2024', '2023'],
+    currentCupYear: '2025',
+    cupData: {
+        '2025': {
+            ranking: [
+                { team: '经济管理学院', played: 7, win: 6, draw: 1, loss: 0, points: 19 },
+                { team: '计算机学院', played: 7, win: 5, draw: 2, loss: 0, points: 17 },
+                { team: '机械工程学院', played: 7, win: 5, draw: 0, loss: 2, points: 15 },
+                { team: '电气工程学院', played: 7, win: 4, draw: 1, loss: 2, points: 13 },
+                { team: '土木工程学院', played: 7, win: 2, draw: 1, loss: 4, points: 7 },
+                { team: '艺术设计学院', played: 7, win: 2, draw: 0, loss: 5, points: 6 },
+                { team: '外国语学院', played: 7, win: 1, draw: 1, loss: 5, points: 4 },
+                { team: '生物医药学院', played: 7, win: 0, draw: 2, loss: 5, points: 2 }
+            ],
+            goals: [
+                { name: '阿龙', team: '计算机学院', number: '9', goals: 12 },
+                { name: '小杰', team: '经济管理学院', number: '11', goals: 10 },
+                { name: '大伟', team: '机械工程学院', number: '10', goals: 8 },
+                { name: '阿强', team: '电气工程学院', number: '7', goals: 7 },
+                { name: '小飞', team: '经济管理学院', number: '9', goals: 6 }
+            ],
+            assists: [
+                { name: '阿辉', team: '计算机学院', number: '8', assists: 9 },
+                { name: '阿文', team: '经济管理学院', number: '10', assists: 8 },
+                { name: '小宇', team: '机械工程学院', number: '14', assists: 6 },
+                { name: '阿凯', team: '电气工程学院', number: '16', assists: 5 }
+            ],
+            awards: {
+                golden: { name: '阿龙', team: '计算机学院', photo: '' },
+                rookie: { name: '小杰', team: '经济管理学院', photo: '' },
+                glove: { name: '阿晨', team: '经济管理学院', photo: '' }
+            }
+        },
+        '2024': {
+            ranking: [
+                { team: '计算机学院', played: 7, win: 6, draw: 1, loss: 0, points: 19 },
+                { team: '机械工程学院', played: 7, win: 5, draw: 1, loss: 1, points: 16 },
+                { team: '经济管理学院', played: 7, win: 4, draw: 2, loss: 1, points: 14 },
+                { team: '电气工程学院', played: 7, win: 4, draw: 0, loss: 3, points: 12 },
+                { team: '土木工程学院', played: 7, win: 3, draw: 1, loss: 3, points: 10 },
+                { team: '艺术设计学院', played: 7, win: 2, draw: 1, loss: 4, points: 7 },
+                { team: '外国语学院', played: 7, win: 1, draw: 0, loss: 6, points: 3 },
+                { team: '生物医药学院', played: 7, win: 0, draw: 2, loss: 5, points: 2 }
+            ],
+            goals: [
+                { name: '大伟', team: '机械工程学院', number: '10', goals: 11 },
+                { name: '阿龙', team: '计算机学院', number: '9', goals: 9 },
+                { name: '小飞', team: '经济管理学院', number: '9', goals: 8 }
+            ],
+            assists: [
+                { name: '阿辉', team: '计算机学院', number: '8', assists: 10 },
+                { name: '阿文', team: '经济管理学院', number: '10', assists: 7 }
+            ],
+            awards: {
+                golden: { name: '大伟', team: '机械工程学院', photo: '' },
+                rookie: { name: '小杰', team: '经济管理学院', photo: '' },
+                glove: { name: '阿峰', team: '计算机学院', photo: '' }
+            }
+        },
+        '2023': {
+            ranking: [
+                { team: '机械工程学院', played: 7, win: 6, draw: 0, loss: 1, points: 18 },
+                { team: '经济管理学院', played: 7, win: 5, draw: 1, loss: 1, points: 16 },
+                { team: '计算机学院', played: 7, win: 4, draw: 2, loss: 1, points: 14 },
+                { team: '电气工程学院', played: 7, win: 3, draw: 1, loss: 3, points: 10 },
+                { team: '土木工程学院', played: 7, win: 3, draw: 0, loss: 4, points: 9 },
+                { team: '艺术设计学院', played: 7, win: 2, draw: 1, loss: 4, points: 7 },
+                { team: '生物医药学院', played: 7, win: 1, draw: 1, loss: 5, points: 4 },
+                { team: '外国语学院', played: 7, win: 0, draw: 2, loss: 5, points: 2 }
+            ],
+            goals: [
+                { name: '大伟', team: '机械工程学院', number: '10', goals: 13 },
+                { name: '小飞', team: '经济管理学院', number: '9', goals: 9 }
+            ],
+            assists: [
+                { name: '阿凯', team: '电气工程学院', number: '16', assists: 8 }
+            ],
+            awards: {
+                golden: { name: '大伟', team: '机械工程学院', photo: '' },
+                rookie: { name: '阿龙', team: '计算机学院', photo: '' },
+                glove: { name: '阿涛', team: '机械工程学院', photo: '' }
+            }
+        }
+    },
     schoolTeam: {
         name: '深鸡蛋大学校足球队',
         year: '成立于2018年',
@@ -29,32 +105,25 @@ const defaultData = {
         honors: '🥇 市高校联赛冠军 x2\n🥈 省高校联赛季军 x1\n🏅 最佳组织奖 x3'
     },
     coaches: [
-        { id: 1, name: '陈指导', title: '主教练', desc: '前职业球员，拥有亚足联A级教练证书，执教经验丰富' },
-        { id: 2, name: '林指导', title: '助理教练', desc: '体育学院足球专业毕业，专注青训和体能训练' }
+        { id: 1, name: '陈指导', title: '主教练', desc: '前职业球员，拥有亚足联A级教练证书，执教经验丰富', photo: '' },
+        { id: 2, name: '林指导', title: '助理教练', desc: '体育学院足球专业毕业，专注青训和体能训练', photo: '' },
+        { id: 3, name: '王指导', title: '守门员教练', desc: '前职业门将，擅长守门员技术训练', photo: '' },
+        { id: 4, name: '赵指导', title: '体能教练', desc: '运动康复专业，负责球队体能训练和康复', photo: '' }
     ],
-    squad: {
-        forwards: [
-            { number: '7', name: '小飞' },
-            { number: '9', name: '阿龙' },
-            { number: '11', name: '小杰' }
-        ],
-        midfielders: [
-            { number: '8', name: '队长 阿辉' },
-            { number: '10', name: '阿文' },
-            { number: '14', name: '小宇' },
-            { number: '16', name: '阿凯' }
-        ],
-        defenders: [
-            { number: '3', name: '阿强' },
-            { number: '4', name: '小峰' },
-            { number: '5', name: '大磊' },
-            { number: '2', name: '阿杰' }
-        ],
-        goalkeepers: [
-            { number: '1', name: '阿晨' },
-            { number: '22', name: '小涛' }
-        ]
-    },
+    menPlayers: Array.from({ length: 30 }, (_, i) => ({
+        id: i + 1,
+        number: (i + 1).toString(),
+        name: '球员' + (i + 1),
+        position: i < 3 ? '前锋' : i < 10 ? '中场' : i < 20 ? '后卫' : '守门员',
+        photo: ''
+    })),
+    womenPlayers: Array.from({ length: 30 }, (_, i) => ({
+        id: i + 1,
+        number: (i + 1).toString(),
+        name: '女球员' + (i + 1),
+        position: i < 3 ? '前锋' : i < 10 ? '中场' : i < 20 ? '后卫' : '守门员',
+        photo: ''
+    })),
     activities: [
         { id: 1, name: '2025夏季足球联赛', desc: '八支球队参赛，单循环赛制，争夺联赛冠军奖杯', date: '6月15-30', month: '6月', location: '坪山公园足球场', status: 'ongoing', meta: '8支球队' },
         { id: 2, name: '足球裁判培训营', desc: '邀请国家级裁判授课，学习足球规则和裁判技巧', date: '7月10', month: '7月', location: '协会会议室', status: 'upcoming', meta: '限30人' },
@@ -64,10 +133,10 @@ const defaultData = {
         { id: 6, name: '三八节女足友谊赛', desc: '庆祝国际妇女节，女足姑娘们展现风采', date: '3月8', month: '3月', location: '坪山公园足球场', status: 'ended', meta: '20人参与' }
     ],
     referees: [
-        { id: 1, name: '张伟', level: '国家级裁判', desc: '执法经验10年，曾执法多场全国性赛事' },
-        { id: 2, name: '李明', level: '一级裁判', desc: '执法经验8年，擅长控制比赛节奏' },
-        { id: 3, name: '王强', level: '一级裁判', desc: '执法经验6年，判罚精准果断' },
-        { id: 4, name: '刘洋', level: '二级裁判', desc: '执法经验4年，年轻有为' }
+        { id: 1, name: '张伟', level: '国家级裁判', desc: '执法经验10年，曾执法多场全国性赛事', photo: '' },
+        { id: 2, name: '李明', level: '一级裁判', desc: '执法经验8年，擅长控制比赛节奏', photo: '' },
+        { id: 3, name: '王强', level: '一级裁判', desc: '执法经验6年，判罚精准果断', photo: '' },
+        { id: 4, name: '刘洋', level: '二级裁判', desc: '执法经验4年，年轻有为', photo: '' }
     ],
     refStats: {
         total: '12',
@@ -82,18 +151,63 @@ function initData() {
     const savedData = localStorage.getItem('footballAdminData');
     if (!savedData) {
         localStorage.setItem('footballAdminData', JSON.stringify(defaultData));
+    } else {
+        // 合并数据，确保新字段存在
+        try {
+            const data = JSON.parse(savedData);
+            const merged = mergeData(defaultData, data);
+            localStorage.setItem('footballAdminData', JSON.stringify(merged));
+        } catch (e) {
+            localStorage.setItem('footballAdminData', JSON.stringify(defaultData));
+        }
     }
+}
+
+// 深度合并数据，以默认值为基础，用已保存的数据覆盖
+function mergeData(defaultObj, savedObj) {
+    if (typeof savedObj !== 'object' || savedObj === null) {
+        return JSON.parse(JSON.stringify(defaultObj));
+    }
+    const result = {};
+    for (const key in defaultObj) {
+        if (Array.isArray(defaultObj[key])) {
+            result[key] = savedObj[key] !== undefined ? savedObj[key] : JSON.parse(JSON.stringify(defaultObj[key]));
+        } else if (typeof defaultObj[key] === 'object' && defaultObj[key] !== null) {
+            result[key] = mergeData(defaultObj[key], savedObj[key]);
+        } else {
+            result[key] = savedObj[key] !== undefined ? savedObj[key] : defaultObj[key];
+        }
+    }
+    return result;
 }
 
 // 获取数据
 function getData() {
     const data = localStorage.getItem('footballAdminData');
-    return data ? JSON.parse(data) : defaultData;
+    return data ? JSON.parse(data) : JSON.parse(JSON.stringify(defaultData));
 }
 
 // 保存数据
 function saveData(data) {
     localStorage.setItem('footballAdminData', JSON.stringify(data));
+}
+
+// ==================== 图片上传工具 ====================
+
+function handleImageUpload(input, callback) {
+    const file = input.files[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+        alert('图片大小不能超过5MB！');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        callback(e.target.result);
+    };
+    reader.readAsDataURL(file);
 }
 
 // ==================== 管理员登录 ====================
@@ -112,29 +226,34 @@ function loginAdmin(password) {
     if (password === data.adminPassword) {
         sessionStorage.setItem('adminLoggedIn', 'true');
         closeAdminLogin();
-        loadAdminPanel();
+        showAdminPage();
         return true;
     }
     return false;
 }
 
-// 检查登录状态
 function checkAdminLogin() {
     return sessionStorage.getItem('adminLoggedIn') === 'true';
 }
 
 function logoutAdmin() {
     sessionStorage.removeItem('adminLoggedIn');
-    document.getElementById('adminLoginModal').style.display = 'flex';
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const pages = document.querySelectorAll('.page');
+    navBtns.forEach(b => b.classList.remove('active'));
+    document.querySelector('[data-page="home"]').classList.add('active');
+    pages.forEach(page => page.classList.remove('active'));
+    document.getElementById('home').classList.add('active');
 }
 
-function loadAdminPanel() {
-    const adminBtn = document.getElementById('adminBtn');
-    if (checkAdminLogin()) {
-        adminBtn.style.display = 'flex';
-    } else {
-        adminBtn.style.display = 'none';
-    }
+function showAdminPage() {
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const pages = document.querySelectorAll('.page');
+    navBtns.forEach(b => b.classList.remove('active'));
+    pages.forEach(page => page.classList.remove('active'));
+    document.getElementById('admin').classList.add('active');
+    closeMobileMenu();
+    loadAdminTabs();
 }
 
 // ==================== 页面加载 ====================
@@ -142,23 +261,14 @@ function loadAdminPanel() {
 document.addEventListener('DOMContentLoaded', () => {
     initData();
 
-    // 初始化管理按钮显示状态
-    loadAdminPanel();
-
-    // 点击管理后台按钮
-    const adminBtn = document.getElementById('adminBtn');
-    if (adminBtn) {
-        adminBtn.addEventListener('click', () => {
+    // 管理入口按钮点击
+    const adminEntryBtn = document.getElementById('adminEntryBtn');
+    if (adminEntryBtn) {
+        adminEntryBtn.addEventListener('click', () => {
             if (!checkAdminLogin()) {
                 openAdminLogin();
             } else {
-                const navBtns = document.querySelectorAll('.nav-btn');
-                const pages = document.querySelectorAll('.page');
-                navBtns.forEach(b => b.classList.remove('active'));
-                adminBtn.classList.add('active');
-                pages.forEach(page => page.classList.remove('active'));
-                document.getElementById('admin').classList.add('active');
-                closeMobileMenu();
+                showAdminPage();
             }
         });
     }
@@ -170,12 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const password = document.getElementById('adminPassword').value;
             if (loginAdmin(password)) {
-                const navBtns = document.querySelectorAll('.nav-btn');
-                const pages = document.querySelectorAll('.page');
-                navBtns.forEach(b => b.classList.remove('active'));
-                adminBtn.classList.add('active');
-                pages.forEach(page => page.classList.remove('active'));
-                document.getElementById('admin').classList.add('active');
+                // 登录成功
             } else {
                 alert('密码错误，请重试！');
             }
@@ -194,49 +299,372 @@ document.addEventListener('DOMContentLoaded', () => {
                     panel.classList.remove('active');
                 });
                 document.getElementById('tab-' + targetTab).classList.add('active');
-                loadTabData(targetTab);
             });
         });
     }
 
-    // 初始化院队页面
-    loadTeamsList();
-    loadRanking();
-    loadSchoolTeam();
-    loadCoachesList();
-    loadSquadEditor();
-    loadActivitiesList();
-    loadRefereesList();
-    loadRefStats();
-
-    // 初始化表单提交
-    initFormHandlers();
+    // 初始化前台页面显示
+    initFrontendDisplay();
 });
 
-// ==================== 加载数据 ====================
+// ==================== 前台页面显示初始化 ====================
 
-function loadTabData(tab) {
-    switch(tab) {
-        case 'teams':
-            loadTeamsList();
-            break;
-        case 'ranking':
-            loadRanking();
-            break;
-        case 'schoolteam':
-            loadSchoolTeam();
-            loadCoachesList();
-            loadSquadEditor();
-            break;
-        case 'activities':
-            loadActivitiesList();
-            break;
-        case 'referee':
-            loadRefereesList();
-            loadRefStats();
-            break;
+function initFrontendDisplay() {
+    loadCollegeTeams();
+    loadRankingDisplay();
+    loadRefereeDisplay();
+    loadSchoolTeamDisplay();
+    loadActivitiesDisplay();
+}
+
+// ==================== 院队前台显示 ====================
+
+function loadCollegeTeams() {
+    const data = getData();
+    const grid = document.getElementById('collegeTeamsGrid');
+    if (!grid) return;
+
+    grid.innerHTML = data.teams.map(team => `
+        <div class="team-card">
+            <div class="team-logo">${team.icon}</div>
+            <h3>${team.name}</h3>
+            <p class="team-slogan">${team.slogan}</p>
+            <div class="team-info">
+                <span>🏆 ${team.champions}次冠军</span>
+                <span>👥 ${team.members}人</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ==================== 校长杯榜单切换 ====================
+
+let currentRankTab = 'ranking';
+
+function switchRankTab(tab) {
+    currentRankTab = tab;
+
+    document.querySelectorAll('.rank-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.rank-tab[data-rank="${tab}"]`).classList.add('active');
+
+    document.querySelectorAll('.rank-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('rank-' + tab).classList.add('active');
+}
+
+function changeCupYear(year) {
+    const data = getData();
+    data.currentCupYear = year;
+    saveData(data);
+    loadRankingDisplay();
+    document.getElementById('rankingTitle').textContent = year + '年校长杯积分榜';
+}
+
+function loadRankingDisplay() {
+    const data = getData();
+    const year = data.currentCupYear;
+    const cupData = data.cupData[year];
+    if (!cupData) return;
+
+    // 积分榜
+    const rankingBody = document.getElementById('rankingBodyDisplay');
+    if (rankingBody) {
+        const sorted = [...cupData.ranking].sort((a, b) => b.points - a.points);
+        rankingBody.innerHTML = sorted.map((item, index) => {
+            let rankClass = '';
+            if (index === 0) rankClass = 'rank-1';
+            else if (index === 1) rankClass = 'rank-2';
+            else if (index === 2) rankClass = 'rank-3';
+
+            return `
+                <tr>
+                    <td><span class="rank-badge ${rankClass}">${index + 1}</span></td>
+                    <td>${item.team}</td>
+                    <td>${item.played}</td>
+                    <td>${item.win}</td>
+                    <td>${item.draw}</td>
+                    <td>${item.loss}</td>
+                    <td><strong>${item.points}</strong></td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    // 进球榜
+    const goalsBody = document.getElementById('goalsBody');
+    if (goalsBody && cupData.goals) {
+        const sorted = [...cupData.goals].sort((a, b) => b.goals - a.goals);
+        goalsBody.innerHTML = sorted.map((item, index) => {
+            let rankClass = '';
+            if (index === 0) rankClass = 'rank-1';
+            else if (index === 1) rankClass = 'rank-2';
+            else if (index === 2) rankClass = 'rank-3';
+
+            return `
+                <tr>
+                    <td><span class="rank-badge ${rankClass}">${index + 1}</span></td>
+                    <td>${item.name}</td>
+                    <td>${item.team}</td>
+                    <td>${item.number}</td>
+                    <td><strong>${item.goals}</strong></td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    // 助攻榜
+    const assistsBody = document.getElementById('assistsBody');
+    if (assistsBody && cupData.assists) {
+        const sorted = [...cupData.assists].sort((a, b) => b.assists - a.assists);
+        assistsBody.innerHTML = sorted.map((item, index) => {
+            let rankClass = '';
+            if (index === 0) rankClass = 'rank-1';
+            else if (index === 1) rankClass = 'rank-2';
+            else if (index === 2) rankClass = 'rank-3';
+
+            return `
+                <tr>
+                    <td><span class="rank-badge ${rankClass}">${index + 1}</span></td>
+                    <td>${item.name}</td>
+                    <td>${item.team}</td>
+                    <td>${item.number}</td>
+                    <td><strong>${item.assists}</strong></td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    // 奖项
+    if (cupData.awards) {
+        // 金球奖
+        const golden = cupData.awards.golden;
+        const goldenEl = document.getElementById('goldenWinner');
+        if (goldenEl && golden) {
+            goldenEl.innerHTML = `
+                <div class="player-photo">${golden.photo ? `<img src="${golden.photo}" alt="${golden.name}">` : '📷'}</div>
+                <h4>${golden.name}</h4>
+                <p class="player-team">${golden.team}</p>
+            `;
+        }
+
+        // 最佳新秀
+        const rookie = cupData.awards.rookie;
+        const rookieEl = document.getElementById('rookieWinner');
+        if (rookieEl && rookie) {
+            rookieEl.innerHTML = `
+                <div class="player-photo">${rookie.photo ? `<img src="${rookie.photo}" alt="${rookie.name}">` : '📷'}</div>
+                <h4>${rookie.name}</h4>
+                <p class="player-team">${rookie.team}</p>
+            `;
+        }
+
+        // 金手套
+        const glove = cupData.awards.glove;
+        const gloveEl = document.getElementById('gloveWinner');
+        if (gloveEl && glove) {
+            gloveEl.innerHTML = `
+                <div class="player-photo">${glove.photo ? `<img src="${glove.photo}" alt="${glove.name}">` : '📷'}</div>
+                <h4>${glove.name}</h4>
+                <p class="player-team">${glove.team}</p>
+            `;
+        }
+    }
+
+    // 更新年度选择器
+    const yearSelect = document.getElementById('cupYearSelect');
+    if (yearSelect) {
+        yearSelect.value = year;
     }
 }
+
+function showCupHistory() {
+    const data = getData();
+    const historyList = document.getElementById('historyList');
+    if (historyList) {
+        historyList.innerHTML = data.cupYears.map(year => {
+            const cupData = data.cupData[year];
+            const champion = cupData && cupData.ranking ? [...cupData.ranking].sort((a, b) => b.points - a.points)[0] : null;
+            return `
+                <div class="history-item">
+                    <div>
+                        <h4>${year}年校长杯</h4>
+                        <p>冠军：${champion ? champion.team : '待定'}</p>
+                    </div>
+                    <button class="btn-edit" onclick="selectCupYear('${year}')">查看</button>
+                </div>
+            `;
+        }).join('');
+    }
+    document.getElementById('cupHistoryModal').style.display = 'flex';
+}
+
+function closeCupHistory() {
+    document.getElementById('cupHistoryModal').style.display = 'none';
+}
+
+function selectCupYear(year) {
+    closeCupHistory();
+    document.getElementById('cupYearSelect').value = year;
+    changeCupYear(year);
+}
+
+// ==================== 主裁前台显示 ====================
+
+function loadRefereeDisplay() {
+    const data = getData();
+    const grid = document.getElementById('refereeGridDisplay');
+    if (!grid) return;
+
+    // 更新统计数据
+    const statsContainer = document.querySelector('.referee-stats');
+    if (statsContainer) {
+        statsContainer.innerHTML = `
+            <div class="ref-stat">
+                <div class="ref-number">${data.refStats.total}</div>
+                <div class="ref-label">注册主裁</div>
+            </div>
+            <div class="ref-stat">
+                <div class="ref-number">${data.refStats.level1}</div>
+                <div class="ref-label">一级裁判</div>
+            </div>
+            <div class="ref-stat">
+                <div class="ref-number">${data.refStats.matches}</div>
+                <div class="ref-label">执法场次</div>
+            </div>
+            <div class="ref-stat">
+                <div class="ref-number">${data.refStats.rating}</div>
+                <div class="ref-label">好评率</div>
+            </div>
+        `;
+    }
+
+    // 更新裁判卡片
+    grid.innerHTML = data.referees.map(ref => `
+        <div class="referee-card">
+            <div class="ref-avatar">${ref.photo ? `<img src="${ref.photo}" alt="${ref.name}">` : '⚽'}</div>
+            <h4>${ref.name}</h4>
+            <p class="ref-level">${ref.level}</p>
+            <p class="ref-desc">${ref.desc}</p>
+        </div>
+    `).join('');
+}
+
+// ==================== 校队前台显示 ====================
+
+let currentSchoolTeam = 'men';
+
+function switchSchoolTeam(team) {
+    currentSchoolTeam = team;
+
+    document.querySelectorAll('.team-switch-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector(`.team-switch-btn[data-team="${team}"]`).classList.add('active');
+
+    document.querySelectorAll('.team-gallery').forEach(g => g.classList.remove('active'));
+    document.getElementById(team + '-team').classList.add('active');
+}
+
+function loadSchoolTeamDisplay() {
+    const data = getData();
+
+    // 校队头部
+    const hero = document.getElementById('schoolHeroDisplay');
+    if (hero) {
+        const honorsHtml = data.schoolTeam.honors.split('\n').filter(h => h.trim()).map(h => `<span>${h}</span>`).join('');
+        hero.innerHTML = `
+            <div class="school-badge">🏆</div>
+            <div class="school-info">
+                <h3>${data.schoolTeam.name}</h3>
+                <p>${data.schoolTeam.year}，现有队员${data.schoolTeam.members}，教练${data.schoolTeam.coaches}</p>
+                <div class="school-honors">${honorsHtml}</div>
+            </div>
+        `;
+    }
+
+    // 男子校队
+    const menGallery = document.getElementById('menPlayersGallery');
+    if (menGallery) {
+        menGallery.innerHTML = data.menPlayers.map(player => `
+            <div class="player-card">
+                <div class="player-card-photo">
+                    ${player.photo ? `<img src="${player.photo}" alt="${player.name}">` : '⚽'}
+                    <span class="player-card-number">${player.number}</span>
+                </div>
+                <div class="player-card-name">${player.name}</div>
+                <div class="player-card-pos">${player.position}</div>
+            </div>
+        `).join('');
+    }
+
+    // 女子校队
+    const womenGallery = document.getElementById('womenPlayersGallery');
+    if (womenGallery) {
+        womenGallery.innerHTML = data.womenPlayers.map(player => `
+            <div class="player-card">
+                <div class="player-card-photo">
+                    ${player.photo ? `<img src="${player.photo}" alt="${player.name}">` : '⚽'}
+                    <span class="player-card-number">${player.number}</span>
+                </div>
+                <div class="player-card-name">${player.name}</div>
+                <div class="player-card-pos">${player.position}</div>
+            </div>
+        `).join('');
+    }
+
+    // 教练团队
+    const coachesGallery = document.getElementById('coachesGallery');
+    if (coachesGallery) {
+        coachesGallery.innerHTML = data.coaches.map(coach => `
+            <div class="coach-card-photo">
+                <div class="coach-photo">${coach.photo ? `<img src="${coach.photo}" alt="${coach.name}">` : '👨‍🏫'}</div>
+                <h4>${coach.name}</h4>
+                <p class="coach-title">${coach.title}</p>
+                <p class="coach-desc">${coach.desc}</p>
+            </div>
+        `).join('');
+    }
+}
+
+// ==================== 活动前台显示 ====================
+
+function loadActivitiesDisplay() {
+    const data = getData();
+    const list = document.querySelector('.activity-list');
+    if (!list) return;
+
+    const statusMap = { upcoming: '即将开始', ongoing: '进行中', ended: '已结束' };
+
+    list.innerHTML = data.activities.map(activity => `
+        <div class="activity-item" data-status="${activity.status}">
+            <div class="activity-badge ${activity.status}">${statusMap[activity.status]}</div>
+            <div class="activity-date">
+                <span class="month">${activity.month}</span>
+                <span class="day">${activity.date}</span>
+            </div>
+            <div class="activity-content">
+                <h3>${activity.name}</h3>
+                <p>${activity.desc}</p>
+                <div class="activity-meta">
+                    <span>📍 ${activity.location}</span>
+                    ${activity.meta ? `<span>${activity.meta}</span>` : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ==================== 管理后台标签页 ====================
+
+function loadAdminTabs() {
+    loadTeamsList();
+    loadCupAdminPanel();
+    loadSchoolTeamAdmin();
+    loadCoachesAdmin();
+    loadPlayersAdmin('men');
+    loadActivitiesAdmin();
+    loadRefereesAdmin();
+    loadRefStatsAdmin();
+}
+
+// ==================== 院队管理 ====================
 
 function loadTeamsList() {
     const data = getData();
@@ -256,184 +684,6 @@ function loadTeamsList() {
         </div>
     `).join('');
 }
-
-function loadRanking() {
-    const data = getData();
-    const tbody = document.getElementById('rankingBody');
-    if (!tbody) return;
-
-    // 按积分排序
-    const sorted = [...data.ranking].sort((a, b) => b.points - a.points);
-
-    tbody.innerHTML = sorted.map((item, index) => `
-        <tr>
-            <td>${index + 1}</td>
-            <td>${item.team}</td>
-            <td><input type="number" value="${item.played}" data-field="played" data-team="${item.team}"></td>
-            <td><input type="number" value="${item.win}" data-field="win" data-team="${item.team}"></td>
-            <td><input type="number" value="${item.draw}" data-field="draw" data-team="${item.team}"></td>
-            <td><input type="number" value="${item.loss}" data-field="loss" data-team="${item.team}"></td>
-            <td><input type="number" value="${item.points}" data-field="points" data-team="${item.team}"></td>
-            <td><button class="btn-save" onclick="saveRankingRow('${item.team}')">保存</button></td>
-        </tr>
-    `).join('');
-
-    // 添加输入事件监听
-    tbody.querySelectorAll('input').forEach(input => {
-        input.addEventListener('change', () => {
-            const team = input.dataset.team;
-            const field = input.dataset.field;
-            updateRankingCell(team, field, input.value);
-        });
-    });
-}
-
-function loadSchoolTeam() {
-    const data = getData();
-    document.getElementById('schoolTeamName').value = data.schoolTeam.name;
-    document.getElementById('schoolTeamYear').value = data.schoolTeam.year;
-    document.getElementById('schoolTeamMembers').value = data.schoolTeam.members;
-    document.getElementById('schoolTeamCoaches').value = data.schoolTeam.coaches;
-    document.getElementById('schoolTeamHonors').value = data.schoolTeam.honors;
-}
-
-function loadCoachesList() {
-    const data = getData();
-    const container = document.getElementById('coachesList');
-    if (!container) return;
-
-    container.innerHTML = data.coaches.map(coach => `
-        <div class="data-item">
-            <div class="data-item-info">
-                <h4>${coach.name}</h4>
-                <p>${coach.title} | ${coach.desc}</p>
-            </div>
-            <div class="data-item-actions">
-                <button class="btn-edit" onclick="editCoach(${coach.id})">编辑</button>
-                <button class="btn-delete" onclick="deleteCoach(${coach.id})">删除</button>
-            </div>
-        </div>
-    `).join('');
-}
-
-function loadSquadEditor() {
-    const data = getData();
-    const container = document.getElementById('squadEditor');
-    if (!container) return;
-
-    const positions = [
-        { key: 'forwards', label: '前锋' },
-        { key: 'midfielders', label: '中场' },
-        { key: 'defenders', label: '后卫' },
-        { key: 'goalkeepers', label: '守门员' }
-    ];
-
-    container.innerHTML = positions.map(pos => `
-        <div class="squad-section-edit">
-            <h4>${pos.label}</h4>
-            <div class="squad-players-edit" id="squad-${pos.key}">
-                ${data.squad[pos.key].map((player, index) => `
-                    <div class="squad-player-item">
-                        <input type="text" value="${player.number}" placeholder="号码">
-                        <input type="text" value="${player.name}" placeholder="姓名">
-                        <button class="btn-remove" onclick="removeSquadPlayer('${pos.key}', ${index})">删除</button>
-                    </div>
-                `).join('')}
-            </div>
-            <button class="add-player-btn" onclick="addSquadPlayer('${pos.key}')">+ 添加球员</button>
-        </div>
-    `).join('') + '<button class="btn-save" onclick="saveSquad()">保存阵容</button>';
-}
-
-function loadActivitiesList() {
-    const data = getData();
-    const container = document.getElementById('activitiesList');
-    if (!container) return;
-
-    const statusMap = { upcoming: '即将开始', ongoing: '进行中', ended: '已结束' };
-
-    container.innerHTML = data.activities.map(activity => `
-        <div class="data-item">
-            <div class="data-item-info">
-                <h4>${activity.name}</h4>
-                <p>${activity.month} ${activity.date} | ${activity.location} | ${statusMap[activity.status]}</p>
-            </div>
-            <div class="data-item-actions">
-                <button class="btn-edit" onclick="editActivity(${activity.id})">编辑</button>
-                <button class="btn-delete" onclick="deleteActivity(${activity.id})">删除</button>
-            </div>
-        </div>
-    `).join('');
-}
-
-function loadRefereesList() {
-    const data = getData();
-    const container = document.getElementById('refereeList');
-    if (!container) return;
-
-    container.innerHTML = data.referees.map(ref => `
-        <div class="data-item">
-            <div class="data-item-info">
-                <h4>${ref.name}</h4>
-                <p>${ref.level} | ${ref.desc}</p>
-            </div>
-            <div class="data-item-actions">
-                <button class="btn-edit" onclick="editReferee(${ref.id})">编辑</button>
-                <button class="btn-delete" onclick="deleteReferee(${ref.id})">删除</button>
-            </div>
-        </div>
-    `).join('');
-}
-
-function loadRefStats() {
-    const data = getData();
-    document.getElementById('refTotal').value = data.refStats.total;
-    document.getElementById('refLevel1').value = data.refStats.level1;
-    document.getElementById('refMatches').value = data.refStats.matches;
-    document.getElementById('refRating').value = data.refStats.rating;
-}
-
-// ==================== 表单处理 ====================
-
-function initFormHandlers() {
-    // 院队表单
-    const teamForm = document.getElementById('teamForm');
-    if (teamForm) {
-        teamForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            saveTeam();
-        });
-    }
-
-    // 教练表单
-    const coachForm = document.getElementById('coachForm');
-    if (coachForm) {
-        coachForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            saveCoach();
-        });
-    }
-
-    // 活动表单
-    const activityForm = document.getElementById('activityForm');
-    if (activityForm) {
-        activityForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            saveActivity();
-        });
-    }
-
-    // 主裁表单
-    const refereeForm = document.getElementById('refereeForm');
-    if (refereeForm) {
-        refereeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            saveReferee();
-        });
-    }
-}
-
-// ==================== 院队管理 ====================
 
 function showAddTeamModal() {
     document.getElementById('teamModalTitle').textContent = '添加院队';
@@ -486,6 +736,7 @@ function saveTeam() {
     saveData(data);
     closeTeamModal();
     loadTeamsList();
+    loadCollegeTeams();
     alert('保存成功！');
 }
 
@@ -496,35 +747,413 @@ function deleteTeam(id) {
     data.teams = data.teams.filter(t => t.id !== id);
     saveData(data);
     loadTeamsList();
+    loadCollegeTeams();
     alert('删除成功！');
 }
 
-// ==================== 积分榜管理 ====================
+// ==================== 校长杯管理 ====================
 
-function updateRankingCell(team, field, value) {
-    // 实时更新显示
+let currentAdminCupYear = '2025';
+let currentCupSubTab = 'ranking';
+
+function loadCupAdminPanel() {
+    const data = getData();
+    const panel = document.getElementById('tab-ranking');
+    if (!panel) return;
+
+    // 年度标签
+    let tabsHtml = '<div class="cup-year-tabs">';
+    data.cupYears.forEach(year => {
+        tabsHtml += `<button class="cup-year-tab ${year === currentAdminCupYear ? 'active' : ''}" onclick="switchCupAdminYear('${year}')">${year}年</button>`;
+    });
+    tabsHtml += `<button class="add-year-btn" onclick="addCupYear()">+ 新增年度</button>`;
+    tabsHtml += '</div>';
+
+    // 子标签
+    tabsHtml += '<div class="sub-rank-tabs">';
+    const subTabs = [
+        { key: 'ranking', label: '积分榜' },
+        { key: 'goals', label: '进球榜' },
+        { key: 'assists', label: '助攻榜' },
+        { key: 'awards', label: '奖项设置' }
+    ];
+    subTabs.forEach(tab => {
+        tabsHtml += `<button class="sub-rank-tab ${tab.key === currentCupSubTab ? 'active' : ''}" onclick="switchCupSubTab('${tab.key}')">${tab.label}</button>`;
+    });
+    tabsHtml += '</div>';
+
+    // 内容区域
+    tabsHtml += '<div id="cupAdminContent"></div>';
+
+    // 替换积分榜管理面板内容
+    const oldHeader = panel.querySelector('.panel-header');
+    const oldTable = panel.querySelector('.ranking-edit-table');
+    if (oldHeader) oldHeader.remove();
+    if (oldTable) oldTable.remove();
+
+    panel.insertAdjacentHTML('afterbegin', tabsHtml);
+
+    loadCupAdminContent();
 }
 
-function saveRankingRow(teamName) {
+function switchCupAdminYear(year) {
+    currentAdminCupYear = year;
+    loadCupAdminPanel();
+}
+
+function switchCupSubTab(tab) {
+    currentCupSubTab = tab;
+    document.querySelectorAll('.sub-rank-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.sub-rank-tab[onclick="switchCupSubTab('${tab}')"]`).classList.add('active');
+    loadCupAdminContent();
+}
+
+function loadCupAdminContent() {
     const data = getData();
-    const row = data.ranking.find(r => r.team === teamName);
-    if (!row) return;
+    const cupData = data.cupData[currentAdminCupYear];
+    const content = document.getElementById('cupAdminContent');
+    if (!content || !cupData) return;
 
-    const rowElement = document.querySelector(`tr input[data-team="${teamName}"]`).closest('tr');
-    const inputs = rowElement.querySelectorAll('input');
+    if (currentCupSubTab === 'ranking') {
+        content.innerHTML = `
+            <div class="ranking-edit-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>球队</th>
+                            <th>场次</th>
+                            <th>胜</th>
+                            <th>平</th>
+                            <th>负</th>
+                            <th>积分</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${cupData.ranking.map((item, index) => `
+                            <tr>
+                                <td><input type="text" value="${item.team}" data-index="${index}" data-field="team" style="width: 120px;"></td>
+                                <td><input type="number" value="${item.played}" data-index="${index}" data-field="played"></td>
+                                <td><input type="number" value="${item.win}" data-index="${index}" data-field="win"></td>
+                                <td><input type="number" value="${item.draw}" data-index="${index}" data-field="draw"></td>
+                                <td><input type="number" value="${item.loss}" data-index="${index}" data-field="loss"></td>
+                                <td><input type="number" value="${item.points}" data-index="${index}" data-field="points"></td>
+                                <td><button class="btn-save" onclick="saveRankingRow(${index})">保存</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn-add" style="margin-top: 15px;" onclick="addRankingRow()">+ 添加球队</button>
+            <button class="btn-save" style="margin-top: 15px; margin-left: 10px;" onclick="saveAllRanking()">保存全部</button>
+        `;
+    } else if (currentCupSubTab === 'goals') {
+        content.innerHTML = `
+            <div class="ranking-edit-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>球员</th>
+                            <th>球队</th>
+                            <th>号码</th>
+                            <th>进球数</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${cupData.goals.map((item, index) => `
+                            <tr>
+                                <td><input type="text" value="${item.name}" data-index="${index}" data-field="name" style="width: 100px;"></td>
+                                <td><input type="text" value="${item.team}" data-index="${index}" data-field="team" style="width: 120px;"></td>
+                                <td><input type="text" value="${item.number}" data-index="${index}" data-field="number" style="width: 60px;"></td>
+                                <td><input type="number" value="${item.goals}" data-index="${index}" data-field="goals"></td>
+                                <td>
+                                    <button class="btn-edit" onclick="saveGoalsRow(${index})">保存</button>
+                                    <button class="btn-delete" onclick="deleteGoalsRow(${index})">删除</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn-add" style="margin-top: 15px;" onclick="addGoalsRow()">+ 添加球员</button>
+        `;
+    } else if (currentCupSubTab === 'assists') {
+        content.innerHTML = `
+            <div class="ranking-edit-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>球员</th>
+                            <th>球队</th>
+                            <th>号码</th>
+                            <th>助攻数</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${cupData.assists.map((item, index) => `
+                            <tr>
+                                <td><input type="text" value="${item.name}" data-index="${index}" data-field="name" style="width: 100px;"></td>
+                                <td><input type="text" value="${item.team}" data-index="${index}" data-field="team" style="width: 120px;"></td>
+                                <td><input type="text" value="${item.number}" data-index="${index}" data-field="number" style="width: 60px;"></td>
+                                <td><input type="number" value="${item.assists}" data-index="${index}" data-field="assists"></td>
+                                <td>
+                                    <button class="btn-edit" onclick="saveAssistsRow(${index})">保存</button>
+                                    <button class="btn-delete" onclick="deleteAssistsRow(${index})">删除</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn-add" style="margin-top: 15px;" onclick="addAssistsRow()">+ 添加球员</button>
+        `;
+    } else if (currentCupSubTab === 'awards') {
+        const awards = cupData.awards;
+        content.innerHTML = `
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>金球奖 - 姓名</label>
+                    <input type="text" id="award-golden-name" value="${awards.golden.name}">
+                </div>
+                <div class="form-group">
+                    <label>金球奖 - 球队</label>
+                    <input type="text" id="award-golden-team" value="${awards.golden.team}">
+                </div>
+                <div class="form-group">
+                    <label>金球奖 - 照片</label>
+                    <input type="file" accept="image/*" onchange="handleAwardPhotoUpload(this, 'golden')">
+                </div>
+                <div class="form-group">
+                    <label>最佳新秀 - 姓名</label>
+                    <input type="text" id="award-rookie-name" value="${awards.rookie.name}">
+                </div>
+                <div class="form-group">
+                    <label>最佳新秀 - 球队</label>
+                    <input type="text" id="award-rookie-team" value="${awards.rookie.team}">
+                </div>
+                <div class="form-group">
+                    <label>最佳新秀 - 照片</label>
+                    <input type="file" accept="image/*" onchange="handleAwardPhotoUpload(this, 'rookie')">
+                </div>
+                <div class="form-group">
+                    <label>金手套奖 - 姓名</label>
+                    <input type="text" id="award-glove-name" value="${awards.glove.name}">
+                </div>
+                <div class="form-group">
+                    <label>金手套奖 - 球队</label>
+                    <input type="text" id="award-glove-team" value="${awards.glove.team}">
+                </div>
+                <div class="form-group">
+                    <label>金手套奖 - 照片</label>
+                    <input type="file" accept="image/*" onchange="handleAwardPhotoUpload(this, 'glove')">
+                </div>
+            </div>
+            <button class="btn-save" onclick="saveAwards()">保存奖项设置</button>
+        `;
+    }
+}
 
-    row.played = parseInt(inputs[0].value) || 0;
-    row.win = parseInt(inputs[1].value) || 0;
-    row.draw = parseInt(inputs[2].value) || 0;
-    row.loss = parseInt(inputs[3].value) || 0;
-    row.points = parseInt(inputs[4].value) || 0;
-
+function saveRankingRow(index) {
+    const data = getData();
+    const inputs = document.querySelectorAll(`input[data-index="${index}"]`);
+    const row = {};
+    inputs.forEach(input => {
+        const field = input.dataset.field;
+        row[field] = field === 'team' ? input.value : parseInt(input.value) || 0;
+    });
+    data.cupData[currentAdminCupYear].ranking[index] = row;
     saveData(data);
-    loadRanking();
+    loadRankingDisplay();
     alert('保存成功！');
 }
 
+function addRankingRow() {
+    const data = getData();
+    data.cupData[currentAdminCupYear].ranking.push({
+        team: '新球队',
+        played: 0,
+        win: 0,
+        draw: 0,
+        loss: 0,
+        points: 0
+    });
+    saveData(data);
+    loadCupAdminContent();
+    loadRankingDisplay();
+}
+
+function saveAllRanking() {
+    const data = getData();
+    const rows = data.cupData[currentAdminCupYear].ranking.length;
+    for (let i = 0; i < rows; i++) {
+        const inputs = document.querySelectorAll(`input[data-index="${i}"]`);
+        inputs.forEach(input => {
+            const field = input.dataset.field;
+            data.cupData[currentAdminCupYear].ranking[i][field] = field === 'team' ? input.value : parseInt(input.value) || 0;
+        });
+    }
+    saveData(data);
+    loadRankingDisplay();
+    alert('全部保存成功！');
+}
+
+function saveGoalsRow(index) {
+    const data = getData();
+    const inputs = document.querySelectorAll(`input[data-index="${index}"]`);
+    inputs.forEach(input => {
+        const field = input.dataset.field;
+        data.cupData[currentAdminCupYear].goals[index][field] = field === 'goals' ? parseInt(input.value) || 0 : input.value;
+    });
+    saveData(data);
+    loadRankingDisplay();
+    alert('保存成功！');
+}
+
+function deleteGoalsRow(index) {
+    if (!confirm('确定删除？')) return;
+    const data = getData();
+    data.cupData[currentAdminCupYear].goals.splice(index, 1);
+    saveData(data);
+    loadCupAdminContent();
+    loadRankingDisplay();
+}
+
+function addGoalsRow() {
+    const data = getData();
+    data.cupData[currentAdminCupYear].goals.push({ name: '新球员', team: '', number: '', goals: 0 });
+    saveData(data);
+    loadCupAdminContent();
+}
+
+function saveAssistsRow(index) {
+    const data = getData();
+    const inputs = document.querySelectorAll(`input[data-index="${index}"]`);
+    inputs.forEach(input => {
+        const field = input.dataset.field;
+        data.cupData[currentAdminCupYear].assists[index][field] = field === 'assists' ? parseInt(input.value) || 0 : input.value;
+    });
+    saveData(data);
+    loadRankingDisplay();
+    alert('保存成功！');
+}
+
+function deleteAssistsRow(index) {
+    if (!confirm('确定删除？')) return;
+    const data = getData();
+    data.cupData[currentAdminCupYear].assists.splice(index, 1);
+    saveData(data);
+    loadCupAdminContent();
+    loadRankingDisplay();
+}
+
+function addAssistsRow() {
+    const data = getData();
+    data.cupData[currentAdminCupYear].assists.push({ name: '新球员', team: '', number: '', assists: 0 });
+    saveData(data);
+    loadCupAdminContent();
+}
+
+function handleAwardPhotoUpload(input, awardType) {
+    handleImageUpload(input, (photoData) => {
+        const data = getData();
+        data.cupData[currentAdminCupYear].awards[awardType].photo = photoData;
+        saveData(data);
+        loadRankingDisplay();
+        alert('照片上传成功！');
+    });
+}
+
+function saveAwards() {
+    const data = getData();
+    const awards = data.cupData[currentAdminCupYear].awards;
+
+    awards.golden.name = document.getElementById('award-golden-name').value;
+    awards.golden.team = document.getElementById('award-golden-team').value;
+    awards.rookie.name = document.getElementById('award-rookie-name').value;
+    awards.rookie.team = document.getElementById('award-rookie-team').value;
+    awards.glove.name = document.getElementById('award-glove-name').value;
+    awards.glove.team = document.getElementById('award-glove-team').value;
+
+    saveData(data);
+    loadRankingDisplay();
+    alert('保存成功！');
+}
+
+function addCupYear() {
+    const year = prompt('请输入年份（如：2026）：');
+    if (!year || !/^\d{4}$/.test(year)) {
+        alert('请输入有效的4位年份！');
+        return;
+    }
+
+    const data = getData();
+    if (data.cupYears.includes(year)) {
+        alert('该年度已存在！');
+        return;
+    }
+
+    data.cupYears.push(year);
+    data.cupYears.sort().reverse();
+
+    data.cupData[year] = {
+        ranking: data.teams.map(team => ({
+            team: team.name,
+            played: 0,
+            win: 0,
+            draw: 0,
+            loss: 0,
+            points: 0
+        })),
+        goals: [],
+        assists: [],
+        awards: {
+            golden: { name: '待定', team: '', photo: '' },
+            rookie: { name: '待定', team: '', photo: '' },
+            glove: { name: '待定', team: '', photo: '' }
+        }
+    };
+
+    saveData(data);
+    currentAdminCupYear = year;
+    loadCupAdminPanel();
+
+    // 更新前台年度选择器
+    const yearSelect = document.getElementById('cupYearSelect');
+    if (yearSelect) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year + '年校长杯';
+        yearSelect.appendChild(option);
+    }
+
+    alert('新增年度成功！');
+}
+
 // ==================== 校队管理 ====================
+
+function loadSchoolTeamAdmin() {
+    const data = getData();
+    const panel = document.getElementById('tab-schoolteam');
+    if (!panel) return;
+
+    // 更新基本信息表单
+    const nameInput = document.getElementById('schoolTeamName');
+    if (nameInput) nameInput.value = data.schoolTeam.name;
+
+    const yearInput = document.getElementById('schoolTeamYear');
+    if (yearInput) yearInput.value = data.schoolTeam.year;
+
+    const membersInput = document.getElementById('schoolTeamMembers');
+    if (membersInput) membersInput.value = data.schoolTeam.members;
+
+    const coachesInput = document.getElementById('schoolTeamCoaches');
+    if (coachesInput) coachesInput.value = data.schoolTeam.coaches;
+
+    const honorsInput = document.getElementById('schoolTeamHonors');
+    if (honorsInput) honorsInput.value = data.schoolTeam.honors;
+}
 
 function saveSchoolTeam() {
     const data = getData();
@@ -536,10 +1165,29 @@ function saveSchoolTeam() {
         honors: document.getElementById('schoolTeamHonors').value
     };
     saveData(data);
+    loadSchoolTeamDisplay();
     alert('保存成功！');
 }
 
-// ==================== 教练管理 ====================
+// 教练管理
+function loadCoachesAdmin() {
+    const data = getData();
+    const container = document.getElementById('coachesList');
+    if (!container) return;
+
+    container.innerHTML = data.coaches.map(coach => `
+        <div class="data-item">
+            <div class="data-item-info">
+                <h4>${coach.name} - ${coach.title}</h4>
+                <p>${coach.desc}</p>
+            </div>
+            <div class="data-item-actions">
+                <button class="btn-edit" onclick="editCoach(${coach.id})">编辑</button>
+                <button class="btn-delete" onclick="deleteCoach(${coach.id})">删除</button>
+            </div>
+        </div>
+    `).join('');
+}
 
 function showAddCoachModal() {
     document.getElementById('coachModalTitle').textContent = '添加教练';
@@ -573,12 +1221,14 @@ function saveCoach() {
         id: id ? parseInt(id) : Date.now(),
         name: document.getElementById('coachName').value,
         title: document.getElementById('coachTitle').value,
-        desc: document.getElementById('coachDesc').value
+        desc: document.getElementById('coachDesc').value,
+        photo: id ? (data.coaches.find(c => c.id === parseInt(id))?.photo || '') : ''
     };
 
     if (id) {
         const index = data.coaches.findIndex(c => c.id === parseInt(id));
         if (index !== -1) {
+            coach.photo = data.coaches[index].photo;
             data.coaches[index] = coach;
         }
     } else {
@@ -587,7 +1237,8 @@ function saveCoach() {
 
     saveData(data);
     closeCoachModal();
-    loadCoachesList();
+    loadCoachesAdmin();
+    loadSchoolTeamDisplay();
     alert('保存成功！');
 }
 
@@ -597,49 +1248,146 @@ function deleteCoach(id) {
     const data = getData();
     data.coaches = data.coaches.filter(c => c.id !== id);
     saveData(data);
-    loadCoachesList();
+    loadCoachesAdmin();
+    loadSchoolTeamDisplay();
     alert('删除成功！');
 }
 
-// ==================== 阵容管理 ====================
+// 球员管理
+let currentPlayersTeam = 'men';
 
-function addSquadPlayer(position) {
+function loadPlayersAdmin(team) {
+    currentPlayersTeam = team;
     const data = getData();
-    data.squad[position].push({ number: '', name: '' });
-    saveData(data);
-    loadSquadEditor();
+    const squadEditor = document.getElementById('squadEditor');
+    if (!squadEditor) return;
+
+    const players = team === 'men' ? data.menPlayers : data.womenPlayers;
+    const teamName = team === 'men' ? '男子校队' : '女子校队';
+
+    squadEditor.innerHTML = `
+        <div class="sub-rank-tabs">
+            <button class="sub-rank-tab ${team === 'men' ? 'active' : ''}" onclick="loadPlayersAdmin('men')">男子校队</button>
+            <button class="sub-rank-tab ${team === 'women' ? 'active' : ''}" onclick="loadPlayersAdmin('women')">女子校队</button>
+        </div>
+        <h4 style="margin-bottom: 15px;">${teamName}（共${players.length}名球员）</h4>
+        <div style="max-height: 400px; overflow-y: auto;">
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>号码</th>
+                        <th>姓名</th>
+                        <th>位置</th>
+                        <th>照片</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${players.map((player, index) => `
+                        <tr>
+                            <td><input type="text" value="${player.number}" data-index="${index}" data-field="number" style="width: 60px;"></td>
+                            <td><input type="text" value="${player.name}" data-index="${index}" data-field="name" style="width: 100px;"></td>
+                            <td>
+                                <select data-index="${index}" data-field="position" style="width: 100px;">
+                                    <option value="前锋" ${player.position === '前锋' ? 'selected' : ''}>前锋</option>
+                                    <option value="中场" ${player.position === '中场' ? 'selected' : ''}>中场</option>
+                                    <option value="后卫" ${player.position === '后卫' ? 'selected' : ''}>后卫</option>
+                                    <option value="守门员" ${player.position === '守门员' ? 'selected' : ''}>守门员</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="file" accept="image/*" onchange="handlePlayerPhotoUpload(this, ${index}, '${team}')" style="width: 120px; font-size: 12px;">
+                            </td>
+                            <td>
+                                <button class="btn-edit" onclick="savePlayer(${index}, '${team}')">保存</button>
+                                <button class="btn-delete" onclick="deletePlayer(${index}, '${team}')">删除</button>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+        <button class="btn-add" style="margin-top: 15px;" onclick="addPlayer('${team}')">+ 添加球员</button>
+    `;
 }
 
-function removeSquadPlayer(position, index) {
-    const data = getData();
-    data.squad[position].splice(index, 1);
-    saveData(data);
-    loadSquadEditor();
+function handlePlayerPhotoUpload(input, index, team) {
+    handleImageUpload(input, (photoData) => {
+        const data = getData();
+        const players = team === 'men' ? data.menPlayers : data.womenPlayers;
+        players[index].photo = photoData;
+        saveData(data);
+        loadSchoolTeamDisplay();
+        alert('照片上传成功！');
+    });
 }
 
-function saveSquad() {
+function savePlayer(index, team) {
     const data = getData();
-    const positions = ['forwards', 'midfielders', 'defenders', 'goalkeepers'];
+    const players = team === 'men' ? data.menPlayers : data.womenPlayers;
+    const row = document.querySelectorAll(`tr input[data-index="${index}"], tr select[data-index="${index}"]`);
 
-    positions.forEach(pos => {
-        const container = document.getElementById('squad-' + pos);
-        if (container) {
-            const items = container.querySelectorAll('.squad-player-item');
-            data.squad[pos] = Array.from(items).map(item => {
-                const inputs = item.querySelectorAll('input');
-                return {
-                    number: inputs[0].value,
-                    name: inputs[1].value
-                };
-            }).filter(p => p.number || p.name);
-        }
+    row.forEach(el => {
+        const field = el.dataset.field;
+        players[index][field] = el.value;
     });
 
     saveData(data);
+    loadSchoolTeamDisplay();
     alert('保存成功！');
 }
 
+function deletePlayer(index, team) {
+    if (!confirm('确定删除该球员？')) return;
+
+    const data = getData();
+    const players = team === 'men' ? data.menPlayers : data.womenPlayers;
+    players.splice(index, 1);
+    saveData(data);
+    loadPlayersAdmin(team);
+    loadSchoolTeamDisplay();
+    alert('删除成功！');
+}
+
+function addPlayer(team) {
+    const data = getData();
+    const players = team === 'men' ? data.menPlayers : data.womenPlayers;
+
+    players.push({
+        id: Date.now(),
+        number: (players.length + 1).toString(),
+        name: '新球员',
+        position: '前锋',
+        photo: ''
+    });
+
+    saveData(data);
+    loadPlayersAdmin(team);
+    loadSchoolTeamDisplay();
+}
+
 // ==================== 活动管理 ====================
+
+function loadActivitiesAdmin() {
+    const data = getData();
+    const container = document.getElementById('activitiesList');
+    if (!container) return;
+
+    const statusMap = { upcoming: '即将开始', ongoing: '进行中', ended: '已结束' };
+
+    container.innerHTML = data.activities.map(activity => `
+        <div class="data-item">
+            <div class="data-item-info">
+                <h4>${activity.name}</h4>
+                <p>${activity.month} ${activity.date} | ${activity.location} | ${statusMap[activity.status]}</p>
+            </div>
+            <div class="data-item-actions">
+                <button class="btn-edit" onclick="editActivity(${activity.id})">编辑</button>
+                <button class="btn-delete" onclick="deleteActivity(${activity.id})">删除</button>
+            </div>
+        </div>
+    `).join('');
+}
 
 function showAddActivityModal() {
     document.getElementById('activityModalTitle').textContent = '添加活动';
@@ -695,7 +1443,8 @@ function saveActivity() {
 
     saveData(data);
     closeActivityModal();
-    loadActivitiesList();
+    loadActivitiesAdmin();
+    loadActivitiesDisplay();
     alert('保存成功！');
 }
 
@@ -705,11 +1454,31 @@ function deleteActivity(id) {
     const data = getData();
     data.activities = data.activities.filter(a => a.id !== id);
     saveData(data);
-    loadActivitiesList();
+    loadActivitiesAdmin();
+    loadActivitiesDisplay();
     alert('删除成功！');
 }
 
 // ==================== 主裁管理 ====================
+
+function loadRefereesAdmin() {
+    const data = getData();
+    const container = document.getElementById('refereeList');
+    if (!container) return;
+
+    container.innerHTML = data.referees.map(ref => `
+        <div class="data-item">
+            <div class="data-item-info">
+                <h4>${ref.name} - ${ref.level}</h4>
+                <p>${ref.desc}</p>
+            </div>
+            <div class="data-item-actions">
+                <button class="btn-edit" onclick="editReferee(${ref.id})">编辑</button>
+                <button class="btn-delete" onclick="deleteReferee(${ref.id})">删除</button>
+            </div>
+        </div>
+    `).join('');
+}
 
 function showAddRefereeModal() {
     document.getElementById('refereeModalTitle').textContent = '添加主裁';
@@ -743,12 +1512,14 @@ function saveReferee() {
         id: id ? parseInt(id) : Date.now(),
         name: document.getElementById('refereeName').value,
         level: document.getElementById('refereeLevel').value,
-        desc: document.getElementById('refereeDesc').value
+        desc: document.getElementById('refereeDesc').value,
+        photo: id ? (data.referees.find(r => r.id === parseInt(id))?.photo || '') : ''
     };
 
     if (id) {
         const index = data.referees.findIndex(r => r.id === parseInt(id));
         if (index !== -1) {
+            referee.photo = data.referees[index].photo;
             data.referees[index] = referee;
         }
     } else {
@@ -757,7 +1528,8 @@ function saveReferee() {
 
     saveData(data);
     closeRefereeModal();
-    loadRefereesList();
+    loadRefereesAdmin();
+    loadRefereeDisplay();
     alert('保存成功！');
 }
 
@@ -767,8 +1539,17 @@ function deleteReferee(id) {
     const data = getData();
     data.referees = data.referees.filter(r => r.id !== id);
     saveData(data);
-    loadRefereesList();
+    loadRefereesAdmin();
+    loadRefereeDisplay();
     alert('删除成功！');
+}
+
+function loadRefStatsAdmin() {
+    const data = getData();
+    document.getElementById('refTotal').value = data.refStats.total;
+    document.getElementById('refLevel1').value = data.refStats.level1;
+    document.getElementById('refMatches').value = data.refStats.matches;
+    document.getElementById('refRating').value = data.refStats.rating;
 }
 
 function saveRefStats() {
@@ -780,6 +1561,7 @@ function saveRefStats() {
         rating: document.getElementById('refRating').value
     };
     saveData(data);
+    loadRefereeDisplay();
     alert('保存成功！');
 }
 
@@ -816,221 +1598,57 @@ function resetAllData() {
     localStorage.removeItem('footballAdminData');
     localStorage.setItem('footballAdminData', JSON.stringify(defaultData));
 
-    // 重新加载所有数据
-    loadTeamsList();
-    loadRanking();
-    loadSchoolTeam();
-    loadCoachesList();
-    loadSquadEditor();
-    loadActivitiesList();
-    loadRefereesList();
-    loadRefStats();
+    initFrontendDisplay();
+    loadAdminTabs();
 
     alert('数据已重置为默认值！');
 }
 
-// ==================== 页面显示更新 ====================
+// ==================== 初始化表单处理 ====================
 
-// 在页面切换时，更新院队页面显示
-function updateTeamsDisplay() {
-    const data = getData();
-    const teamCards = document.querySelectorAll('.team-card');
-    const rankingTable = document.querySelector('.ranking-table tbody');
-
-    // 更新院队卡片
-    teamCards.forEach((card, index) => {
-        if (data.teams[index]) {
-            const team = data.teams[index];
-            card.querySelector('.team-logo').textContent = team.icon;
-            card.querySelector('h3').textContent = team.name;
-            card.querySelector('.team-slogan').textContent = team.slogan;
-            card.querySelector('.team-info').innerHTML = `
-                <span>🏆 ${team.champions}次冠军</span>
-                <span>👥 ${team.members}人</span>
-            `;
-        }
-    });
-
-    // 更新积分榜
-    if (rankingTable) {
-        const sorted = [...data.ranking].sort((a, b) => b.points - a.points);
-        rankingTable.innerHTML = sorted.map((item, index) => {
-            let rankClass = '';
-            if (index === 0) rankClass = 'rank-1';
-            else if (index === 1) rankClass = 'rank-2';
-            else if (index === 2) rankClass = 'rank-3';
-
-            return `
-                <tr>
-                    <td><span class="rank-badge ${rankClass}">${index + 1}</span></td>
-                    <td>${item.team}</td>
-                    <td>${item.played}</td>
-                    <td>${item.win}</td>
-                    <td>${item.draw}</td>
-                    <td>${item.loss}</td>
-                    <td><strong>${item.points}</strong></td>
-                </tr>
-            `;
-        }).join('');
+document.addEventListener('DOMContentLoaded', () => {
+    // 院队表单
+    const teamForm = document.getElementById('teamForm');
+    if (teamForm) {
+        teamForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveTeam();
+        });
     }
-}
 
-// 更新校队显示
-function updateSchoolTeamDisplay() {
-    const data = getData();
-    const schoolHero = document.querySelector('.school-hero');
-
-    if (schoolHero) {
-        const honorsHtml = data.schoolTeam.honors.split('\n').filter(h => h.trim()).map(h => `<span>${h}</span>`).join('');
-        schoolHero.innerHTML = `
-            <div class="school-badge">🏆</div>
-            <div class="school-info">
-                <h3>${data.schoolTeam.name}</h3>
-                <p>${data.schoolTeam.year}，现有队员${data.schoolTeam.members}，教练${data.schoolTeam.coaches}</p>
-                <div class="school-honors">${honorsHtml}</div>
-            </div>
-        `;
+    // 教练表单
+    const coachForm = document.getElementById('coachForm');
+    if (coachForm) {
+        coachForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveCoach();
+        });
     }
-}
 
-// 更新校队教练显示
-function updateCoachesDisplay() {
-    const data = getData();
-    const coachGrid = document.querySelector('.coach-grid');
-
-    if (coachGrid) {
-        coachGrid.innerHTML = data.coaches.map(coach => `
-            <div class="coach-card">
-                <div class="coach-avatar">👨‍🏫</div>
-                <div>
-                    <h4>${coach.name}</h4>
-                    <p class="coach-title">${coach.title}</p>
-                    <p class="coach-desc">${coach.desc}</p>
-                </div>
-            </div>
-        `).join('');
+    // 活动表单
+    const activityForm = document.getElementById('activityForm');
+    if (activityForm) {
+        activityForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveActivity();
+        });
     }
-}
 
-// 更新校队阵容显示
-function updateSquadDisplay() {
-    const data = getData();
-    const squadSection = document.querySelector('.squad-section');
-
-    if (squadSection) {
-        const positions = [
-            { key: 'forwards', label: '前锋' },
-            { key: 'midfielders', label: '中场' },
-            { key: 'defenders', label: '后卫' },
-            { key: 'goalkeepers', label: '守门员' }
-        ];
-
-        squadSection.innerHTML = positions.map(pos => `
-            <div class="squad-group">
-                <h4>${pos.label}</h4>
-                <div class="player-chips">
-                    ${data.squad[pos.key].map(p => `<span class="player-chip">${p.number}号 - ${p.name}</span>`).join('')}
-                </div>
-            </div>
-        `).join('');
+    // 主裁表单
+    const refereeForm = document.getElementById('refereeForm');
+    if (refereeForm) {
+        refereeForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveReferee();
+        });
     }
-}
 
-// 更新主裁统计显示
-function updateRefStatsDisplay() {
-    const data = getData();
-    const refStats = document.querySelector('.referee-stats');
-
-    if (refStats) {
-        refStats.innerHTML = `
-            <div class="ref-stat">
-                <div class="ref-number">${data.refStats.total}</div>
-                <div class="ref-label">注册主裁</div>
-            </div>
-            <div class="ref-stat">
-                <div class="ref-number">${data.refStats.level1}</div>
-                <div class="ref-label">一级裁判</div>
-            </div>
-            <div class="ref-stat">
-                <div class="ref-number">${data.refStats.matches}</div>
-                <div class="ref-label">执法场次</div>
-            </div>
-            <div class="ref-stat">
-                <div class="ref-number">${data.refStats.rating}</div>
-                <div class="ref-label">好评率</div>
-            </div>
-        `;
-    }
-}
-
-// 更新主裁列表显示
-function updateRefereesDisplay() {
-    const data = getData();
-    const refereeGrid = document.querySelector('.referee-grid');
-
-    if (refereeGrid) {
-        refereeGrid.innerHTML = data.referees.map(ref => `
-            <div class="referee-card">
-                <div class="ref-avatar">⚽</div>
-                <h4>${ref.name}</h4>
-                <p class="ref-level">${ref.level}</p>
-                <p class="ref-desc">${ref.desc}</p>
-            </div>
-        `).join('');
-    }
-}
-
-// 更新活动列表显示
-function updateActivitiesDisplay() {
-    const data = getData();
-    const activityList = document.querySelector('.activity-list');
-
-    if (activityList) {
-        const statusMap = { upcoming: '即将开始', ongoing: '进行中', ended: '已结束' };
-        const statusClassMap = { upcoming: 'upcoming', ongoing: 'ongoing', ended: 'ended' };
-
-        activityList.innerHTML = data.activities.map(activity => `
-            <div class="activity-item" data-status="${activity.status}">
-                <div class="activity-badge ${statusClassMap[activity.status]}">${statusMap[activity.status]}</div>
-                <div class="activity-date">
-                    <span class="month">${activity.month}</span>
-                    <span class="day">${activity.date}</span>
-                </div>
-                <div class="activity-content">
-                    <h3>${activity.name}</h3>
-                    <p>${activity.desc}</p>
-                    <div class="activity-meta">
-                        <span>📍 ${activity.location}</span>
-                        ${activity.meta ? `<span>${activity.meta}</span>` : ''}
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-}
-
-// 更新所有显示
-function updateAllDisplays() {
-    updateTeamsDisplay();
-    updateSchoolTeamDisplay();
-    updateCoachesDisplay();
-    updateSquadDisplay();
-    updateRefStatsDisplay();
-    updateRefereesDisplay();
-    updateActivitiesDisplay();
-}
-
-// 监听页面可见性变化，更新显示
-document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible') {
-        updateAllDisplays();
-    }
-});
-
-// 导航时更新显示
-const originalNavClick = window.navBtnsClick;
-document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        setTimeout(updateAllDisplays, 100);
+    // 点击模态框外部关闭
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
     });
 });
