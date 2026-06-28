@@ -57,6 +57,10 @@
                 <span class="icon">📞</span>
                 <span class="text">联系我们</span>
             </button>
+            <button class="nav-btn" id="adminBtn" data-page="admin" style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px;">
+                <span class="icon">⚙️</span>
+                <span class="text">管理后台</span>
+            </button>
         </nav>
 
         <div class="sidebar-footer">
@@ -75,6 +79,21 @@
 
     <!-- 主内容区 -->
     <main class="main-content">
+        <!-- 管理员登录模态框 -->
+        <div id="adminLoginModal" class="modal">
+            <div class="modal-content admin-modal">
+                <h3>管理员登录</h3>
+                <form id="adminLoginForm">
+                    <input type="password" id="adminPassword" placeholder="请输入管理员密码" required>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn-cancel" onclick="closeAdminLogin()">取消</button>
+                        <button type="submit" class="btn-confirm">登录</button>
+                    </div>
+                </form>
+                <p class="login-tip">默认密码：admin123</p>
+            </div>
+        </div>
+
         <!-- 首页 -->
         <section id="home" class="page active">
             <!-- 图片轮播 -->
@@ -682,6 +701,319 @@
             </div>
         </section>
 
+        <!-- 管理后台 -->
+        <section id="admin" class="page">
+            <div class="content-box">
+                <div class="admin-header">
+                    <h2>管理后台</h2>
+                    <button class="btn-logout" onclick="logoutAdmin()">退出登录</button>
+                </div>
+
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="teams">院队管理</button>
+                    <button class="admin-tab" data-tab="ranking">积分榜管理</button>
+                    <button class="admin-tab" data-tab="schoolteam">校队管理</button>
+                    <button class="admin-tab" data-tab="activities">活动管理</button>
+                    <button class="admin-tab" data-tab="referee">主裁管理</button>
+                    <button class="admin-tab" data-tab="settings">系统设置</button>
+                </div>
+
+                <!-- 院队管理 -->
+                <div id="tab-teams" class="admin-panel active">
+                    <div class="panel-header">
+                        <h3>院队信息管理</h3>
+                        <button class="btn-add" onclick="showAddTeamModal()">+ 添加院队</button>
+                    </div>
+                    <div class="data-list" id="teamsList">
+                        <!-- 动态加载 -->
+                    </div>
+                </div>
+
+                <!-- 积分榜管理 -->
+                <div id="tab-ranking" class="admin-panel">
+                    <div class="panel-header">
+                        <h3>积分榜管理</h3>
+                    </div>
+                    <div class="ranking-edit-table">
+                        <table id="rankingEditTable">
+                            <thead>
+                                <tr>
+                                    <th>排名</th>
+                                    <th>球队</th>
+                                    <th>场次</th>
+                                    <th>胜</th>
+                                    <th>平</th>
+                                    <th>负</th>
+                                    <th>积分</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rankingBody">
+                                <!-- 动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 校队管理 -->
+                <div id="tab-schoolteam" class="admin-panel">
+                    <div class="panel-header">
+                        <h3>校队信息管理</h3>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>球队名称</label>
+                            <input type="text" id="schoolTeamName" value="深鸡蛋大学校足球队">
+                        </div>
+                        <div class="form-group">
+                            <label>成立时间</label>
+                            <input type="text" id="schoolTeamYear" value="成立于2018年">
+                        </div>
+                        <div class="form-group">
+                            <label>队员人数</label>
+                            <input type="text" id="schoolTeamMembers" value="30名">
+                        </div>
+                        <div class="form-group">
+                            <label>教练人数</label>
+                            <input type="text" id="schoolTeamCoaches" value="2名">
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>球队荣誉</label>
+                        <textarea id="schoolTeamHonors" rows="3" placeholder="每行一个荣誉，格式：🥇 市高校联赛冠军 x2"></textarea>
+                    </div>
+                    <button class="btn-save" onclick="saveSchoolTeam()">保存校队信息</button>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">教练团队</h3>
+                    <div class="data-list" id="coachesList">
+                        <!-- 动态加载 -->
+                    </div>
+                    <button class="btn-add" onclick="showAddCoachModal()">+ 添加教练</button>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">球队阵容</h3>
+                    <div id="squadEditor">
+                        <!-- 动态加载 -->
+                    </div>
+                </div>
+
+                <!-- 活动管理 -->
+                <div id="tab-activities" class="admin-panel">
+                    <div class="panel-header">
+                        <h3>活动管理</h3>
+                        <button class="btn-add" onclick="showAddActivityModal()">+ 添加活动</button>
+                    </div>
+                    <div class="data-list" id="activitiesList">
+                        <!-- 动态加载 -->
+                    </div>
+                </div>
+
+                <!-- 主裁管理 -->
+                <div id="tab-referee" class="admin-panel">
+                    <div class="panel-header">
+                        <h3>主裁管理</h3>
+                        <button class="btn-add" onclick="showAddRefereeModal()">+ 添加主裁</button>
+                    </div>
+                    <div class="ref-stats-edit">
+                        <div class="stat-edit">
+                            <label>注册主裁</label>
+                            <input type="number" id="refTotal" value="12">
+                        </div>
+                        <div class="stat-edit">
+                            <label>一级裁判</label>
+                            <input type="number" id="refLevel1" value="8">
+                        </div>
+                        <div class="stat-edit">
+                            <label>执法场次</label>
+                            <input type="text" id="refMatches" value="200+">
+                        </div>
+                        <div class="stat-edit">
+                            <label>好评率</label>
+                            <input type="text" id="refRating" value="98%">
+                        </div>
+                        <button class="btn-save" onclick="saveRefStats()">保存统计数据</button>
+                    </div>
+                    <div class="data-list" id="refereeList">
+                        <!-- 动态加载 -->
+                    </div>
+                </div>
+
+                <!-- 系统设置 -->
+                <div id="tab-settings" class="admin-panel">
+                    <div class="panel-header">
+                        <h3>系统设置</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>修改管理员密码</label>
+                        <input type="password" id="newAdminPwd" placeholder="请输入新密码">
+                    </div>
+                    <div class="form-group">
+                        <label>确认新密码</label>
+                        <input type="password" id="confirmAdminPwd" placeholder="请再次输入新密码">
+                    </div>
+                    <button class="btn-save" onclick="changeAdminPassword()">修改密码</button>
+
+                    <div class="danger-zone">
+                        <h4>危险操作</h4>
+                        <button class="btn-danger" onclick="resetAllData()">重置所有数据</button>
+                        <p class="danger-tip">警告：此操作将清除所有数据且不可恢复！</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 添加/编辑院队模态框 -->
+            <div id="teamModal" class="modal">
+                <div class="modal-content admin-modal">
+                    <h3 id="teamModalTitle">添加院队</h3>
+                    <form id="teamForm">
+                        <input type="hidden" id="teamId">
+                        <div class="form-group">
+                            <label>院队名称</label>
+                            <input type="text" id="teamName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>口号</label>
+                            <input type="text" id="teamSlogan">
+                        </div>
+                        <div class="form-group">
+                            <label>队徽图标</label>
+                            <select id="teamIcon">
+                                <option value="🔵">🔵 蓝色</option>
+                                <option value="🔴">🔴 红色</option>
+                                <option value="🟢">🟢 绿色</option>
+                                <option value="🟡">🟡 黄色</option>
+                                <option value="🟣">🟣 紫色</option>
+                                <option value="🟠">🟠 橙色</option>
+                                <option value="⚫">⚫ 黑色</option>
+                                <option value="⚪">⚪ 白色</option>
+                                <option value="🏀">🏀 篮球</option>
+                                <option value="🏐">🏐 排球</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>冠军次数</label>
+                            <input type="number" id="teamChampions" value="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>队员人数</label>
+                            <input type="number" id="teamMembers" value="25" min="1">
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn-cancel" onclick="closeTeamModal()">取消</button>
+                            <button type="submit" class="btn-confirm">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 添加教练模态框 -->
+            <div id="coachModal" class="modal">
+                <div class="modal-content admin-modal">
+                    <h3 id="coachModalTitle">添加教练</h3>
+                    <form id="coachForm">
+                        <input type="hidden" id="coachId">
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input type="text" id="coachName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>职位</label>
+                            <select id="coachTitle">
+                                <option value="主教练">主教练</option>
+                                <option value="助理教练">助理教练</option>
+                                <option value="体能教练">体能教练</option>
+                                <option value="守门员教练">守门员教练</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>简介</label>
+                            <textarea id="coachDesc" rows="3"></textarea>
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn-cancel" onclick="closeCoachModal()">取消</button>
+                            <button type="submit" class="btn-confirm">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 添加活动模态框 -->
+            <div id="activityModal" class="modal">
+                <div class="modal-content admin-modal">
+                    <h3 id="activityModalTitle">添加活动</h3>
+                    <form id="activityForm">
+                        <input type="hidden" id="activityId">
+                        <div class="form-group">
+                            <label>活动名称</label>
+                            <input type="text" id="activityName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>活动描述</label>
+                            <textarea id="activityDesc" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>活动日期</label>
+                            <input type="text" id="activityDate" placeholder="如：6月15-30 或 7月10">
+                        </div>
+                        <div class="form-group">
+                            <label>活动月份</label>
+                            <input type="text" id="activityMonth" placeholder="如：6月">
+                        </div>
+                        <div class="form-group">
+                            <label>活动地点</label>
+                            <input type="text" id="activityLocation" placeholder="如：坪山公园足球场">
+                        </div>
+                        <div class="form-group">
+                            <label>活动状态</label>
+                            <select id="activityStatus">
+                                <option value="upcoming">即将开始</option>
+                                <option value="ongoing">进行中</option>
+                                <option value="ended">已结束</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>额外信息</label>
+                            <input type="text" id="activityMeta" placeholder="如：8支球队 或 限30人">
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn-cancel" onclick="closeActivityModal()">取消</button>
+                            <button type="submit" class="btn-confirm">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 添加主裁模态框 -->
+            <div id="refereeModal" class="modal">
+                <div class="modal-content admin-modal">
+                    <h3 id="refereeModalTitle">添加主裁</h3>
+                    <form id="refereeForm">
+                        <input type="hidden" id="refereeId">
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input type="text" id="refereeName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>裁判等级</label>
+                            <select id="refereeLevel">
+                                <option value="国家级裁判">国家级裁判</option>
+                                <option value="一级裁判">一级裁判</option>
+                                <option value="二级裁判">二级裁判</option>
+                                <option value="三级裁判">三级裁判</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>简介</label>
+                            <textarea id="refereeDesc" rows="3" placeholder="如：执法经验10年..."></textarea>
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn-cancel" onclick="closeRefereeModal()">取消</button>
+                            <button type="submit" class="btn-confirm">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
         <!-- 联系我们 -->
         <section id="contact" class="page">
             <div class="content-box">
@@ -719,5 +1051,6 @@
     </main>
 
     <script src="script.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>
