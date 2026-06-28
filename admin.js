@@ -17,15 +17,17 @@ const defaultData = {
     currentCupYear: '2025',
     cupData: {
         '2025': {
-            ranking: [
-                { team: '经济管理学院', played: 7, win: 6, draw: 1, loss: 0, points: 19 },
-                { team: '计算机学院', played: 7, win: 5, draw: 2, loss: 0, points: 17 },
-                { team: '机械工程学院', played: 7, win: 5, draw: 0, loss: 2, points: 15 },
-                { team: '电气工程学院', played: 7, win: 4, draw: 1, loss: 2, points: 13 },
-                { team: '土木工程学院', played: 7, win: 2, draw: 1, loss: 4, points: 7 },
-                { team: '艺术设计学院', played: 7, win: 2, draw: 0, loss: 5, points: 6 },
-                { team: '外国语学院', played: 7, win: 1, draw: 1, loss: 5, points: 4 },
-                { team: '生物医药学院', played: 7, win: 0, draw: 2, loss: 5, points: 2 }
+            groupA: [
+                { team: '经济管理学院', played: 3, win: 2, draw: 1, loss: 0, points: 7 },
+                { team: '计算机学院', played: 3, win: 2, draw: 0, loss: 1, points: 6 },
+                { team: '艺术设计学院', played: 3, win: 1, draw: 1, loss: 1, points: 4 },
+                { team: '生物医药学院', played: 3, win: 0, draw: 0, loss: 3, points: 0 }
+            ],
+            groupB: [
+                { team: '机械工程学院', played: 3, win: 3, draw: 0, loss: 0, points: 9 },
+                { team: '土木工程学院', played: 3, win: 1, draw: 1, loss: 1, points: 4 },
+                { team: '电气工程学院', played: 3, win: 1, draw: 0, loss: 2, points: 3 },
+                { team: '外国语学院', played: 3, win: 0, draw: 1, loss: 2, points: 1 }
             ],
             goals: [
                 { name: '阿龙', team: '计算机学院', number: '9', goals: 12 },
@@ -47,15 +49,17 @@ const defaultData = {
             }
         },
         '2024': {
-            ranking: [
-                { team: '计算机学院', played: 7, win: 6, draw: 1, loss: 0, points: 19 },
-                { team: '机械工程学院', played: 7, win: 5, draw: 1, loss: 1, points: 16 },
-                { team: '经济管理学院', played: 7, win: 4, draw: 2, loss: 1, points: 14 },
-                { team: '电气工程学院', played: 7, win: 4, draw: 0, loss: 3, points: 12 },
-                { team: '土木工程学院', played: 7, win: 3, draw: 1, loss: 3, points: 10 },
-                { team: '艺术设计学院', played: 7, win: 2, draw: 1, loss: 4, points: 7 },
-                { team: '外国语学院', played: 7, win: 1, draw: 0, loss: 6, points: 3 },
-                { team: '生物医药学院', played: 7, win: 0, draw: 2, loss: 5, points: 2 }
+            groupA: [
+                { team: '计算机学院', played: 3, win: 2, draw: 1, loss: 0, points: 7 },
+                { team: '经济管理学院', played: 3, win: 2, draw: 0, loss: 1, points: 6 },
+                { team: '电气工程学院', played: 3, win: 1, draw: 0, loss: 2, points: 3 },
+                { team: '外国语学院', played: 3, win: 0, draw: 1, loss: 2, points: 1 }
+            ],
+            groupB: [
+                { team: '机械工程学院', played: 3, win: 2, draw: 1, loss: 0, points: 7 },
+                { team: '土木工程学院', played: 3, win: 1, draw: 1, loss: 1, points: 4 },
+                { team: '艺术设计学院', played: 3, win: 1, draw: 0, loss: 2, points: 3 },
+                { team: '生物医药学院', played: 3, win: 0, draw: 2, loss: 1, points: 2 }
             ],
             goals: [
                 { name: '大伟', team: '机械工程学院', number: '10', goals: 11 },
@@ -73,15 +77,17 @@ const defaultData = {
             }
         },
         '2023': {
-            ranking: [
-                { team: '机械工程学院', played: 7, win: 6, draw: 0, loss: 1, points: 18 },
-                { team: '经济管理学院', played: 7, win: 5, draw: 1, loss: 1, points: 16 },
-                { team: '计算机学院', played: 7, win: 4, draw: 2, loss: 1, points: 14 },
-                { team: '电气工程学院', played: 7, win: 3, draw: 1, loss: 3, points: 10 },
-                { team: '土木工程学院', played: 7, win: 3, draw: 0, loss: 4, points: 9 },
-                { team: '艺术设计学院', played: 7, win: 2, draw: 1, loss: 4, points: 7 },
-                { team: '生物医药学院', played: 7, win: 1, draw: 1, loss: 5, points: 4 },
-                { team: '外国语学院', played: 7, win: 0, draw: 2, loss: 5, points: 2 }
+            groupA: [
+                { team: '机械工程学院', played: 3, win: 3, draw: 0, loss: 0, points: 9 },
+                { team: '计算机学院', played: 3, win: 2, draw: 0, loss: 1, points: 6 },
+                { team: '艺术设计学院', played: 3, win: 1, draw: 0, loss: 2, points: 3 },
+                { team: '外国语学院', played: 3, win: 0, draw: 0, loss: 3, points: 0 }
+            ],
+            groupB: [
+                { team: '经济管理学院', played: 3, win: 2, draw: 1, loss: 0, points: 7 },
+                { team: '电气工程学院', played: 3, win: 1, draw: 1, loss: 1, points: 4 },
+                { team: '土木工程学院', played: 3, win: 1, draw: 0, loss: 2, points: 3 },
+                { team: '生物医药学院', played: 3, win: 0, draw: 2, loss: 1, points: 2 }
             ],
             goals: [
                 { name: '大伟', team: '机械工程学院', number: '10', goals: 13 },
@@ -365,11 +371,20 @@ function loadRankingDisplay() {
     const cupData = data.cupData[year];
     if (!cupData) return;
 
-    // 积分榜
-    const rankingBody = document.getElementById('rankingBodyDisplay');
-    if (rankingBody) {
-        const sorted = [...cupData.ranking].sort((a, b) => b.points - a.points);
-        rankingBody.innerHTML = sorted.map((item, index) => {
+    // 兼容旧数据
+    if (cupData.ranking && !cupData.groupA) {
+        cupData.groupA = cupData.ranking.slice(0, 4);
+        cupData.groupB = cupData.ranking.slice(4, 8);
+    }
+
+    // 小组积分榜
+    const groupABody = document.getElementById('groupABody');
+    const groupBBody = document.getElementById('groupBBody');
+
+    function renderGroupTable(body, groupData) {
+        if (!body || !groupData) return;
+        const sorted = [...groupData].sort((a, b) => b.points - a.points);
+        body.innerHTML = sorted.map((item, index) => {
             let rankClass = '';
             if (index === 0) rankClass = 'rank-1';
             else if (index === 1) rankClass = 'rank-2';
@@ -388,6 +403,9 @@ function loadRankingDisplay() {
             `;
         }).join('');
     }
+
+    renderGroupTable(groupABody, cupData.groupA);
+    renderGroupTable(groupBBody, cupData.groupB);
 
     // 进球榜
     const goalsBody = document.getElementById('goalsBody');
@@ -2043,7 +2061,7 @@ function changeCupYear(year) {
     switchCupYear(year);
 }
 
-// ==================== 淘汰赛显示 ====================
+// ==================== 淘汰赛显示（懂球帝风格树形对阵图） ====================
 function loadKnockoutDisplay() {
     ensureDataFields();
     const data = getData();
@@ -2064,75 +2082,181 @@ function loadKnockoutDisplay() {
             : (team ? team.icon : '⚽');
     }
 
-    // 四分之一决赛
-    const quarterHtml = knockout.quarterfinals.map(match => `
-        <div class="bracket-match">
-            <div class="bracket-team ${match.winner === 'home' ? 'winner' : 'loser'}">
-                <div class="team-badge">${getTeamBadge(match.home)}</div>
-                <span class="bracket-team-name">${match.home}</span>
-                <span class="bracket-team-score">${match.homeScore}</span>
-            </div>
-            <div class="bracket-team ${match.winner === 'away' ? 'winner' : 'loser'}">
-                <div class="team-badge">${getTeamBadge(match.away)}</div>
-                <span class="bracket-team-name">${match.away}</span>
-                <span class="bracket-team-score">${match.awayScore}</span>
-            </div>
-        </div>
-    `).join('');
+    function getTeamBadgeHtml(teamName) {
+        return `<div class="team-badge">${getTeamBadge(teamName)}</div>`;
+    }
 
-    // 半决赛
-    const semiHtml = knockout.semifinals.map(match => `
-        <div class="bracket-match">
-            <div class="bracket-team ${match.winner === 'home' ? 'winner' : 'loser'}">
-                <div class="team-badge">${getTeamBadge(match.home)}</div>
-                <span class="bracket-team-name">${match.home}</span>
-                <span class="bracket-team-score">${match.homeScore}</span>
-            </div>
-            <div class="bracket-team ${match.winner === 'away' ? 'winner' : 'loser'}">
-                <div class="team-badge">${getTeamBadge(match.away)}</div>
-                <span class="bracket-team-name">${match.away}</span>
-                <span class="bracket-team-score">${match.awayScore}</span>
-            </div>
-        </div>
-    `).join('');
-
-    // 决赛
+    // 左侧：第1、2场四分之一决赛 + 第1场半决赛
+    // 右侧：第3、4场四分之一决赛 + 第2场半决赛
+    const qf = knockout.quarterfinals;
+    const sf = knockout.semifinals;
     const final = knockout.final;
+
+    // 左侧半决赛胜者
+    const leftSemiWinner = sf[0].winner === 'home' ? sf[0].home : sf[0].away;
+    const leftSemiWinnerScore = sf[0].winner === 'home' ? sf[0].homeScore : sf[0].awayScore;
+    const leftSemiLoserScore = sf[0].winner === 'home' ? sf[0].awayScore : sf[0].homeScore;
+
+    // 右侧半决赛胜者
+    const rightSemiWinner = sf[1].winner === 'home' ? sf[1].home : sf[1].away;
+    const rightSemiWinnerScore = sf[1].winner === 'home' ? sf[1].homeScore : sf[1].awayScore;
+    const rightSemiLoserScore = sf[1].winner === 'home' ? sf[1].awayScore : sf[1].homeScore;
+
     const championTeam = data.teams.find(t => t.name === knockout.champion);
     const championBadge = championTeam && championTeam.logo
         ? `<img src="${championTeam.logo}" alt="${knockout.champion}">`
         : (championTeam ? championTeam.icon : '🏆');
 
-    bracket.innerHTML = `
-        <div class="bracket-round">
-            <div class="bracket-round-title">四分之一决赛</div>
-            ${quarterHtml}
-        </div>
-        <div class="bracket-round">
-            <div class="bracket-round-title">半决赛</div>
-            ${semiHtml}
-        </div>
-        <div class="bracket-round">
-            <div class="bracket-round-title">决赛</div>
-            <div class="bracket-match">
-                <div class="bracket-team ${final.winner === 'home' ? 'winner' : 'loser'}">
-                    <div class="team-badge">${getTeamBadge(final.home)}</div>
-                    <span class="bracket-team-name">${final.home}</span>
-                    <span class="bracket-team-score">${final.homeScore}</span>
-                </div>
-                <div class="bracket-team ${final.winner === 'away' ? 'winner' : 'loser'}">
-                    <div class="team-badge">${getTeamBadge(final.away)}</div>
-                    <span class="bracket-team-name">${final.away}</span>
-                    <span class="bracket-team-score">${final.awayScore}</span>
+    // 三四名（半决赛负者）
+    const thirdPlace = knockout.thirdPlace;
+    let thirdPlaceHtml = '';
+    if (thirdPlace) {
+        const thirdWinner = thirdPlace.winner === 'home' ? thirdPlace.home : thirdPlace.away;
+        thirdPlaceHtml = `
+            <div class="bracket-third-place">
+                <div class="bracket-third-title">🥉 三四名决赛</div>
+                <div class="third-match">
+                    <div class="third-team ${thirdPlace.winner === 'home' ? 'winner' : ''}">
+                        <span class="team-badge">${getTeamBadge(thirdPlace.home)}</span>
+                        <span>${thirdPlace.home}</span>
+                        <span style="font-weight: 700;">${thirdPlace.homeScore}</span>
+                    </div>
+                    <span style="color: #94a3b8; font-weight: 600;">VS</span>
+                    <div class="third-team ${thirdPlace.winner === 'away' ? 'winner' : ''}">
+                        <span style="font-weight: 700;">${thirdPlace.awayScore}</span>
+                        <span>${thirdPlace.away}</span>
+                        <span class="team-badge">${getTeamBadge(thirdPlace.away)}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="bracket-round">
-            <div class="bracket-round-title">冠军</div>
-            <div class="bracket-champion">
-                <div class="champion-badge">${championBadge}</div>
-                <div class="champion-name">${knockout.champion}</div>
-                <div class="champion-label">🏆 校长杯冠军</div>
+        `;
+    }
+
+    bracket.innerHTML = `
+        <div class="bracket-tree">
+            <!-- 左侧半区 -->
+            <div class="bracket-side left-side">
+                <div class="bracket-round-label">四分之一决赛</div>
+                
+                <div class="bracket-fixture">
+                    <div class="bracket-team-card ${qf[0].winner === 'home' ? 'winner' : 'loser'}">
+                        ${getTeamBadgeHtml(qf[0].home)}
+                        <span class="bracket-team-name">${qf[0].home}</span>
+                        <span class="bracket-team-score">${qf[0].homeScore}</span>
+                    </div>
+                </div>
+                
+                <div class="bracket-fixture">
+                    <div class="bracket-team-card ${qf[0].winner === 'away' ? 'winner' : 'loser'}">
+                        ${getTeamBadgeHtml(qf[0].away)}
+                        <span class="bracket-team-name">${qf[0].away}</span>
+                        <span class="bracket-team-score">${qf[0].awayScore}</span>
+                    </div>
+                </div>
+
+                <div class="bracket-round-label" style="margin-top: 20px;">半决赛</div>
+
+                <div class="bracket-fixture" style="margin-top: 30px; margin-bottom: 30px;">
+                    <div class="bracket-team-card ${sf[0].winner === 'home' ? 'winner' : 'loser'}">
+                        ${getTeamBadgeHtml(sf[0].home)}
+                        <span class="bracket-team-name">${sf[0].home}</span>
+                        <span class="bracket-team-score">${sf[0].homeScore}</span>
+                    </div>
+                </div>
+                
+                <div class="bracket-fixture">
+                    <div class="bracket-team-card ${qf[1].winner === 'home' ? 'winner' : 'loser'}">
+                        ${getTeamBadgeHtml(qf[1].home)}
+                        <span class="bracket-team-name">${qf[1].home}</span>
+                        <span class="bracket-team-score">${qf[1].homeScore}</span>
+                    </div>
+                </div>
+                
+                <div class="bracket-fixture">
+                    <div class="bracket-team-card ${qf[1].winner === 'away' ? 'winner' : 'loser'}">
+                        ${getTeamBadgeHtml(qf[1].away)}
+                        <span class="bracket-team-name">${qf[1].away}</span>
+                        <span class="bracket-team-score">${qf[1].awayScore}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中间决赛区 -->
+            <div class="bracket-center">
+                <div class="bracket-final">
+                    <div class="bracket-round-label" style="margin-bottom: 10px;">决赛</div>
+                    <div class="bracket-final-vs">
+                        <div class="bracket-final-team ${final.winner === 'home' ? 'winner' : 'loser'}">
+                            <div class="final-badge">${getTeamBadge(final.home)}</div>
+                            <div class="final-name">${final.home}</div>
+                            <div class="final-score">${final.homeScore}</div>
+                        </div>
+                        <div class="bracket-final-vs-text">VS</div>
+                        <div class="bracket-final-team ${final.winner === 'away' ? 'winner' : 'loser'}">
+                            <div class="final-badge">${getTeamBadge(final.away)}</div>
+                            <div class="final-name">${final.away}</div>
+                            <div class="final-score">${final.awayScore}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 冠军 -->
+                    <div class="bracket-champion-section">
+                        <div class="bracket-champion">
+                            <div class="champion-badge">${championBadge}</div>
+                            <div class="champion-name">${knockout.champion}</div>
+                            <div class="champion-label">🏆 校长杯冠军</div>
+                        </div>
+                    </div>
+                    
+                    ${thirdPlaceHtml}
+                </div>
+            </div>
+
+            <!-- 右侧半区 -->
+            <div class="bracket-side right-side">
+                <div class="bracket-round-label">四分之一决赛</div>
+                
+                <div class="bracket-fixture">
+                    <div class="bracket-team-card ${qf[2].winner === 'home' ? 'winner' : 'loser'}">
+                        <span class="bracket-team-score">${qf[2].homeScore}</span>
+                        <span class="bracket-team-name">${qf[2].home}</span>
+                        ${getTeamBadgeHtml(qf[2].home)}
+                    </div>
+                </div>
+                
+                <div class="bracket-fixture">
+                    <div class="bracket-team-card ${qf[2].winner === 'away' ? 'winner' : 'loser'}">
+                        <span class="bracket-team-score">${qf[2].awayScore}</span>
+                        <span class="bracket-team-name">${qf[2].away}</span>
+                        ${getTeamBadgeHtml(qf[2].away)}
+                    </div>
+                </div>
+
+                <div class="bracket-round-label" style="margin-top: 20px;">半决赛</div>
+
+                <div class="bracket-fixture" style="margin-top: 30px; margin-bottom: 30px;">
+                    <div class="bracket-team-card ${sf[1].winner === 'home' ? 'winner' : 'loser'}">
+                        <span class="bracket-team-score">${sf[1].homeScore}</span>
+                        <span class="bracket-team-name">${sf[1].home}</span>
+                        ${getTeamBadgeHtml(sf[1].home)}
+                    </div>
+                </div>
+                
+                <div class="bracket-fixture">
+                    <div class="bracket-team-card ${qf[3].winner === 'home' ? 'winner' : 'loser'}">
+                        <span class="bracket-team-score">${qf[3].homeScore}</span>
+                        <span class="bracket-team-name">${qf[3].home}</span>
+                        ${getTeamBadgeHtml(qf[3].home)}
+                    </div>
+                </div>
+                
+                <div class="bracket-fixture">
+                    <div class="bracket-team-card ${qf[3].winner === 'away' ? 'winner' : 'loser'}">
+                        <span class="bracket-team-score">${qf[3].awayScore}</span>
+                        <span class="bracket-team-name">${qf[3].away}</span>
+                        ${getTeamBadgeHtml(qf[3].away)}
+                    </div>
+                </div>
             </div>
         </div>
     `;
