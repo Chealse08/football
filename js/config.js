@@ -2,7 +2,7 @@
 
 export const ADMIN_PWD = "20041202";
 
-export const API_URL = "https://footballpoint.top";
+export const API_URL = "https://your-worker-name.your-account.workers.dev";
 
 export const PAGES = {
     MAIN: 'main',

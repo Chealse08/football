@@ -1,0 +1,15 @@
+{
+  "name": "football-backend",
+  "version": "1.0.0",
+  "description": "深鸡蛋坪山公园球王榜 - Cloudflare Workers + D1 后端",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "init-db": "wrangler d1 execute football-db --file=./schema.sql",
+    "init-db-local": "wrangler d1 execute football-db --local --file=./schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
