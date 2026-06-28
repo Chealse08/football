@@ -1,47 +1,473 @@
 * {margin:0;padding:0;box-sizing:border-box;}
-body {font-family:Microsoft YaHei;background:#f2f3f5;padding:15px;}
-.wrap {max-width:850px;margin:0 auto;background:#fff;border-radius:10px;padding:20px;}
-h1 {text-align:center;margin-bottom:20px;color:#222;}
-h3 {margin-bottom:10px;}
-.box {margin:15px 0;padding:15px;border:1px solid #eee;border-radius:8px;}
-input,select,textarea {width:100%;padding:10px;margin:6px 0;border:1px solid #ccc;border-radius:5px;font-size:16px;}
-textarea {height:150px;resize:vertical;}
-button {padding:10px 16px;border:none;border-radius:5px;cursor:pointer;font-size:15px;margin:4px;}
-.btn-blue {background:#0066cc;color:#fff;}
-.btn-red {background:#dc3545;color:#fff;}
-.btn-green {background:#28a745;color:#fff;}
-.btn-gray {background:#6c757d;color:#fff;}
-.btn-yellow {background:#ffc107;color:#212521;}
-.hide {display:none !important;}
-.tip {color:#666;margin:8px 0;}
-.nav {display:flex;justify-content:center;margin-bottom:20px;gap:10px;flex-wrap:wrap;}
-.nav button {padding:12px 24px;font-size:16px;}
-.nav .active {background:#0066cc;color:#fff;}
-.modal {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:flex;justify-content:center;align-items:center;z-index:1000;}
-.modal-content {background:#fff;padding:25px;border-radius:10px;width:90%;max-width:400px;}
-.modal h3 {margin-bottom:15px;text-align:center;}
-.modal-buttons {display:flex;justify-content:flex-end;margin-top:15px;gap:10px;}
-table {width:100%;border-collapse:collapse;margin-top:10px;}
-th,td {padding:12px;text-align:left;border-bottom:1px solid #eee;}
-th {background:#f8f9fa;font-weight:bold;}
-.rank-1 {color:#ffc107;font-weight:bold;}
-.rank-2 {color:#6c757d;font-weight:bold;}
-.rank-3 {color:#cd7f32;font-weight:bold;}
-.vote-option {padding:10px;border:1px solid #eee;border-radius:5px;margin:8px 0;cursor:pointer;transition:all 0.2s;}
-.vote-option:hover {background:#f8f9fa;}
-.vote-option.selected {background:#0066cc;color:#fff;}
-.vote-bar {height:20px;background:#e9ecef;border-radius:10px;margin-top:5px;overflow:hidden;}
-.vote-progress {height:100%;background:#0066cc;transition:width 0.5s;}
-.content-text {white-space:pre-wrap;line-height:1.8;font-size:16px;}
-.msg-modal-content {text-align:center;}
-.msg-text {font-size:18px;margin:20px 0;}
-.msg-success {color:#28a745;}
-.msg-error {color:#dc3545;}
-.team-card {border:1px solid #eee;border-radius:8px;padding:15px;margin:10px 0;}
-.team-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.team-members {margin-top:10px;}
-.signup-list {margin-top:10px;}
-.signup-item {padding:8px 0;border-bottom:1px solid #eee;}
-.status-pending {color:#ffc107;}
-.status-rejected {color:#dc3545;}
-.status-approved {color:#28a745;}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: #f2f3f5;
+    padding: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.wrap {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #222;
+    font-size: 24px;
+}
+
+h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #333;
+}
+
+h4 {
+    margin: 15px 0 10px;
+    font-size: 16px;
+    color: #444;
+}
+
+p {
+    margin: 8px 0;
+    color: #333;
+}
+
+.box {
+    margin: 15px 0;
+    padding: 18px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    background: #fff;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #fafafa;
+    transition: border-color 0.2s, background 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    background: #fff;
+}
+
+textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 6px 4px;
+    transition: opacity 0.2s, transform 0.1s;
+    font-weight: 500;
+    min-height: 44px;
+    min-width: 44px;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.btn-blue {background: #0066cc;color: #fff;}
+.btn-red {background: #dc3545;color: #fff;}
+.btn-green {background: #28a745;color: #fff;}
+.btn-gray {background: #6c757d;color: #fff;}
+.btn-yellow {background: #ffc107;color: #212529;}
+
+.hide {display: none !important;}
+
+.tip {color: #666;margin: 8px 0;}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.nav button {
+    padding: 12px 20px;
+    font-size: 15px;
+    border-radius: 25px;
+    background: #f0f2f5;
+    color: #333;
+    border: none;
+}
+
+.nav .active {
+    background: #0066cc;
+    color: #fff;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 25px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.modal h3 {
+    margin-bottom: 18px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    max-width: 120px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.rank-1 {color: #ffc107; font-weight: bold;}
+.rank-2 {color: #6c757d; font-weight: bold;}
+.rank-3 {color: #cd7f32; font-weight: bold;}
+
+.vote-option {
+    padding: 14px 16px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+.vote-option:hover {
+    background: #f8f9fa;
+    border-color: #ddd;
+}
+
+.vote-option.selected {
+    background: #0066cc;
+    color: #fff;
+    border-color: #0066cc;
+}
+
+.vote-bar {
+    height: 24px;
+    background: #e9ecef;
+    border-radius: 12px;
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.vote-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #0066cc, #0088ff);
+    transition: width 0.5s ease;
+    border-radius: 12px;
+}
+
+.content-text {
+    white-space: pre-wrap;
+    line-height: 1.8;
+    font-size: 16px;
+    color: #333;
+}
+
+.msg-modal-content {
+    text-align: center;
+}
+
+.msg-text {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.msg-success {color: #28a745;}
+.msg-error {color: #dc3545;}
+
+.team-card {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+    background: #fafafa;
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.team-header h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #222;
+}
+
+.team-members {
+    margin-top: 10px;
+}
+
+.signup-list {
+    margin-top: 10px;
+}
+
+.signup-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+}
+
+.status-pending {color: #f59e0b;}
+.status-rejected {color: #dc3545;}
+.status-approved {color: #28a745;}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#loggedInInfo {
+    text-align: center;
+    padding: 10px 0;
+}
+
+#loggedInInfo p {
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+#signupCount {
+    font-size: 14px;
+    font-weight: normal;
+    color: #666;
+    margin-left: 8px;
+}
+
+#vote-results h4 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 8px;
+    }
+
+    .wrap {
+        padding: 16px 14px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    h3 {
+        font-size: 17px;
+        margin-bottom: 10px;
+    }
+
+    .box {
+        padding: 14px;
+        margin: 12px 0;
+        border-radius: 10px;
+    }
+
+    .nav {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        margin: 0 -14px 16px;
+        padding: 0 14px;
+        gap: 6px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav button {
+        padding: 10px 18px;
+        font-size: 14px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    input, select, textarea {
+        padding: 14px 12px;
+        font-size: 16px;
+        margin: 6px 0;
+    }
+
+    button {
+        padding: 14px 18px;
+        font-size: 16px;
+        min-height: 48px;
+    }
+
+    .modal {
+        padding: 12px;
+        align-items: flex-end;
+    }
+
+    .modal-content {
+        padding: 20px 18px;
+        border-radius: 16px 16px 0 0;
+        max-width: 100%;
+        max-height: 85vh;
+    }
+
+    .modal h3 {
+        font-size: 18px;
+    }
+
+    .modal-buttons {
+        margin-top: 18px;
+    }
+
+    .modal-buttons button {
+        flex: 1;
+        max-width: none;
+    }
+
+    .vote-option {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .team-card {
+        padding: 14px;
+        margin: 10px 0;
+    }
+
+    .team-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .signup-item {
+        padding: 10px 0;
+        font-size: 15px;
+    }
+
+    .msg-text {
+        font-size: 16px;
+    }
+
+    #signupCount {
+        display: block;
+        margin-left: 0;
+        margin-top: 4px;
+    }
+}
+
+@media (min-width: 1024px) {
+    body {
+        padding: 20px;
+    }
+
+    .wrap {
+        max-width: 960px;
+        padding: 30px;
+        border-radius: 16px;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 24px;
+    }
+
+    .nav {
+        margin-bottom: 24px;
+        gap: 12px;
+    }
+
+    .nav button {
+        padding: 12px 28px;
+        font-size: 16px;
+    }
+
+    .box {
+        padding: 20px;
+        margin: 18px 0;
+    }
+
+    .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+}
