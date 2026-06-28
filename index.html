@@ -3,78 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>深鸡蛋足球协会</title>
+    <title>深鸡蛋足球协会 | SJD FA</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- 左侧导航栏 -->
-    <aside class="sidebar">
-        <div class="logo">
-            <div class="logo-icon">⚽</div>
-            <h1>深鸡蛋</h1>
-            <span>足球协会</span>
+    <!-- 顶部导航栏 -->
+    <header class="top-nav" id="topNav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">⚽</div>
+                <div class="logo-text">
+                    <h1>深鸡蛋足协</h1>
+                    <span>Shenjidan Football Association</span>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-btn active" data-page="home">首页</button>
+                <button class="nav-btn" data-page="about">协会简介</button>
+                <button class="nav-btn" data-page="events">活动动态</button>
+                <button class="nav-btn" data-page="collegeteam">球队信息</button>
+                <button class="nav-btn" data-page="schoolteam">校队风采</button>
+                <button class="nav-btn" data-page="referee">主裁系统</button>
+                <button class="nav-btn" data-page="contact">联系我们</button>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         </div>
-
-        <nav class="nav-menu">
-            <button class="nav-btn active" data-page="home">
-                <span class="icon">🏠</span>
-                <span class="text">首页</span>
-            </button>
-            <button class="nav-btn" data-page="about">
-                <span class="icon">📋</span>
-                <span class="text">协会概况</span>
-            </button>
-            <button class="nav-btn" data-page="events">
-                <span class="icon">🏆</span>
-                <span class="text">赛事资讯</span>
-            </button>
-            <button class="nav-btn" data-page="gallery">
-                <span class="icon">📷</span>
-                <span class="text">精彩瞬间</span>
-            </button>
-            <button class="nav-btn" data-page="honor">
-                <span class="icon">⭐</span>
-                <span class="text">荣誉之星</span>
-            </button>
-            <button class="nav-btn" data-page="referee">
-                <span class="icon">🧑‍⚖️</span>
-                <span class="text">主裁系统</span>
-            </button>
-            <button class="nav-btn" data-page="collegeteam">
-                <span class="icon">🏫</span>
-                <span class="text">院队风采</span>
-            </button>
-            <button class="nav-btn" data-page="schoolteam">
-                <span class="icon">🎓</span>
-                <span class="text">校队风采</span>
-            </button>
-            <button class="nav-btn" data-page="activities">
-                <span class="icon">🎉</span>
-                <span class="text">足协活动</span>
-            </button>
-            <button class="nav-btn" data-page="contact">
-                <span class="icon">📞</span>
-                <span class="text">联系我们</span>
-            </button>
-        </nav>
-
-        <!-- 管理入口小图标 -->
-        <div class="admin-entry" id="adminEntryBtn" title="管理后台">
-            <span>🔧</span>
-        </div>
-
-        <div class="sidebar-footer">
-            <p>© 2025 深鸡蛋足球协会</p>
-        </div>
-    </aside>
-
-    <!-- 移动端顶部栏 -->
-    <header class="mobile-header">
-        <button class="mobile-menu-btn">☰</button>
-        <div class="mobile-logo">
-            <span class="icon">⚽</span>
-            <span>深鸡蛋足协</span>
+        <!-- 移动端菜单 -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="nav-btn active" data-page="home">首页</button>
+            <button class="nav-btn" data-page="about">协会简介</button>
+            <button class="nav-btn" data-page="events">活动动态</button>
+            <button class="nav-btn" data-page="collegeteam">球队信息</button>
+            <button class="nav-btn" data-page="schoolteam">校队风采</button>
+            <button class="nav-btn" data-page="referee">主裁系统</button>
+            <button class="nav-btn" data-page="contact">联系我们</button>
+            <div class="admin-entry-mobile" id="adminEntryBtnMobile">🔧 管理后台</div>
         </div>
     </header>
 
@@ -97,414 +61,1376 @@
 
         <!-- 首页 -->
         <section id="home" class="page active">
-            <!-- 图片轮播 -->
-            <div class="hero-slider">
-                <div class="slider-container">
-                    <div class="slide active" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
-                        <div class="slide-content">
-                            <h2>激情绿茵 荣耀深蛋</h2>
-                            <p>深鸡蛋足球协会 - 让足球连接你我</p>
+            <!-- Hero区域 -->
+            <div class="hero-section">
+                <div class="hero-slider">
+                    <div class="slider-container">
+                        <div class="slide active" style="background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3b82f6 100%);">
+                            <div class="slide-bg-overlay"></div>
+                            <div class="slide-content">
+                                <div class="hero-badge">
+                                    <span class="hero-icon">⚽</span>
+                                    <span class="hero-label">SHENJIDAN FOOTBALL ASSOCIATION</span>
+                                </div>
+                                <h2 class="hero-title">青春热血 <span class="title-accent">绿茵飞扬</span></h2>
+                                <p class="hero-desc">每一场比赛都是成长的机会，每一次训练都是进步的阶梯</p>
+                                <div class="hero-buttons">
+                                    <button class="btn-hero-primary" onclick="switchPage('about')">
+                                        <span class="btn-icon">▶</span> 了解更多
+                                    </button>
+                                    <button class="btn-hero-secondary" onclick="switchPage('events')">
+                                        活动动态
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide" style="background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0ea5e9 100%);">
+                            <div class="slide-bg-overlay"></div>
+                            <div class="slide-content">
+                                <div class="hero-badge">
+                                    <span class="hero-icon">🏆</span>
+                                    <span class="hero-label">FOOTBALL MATCHES</span>
+                                </div>
+                                <h2 class="hero-title">每周赛事 <span class="title-accent">精彩纷呈</span></h2>
+                                <p class="hero-desc">组织各类足球比赛，发掘草根足球明星</p>
+                                <div class="hero-buttons">
+                                    <button class="btn-hero-primary" onclick="switchPage('collegeteam')">
+                                        <span class="btn-icon">▶</span> 查看赛事
+                                    </button>
+                                    <button class="btn-hero-secondary" onclick="switchPage('events')">
+                                        活动动态
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slide" style="background: linear-gradient(135deg, #134e4a 0%, #0f766e 50%, #14b8a6 100%);">
+                            <div class="slide-bg-overlay"></div>
+                            <div class="slide-content">
+                                <div class="hero-badge">
+                                    <span class="hero-icon">💪</span>
+                                    <span class="hero-label">HEALTH & SPORTS</span>
+                                </div>
+                                <h2 class="hero-title">健康运动 <span class="title-accent">快乐生活</span></h2>
+                                <p class="hero-desc">以球会友，共享足球魅力</p>
+                                <div class="hero-buttons">
+                                    <button class="btn-hero-primary" onclick="switchPage('schoolteam')">
+                                        <span class="btn-icon">▶</span> 校队风采
+                                    </button>
+                                    <button class="btn-hero-secondary" onclick="switchPage('contact')">
+                                        联系我们
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="slide" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);">
-                        <div class="slide-content">
-                            <h2>每周赛事 精彩纷呈</h2>
-                            <p>组织各类足球比赛，发掘草根足球明星</p>
-                        </div>
-                    </div>
-                    <div class="slide" style="background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);">
-                        <div class="slide-content">
-                            <h2>健康运动 快乐生活</h2>
-                            <p>以球会友，共享足球魅力</p>
-                        </div>
+                    <div class="slider-controls">
+                        <button class="slider-btn prev">❮</button>
+                        <div class="slider-dots"></div>
+                        <button class="slider-btn next">❯</button>
                     </div>
                 </div>
-                <div class="slider-controls">
-                    <button class="slider-btn prev">❮</button>
-                    <div class="slider-dots"></div>
-                    <button class="slider-btn next">❯</button>
+                <div class="scroll-indicator">
+                    <span>向下滚动</span>
+                    <div class="scroll-arrow">▼</div>
+                </div>
+            </div>
+
+            <!-- 关于我们 -->
+            <div class="section-wrapper about-section">
+                <div class="section-container">
+                    <div class="section-header-center">
+                        <span class="section-tag">关于我们</span>
+                        <h2 class="section-title">深鸡蛋足球协会</h2>
+                        <p class="section-subtitle">致力于推广校园足球文化，培养学生足球兴趣，提高足球技术水平</p>
+                    </div>
+                    <div class="about-content-grid">
+                        <div class="about-image">
+                            <div class="about-img-placeholder">
+                                <div class="img-icon">⚽</div>
+                                <p>足球协会活动</p>
+                            </div>
+                        </div>
+                        <div class="about-text">
+                            <h3>传承足球精神，培育明日之星</h3>
+                            <p>
+                                深鸡蛋足球协会，是深鸡蛋大学官方的足球组织，成立于2020年。
+                                社团分别设宣传部、组织部、财务部、技术部和裁判部。
+                                深鸡蛋足协一直与深鸡蛋大学校队深度合作，为校队做好宣传、后勤等工作，
+                                共同致力于深鸡蛋大学校园足球事业。
+                            </p>
+                            <p>
+                                协会组织校际联赛和各类足球赛事，并定期组织社团嘉年华、观赛等活动。
+                                无论你是足球新手还是资深爱好者，都能在这里找到属于自己的位置。
+                            </p>
+                            <div class="about-stats">
+                                <div class="about-stat-item">
+                                    <span class="stat-number">5<span class="stat-unit">年</span></span>
+                                    <span class="stat-label">发展历程</span>
+                                </div>
+                                <div class="about-stat-divider"></div>
+                                <div class="about-stat-item">
+                                    <span class="stat-number">150<span class="stat-unit">+</span></span>
+                                    <span class="stat-label">注册会员</span>
+                                </div>
+                                <div class="about-stat-divider"></div>
+                                <div class="about-stat-item">
+                                    <span class="stat-number">8<span class="stat-unit">支</span></span>
+                                    <span class="stat-label">常驻球队</span>
+                                </div>
+                                <div class="about-stat-divider"></div>
+                                <div class="about-stat-item">
+                                    <span class="stat-number">50<span class="stat-unit">+</span></span>
+                                    <span class="stat-label">举办赛事</span>
+                                </div>
+                            </div>
+                            <div class="about-tags">
+                                <span class="about-tag">🏆 校长杯</span>
+                                <span class="about-tag">🥅 足协杯</span>
+                                <span class="about-tag">📺 世界杯观赛</span>
+                                <span class="about-tag">🎉 社团嘉年华</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 首页内容 -->
-            <div class="content-box">
-                <!-- 协会介绍 -->
-                <div class="home-intro-section">
-                    <h2>关于深鸡蛋足球协会</h2>
-                    <p class="intro">
-                        深鸡蛋足球协会成立于2020年，是坪山公园地区最具活力的草根足球组织。
-                        我们致力于为足球爱好者提供一个交流、切磋、竞技的平台，让更多人感受足球的魅力。
-                        协会现有8支常驻院队、2支校队、注册会员150余人，每年举办各类足球赛事50余场。
-                    </p>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-number">150+</div>
-                            <div class="stat-label">注册会员</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">8</div>
-                            <div class="stat-label">常驻球队</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">举办赛事</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">3</div>
-                            <div class="stat-label">年历史</div>
-                        </div>
+            <!-- 活动动态 -->
+            <div class="section-wrapper events-section" style="background: #f8fafc;">
+                <div class="section-container">
+                    <div class="section-header-center">
+                        <span class="section-tag">活动动态</span>
+                        <h2 class="section-title">最新活动资讯</h2>
+                        <p class="section-subtitle">了解协会最新活动动态，参与丰富多彩的足球活动</p>
                     </div>
-                </div>
-
-                <!-- 比赛倒计时 -->
-                <div class="home-match-section" id="homeCountdownSection">
-                    <div class="section-header">
-                        <h2>⏰ 下一场比赛</h2>
+                    <div class="home-events-grid" id="homeEventsGrid">
                     </div>
-                    <div class="countdown-match" id="countdownMatch">
-                        <div class="match-teams">
-                            <div class="match-team home-team">
-                                <div class="team-badge" id="countdownHomeBadge">🔵</div>
-                                <div class="team-name" id="countdownHomeName">计算机学院</div>
-                            </div>
-                            <div class="match-vs">VS</div>
-                            <div class="match-team away-team">
-                                <div class="team-badge" id="countdownAwayBadge">🔴</div>
-                                <div class="team-name" id="countdownAwayName">机械工程学院</div>
-                            </div>
-                        </div>
-                        <div class="countdown-timer" id="countdownTimer">
-                            <div class="countdown-item">
-                                <span class="countdown-number" id="cd-days">00</span>
-                                <span class="countdown-label">天</span>
-                            </div>
-                            <div class="countdown-item">
-                                <span class="countdown-number" id="cd-hours">00</span>
-                                <span class="countdown-label">时</span>
-                            </div>
-                            <div class="countdown-item">
-                                <span class="countdown-number" id="cd-minutes">00</span>
-                                <span class="countdown-label">分</span>
-                            </div>
-                            <div class="countdown-item">
-                                <span class="countdown-number" id="cd-seconds">00</span>
-                                <span class="countdown-label">秒</span>
-                            </div>
-                        </div>
-                        <div class="match-info">
-                            <span id="countdownMatchTime">2025年7月1日 15:00</span>
-                            <span id="countdownMatchLocation">📍 坪山公园足球场</span>
-                        </div>
-                        <div class="match-live" id="matchLiveSection">
-                            <a href="#" id="matchLiveUrl" target="_blank" class="btn-live">🔴 观看直播</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 最近比赛比分 -->
-                <div class="home-match-section">
-                    <div class="section-header">
-                        <h2>⚽ 最近比赛</h2>
-                    </div>
-                    <div class="recent-matches" id="recentMatches">
-                    </div>
-                </div>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚽</div>
-                        <h3>赛事组织</h3>
-                        <p>定期举办各类足球赛事，包括联赛、杯赛、友谊赛等</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🏟️</div>
-                        <h3>场地资源</h3>
-                        <p>整合优质足球场地资源，为会员提供便利</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎓</div>
-                        <h3>青训培养</h3>
-                        <p>校队、青训营体系完善，培养优秀足球人才</p>
+                    <div class="section-more">
+                        <button class="btn-more" onclick="switchPage('events')">查看更多活动 →</button>
                     </div>
                 </div>
             </div>
+
+            <!-- 球队信息 -->
+            <div class="section-wrapper teams-section">
+                <div class="section-container">
+                    <div class="section-header-center">
+                        <span class="section-tag">球队信息</span>
+                        <h2 class="section-title">我们的球队</h2>
+                        <p class="section-subtitle">多支实力强劲的球队，展现深鸡蛋足球风采</p>
+                    </div>
+                    <div class="home-teams-grid" id="homeTeamsGrid">
+                    </div>
+                    <div class="section-more">
+                        <button class="btn-more" onclick="switchPage('collegeteam')">查看全部球队 →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部Footer -->
+            <footer class="site-footer">
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <span class="footer-logo-icon">⚽</span>
+                                <div>
+                                    <h3>深鸡蛋足球协会</h3>
+                                    <span>Shenjidan Football Association</span>
+                                </div>
+                            </div>
+                            <p class="footer-desc">
+                                深鸡蛋足球协会致力于推广校园足球文化，培养学生足球兴趣，
+                                提高足球技术水平，为全校师生提供专业的足球交流平台。
+                            </p>
+                            <div class="footer-social">
+                                <a href="#" class="social-link" title="微信">💬</a>
+                                <a href="#" class="social-link" title="微博">📱</a>
+                                <a href="#" class="social-link" title="B站">📺</a>
+                                <a href="#" class="social-link" title="抖音">🎵</a>
+                            </div>
+                        </div>
+                        <div class="footer-links">
+                            <h4>快速链接</h4>
+                            <ul>
+                                <li><a href="#" onclick="switchPage('about'); return false;">协会简介</a></li>
+                                <li><a href="#" onclick="switchPage('events'); return false;">活动动态</a></li>
+                                <li><a href="#" onclick="switchPage('collegeteam'); return false;">球队信息</a></li>
+                                <li><a href="#" onclick="switchPage('schoolteam'); return false;">校队风采</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-links">
+                            <h4>资源中心</h4>
+                            <ul>
+                                <li><a href="#">招新报名</a></li>
+                                <li><a href="#">场地预约</a></li>
+                                <li><a href="#">训练计划</a></li>
+                                <li><a href="#">规章制度</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-contact">
+                            <h4>联系我们</h4>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>深圳市坪山区公园路深鸡蛋足球场</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏫</span>
+                                <span>深鸡蛋大学</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>138-0013-8000</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@shendanji.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>© 2025 深鸡蛋足球协会. All Rights Reserved. | 
+                            <a href="#">隐私政策</a> | 
+                            <a href="#">使用条款</a> | 
+                            <a href="#">网站地图</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </section>
 
-        <!-- 协会概况 -->
+        <!-- 协会简介页面 -->
         <section id="about" class="page">
-            <div class="content-box">
-                <h2>协会概况</h2>
-                
-                <!-- 主席团 -->
-                <div class="org-section">
-                    <h3 class="org-section-title">主席团</h3>
-                    <div class="org-leaders">
-                        <div class="org-card president-card">
-                            <div class="org-avatar">👨‍💼</div>
-                            <h4>陈主席</h4>
-                            <p class="org-role">协会主席</p>
-                            <p class="org-desc">负责协会全面工作，制定发展战略，协调各部门工作</p>
-                        </div>
-                        <div class="org-card">
-                            <div class="org-avatar">👩‍💼</div>
-                            <h4>林副主席</h4>
-                            <p class="org-role">副主席</p>
-                            <p class="org-desc">协助主席工作，分管赛事和裁判工作</p>
-                        </div>
-                        <div class="org-card">
-                            <div class="org-avatar">👨‍💼</div>
-                            <h4>王副主席</h4>
-                            <p class="org-role">副主席</p>
-                            <p class="org-desc">协助主席工作，分管宣传和外联工作</p>
-                        </div>
-                    </div>
+            <div class="page-header" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+                <div class="page-header-content">
+                    <h1>协会简介</h1>
+                    <p>了解深鸡蛋足球协会的发展历程与组织架构</p>
                 </div>
-
-                <!-- 各部门 -->
-                <div class="org-section">
-                    <h3 class="org-section-title">职能部门</h3>
-                    <div class="org-departments">
-                        <div class="dept-card">
-                            <div class="dept-icon">📋</div>
-                            <h4>组织部</h4>
-                            <p class="dept-desc">负责协会活动策划、组织实施、人员调配</p>
-                            <div class="dept-members">
-                                <span class="dept-member">部长：小张</span>
-                                <span class="dept-member">干事：小李、小王</span>
-                            </div>
+            </div>
+            <div class="page-content">
+                <div class="content-container">
+                    <!-- 协会介绍 -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">ABOUT US</span>
+                            <h2>关于我们</h2>
                         </div>
-                        <div class="dept-card">
-                            <div class="dept-icon">⚽</div>
-                            <h4>技术部</h4>
-                            <p class="dept-desc">负责赛事技术统计、裁判培训、战术研究</p>
-                            <div class="dept-members">
-                                <span class="dept-member">部长：阿龙</span>
-                                <span class="dept-member">干事：阿辉、阿凯</span>
+                        <div class="about-page-content">
+                            <div class="about-page-text">
+                                <p>
+                                    深鸡蛋足球协会成立于2020年，是深鸡蛋大学官方的足球组织。
+                                    我们致力于推广校园足球文化，培养学生足球兴趣，提高足球技术水平，
+                                    为全校师生提供专业的足球交流平台。
+                                </p>
+                                <p>
+                                    协会现有8支常驻院队、2支校队、注册会员150余人，每年举办各类足球赛事50余场。
+                                    深鸡蛋足协一直与深鸡蛋大学校队深度合作，为校队做好宣传、后勤等工作，
+                                    共同致力于深鸡蛋大学校园足球事业。
+                                </p>
+                                <p>
+                                    协会组织校际联赛和各类足球赛事，并定期组织社团嘉年华、观赛等活动。
+                                    无论你是足球新手还是资深爱好者，都能在这里找到属于自己的位置。
+                                </p>
                             </div>
-                        </div>
-                        <div class="dept-card">
-                            <div class="dept-icon">📢</div>
-                            <h4>宣传部</h4>
-                            <p class="dept-desc">负责协会宣传推广、新媒体运营、照片视频拍摄</p>
-                            <div class="dept-members">
-                                <span class="dept-member">部长：小美</span>
-                                <span class="dept-member">干事：阿杰、小芳</span>
-                            </div>
-                        </div>
-                        <div class="dept-card">
-                            <div class="dept-icon">💰</div>
-                            <h4>财务部</h4>
-                            <p class="dept-desc">负责协会财务管理、经费预算、会费收取</p>
-                            <div class="dept-members">
-                                <span class="dept-member">部长：会计张</span>
-                                <span class="dept-member">干事：出纳李</span>
-                            </div>
-                        </div>
-                        <div class="dept-card">
-                            <div class="dept-icon">🤝</div>
-                            <h4>外联部</h4>
-                            <p class="dept-desc">负责对外联络、赞助商洽谈、校际交流</p>
-                            <div class="dept-members">
-                                <span class="dept-member">部长：阿文</span>
-                                <span class="dept-member">干事：阿强、阿华</span>
-                            </div>
-                        </div>
-                        <div class="dept-card">
-                            <div class="dept-icon">🏟️</div>
-                            <h4>场务部</h4>
-                            <p class="dept-desc">负责场地协调、器材管理、赛事后勤保障</p>
-                            <div class="dept-members">
-                                <span class="dept-member">部长：老周</span>
-                                <span class="dept-member">干事：阿涛、阿峰</span>
+                            <div class="about-page-stats">
+                                <div class="stat-box">
+                                    <div class="stat-num">2020</div>
+                                    <div class="stat-text">成立年份</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num">150+</div>
+                                    <div class="stat-text">注册会员</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num">8</div>
+                                    <div class="stat-text">常驻球队</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num">50+</div>
+                                    <div class="stat-text">年举办赛事</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 联系我们 -->
-                <div class="org-section">
-                    <h3 class="org-section-title">联系我们</h3>
-                    <div class="contact-info-grid">
-                        <div class="contact-info-item">
-                            <span class="contact-icon">📍</span>
-                            <div>
-                                <p class="contact-label">地址</p>
-                                <p class="contact-value">深圳市坪山区公园路深鸡蛋足球场</p>
+                    <!-- 主席团 -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">OUR TEAM</span>
+                            <h2>主席团</h2>
+                        </div>
+                        <div class="org-leaders">
+                            <div class="org-card president-card">
+                                <div class="org-avatar">👨‍💼</div>
+                                <h4>陈主席</h4>
+                                <p class="org-role">协会主席</p>
+                                <p class="org-desc">负责协会全面工作，制定发展战略，协调各部门工作</p>
+                            </div>
+                            <div class="org-card">
+                                <div class="org-avatar">👩‍💼</div>
+                                <h4>林副主席</h4>
+                                <p class="org-role">副主席</p>
+                                <p class="org-desc">协助主席工作，分管赛事和裁判工作</p>
+                            </div>
+                            <div class="org-card">
+                                <div class="org-avatar">👨‍💼</div>
+                                <h4>王副主席</h4>
+                                <p class="org-role">副主席</p>
+                                <p class="org-desc">协助主席工作，分管宣传和外联工作</p>
                             </div>
                         </div>
-                        <div class="contact-info-item">
-                            <span class="contact-icon">📞</span>
-                            <div>
-                                <p class="contact-label">电话</p>
-                                <p class="contact-value">138-0013-8000</p>
-                            </div>
+                    </div>
+
+                    <!-- 职能部门 -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">DEPARTMENTS</span>
+                            <h2>职能部门</h2>
                         </div>
-                        <div class="contact-info-item">
-                            <span class="contact-icon">📧</span>
-                            <div>
-                                <p class="contact-label">邮箱</p>
-                                <p class="contact-value">info@shendanji.com</p>
+                        <div class="org-departments">
+                            <div class="dept-card">
+                                <div class="dept-icon">📋</div>
+                                <h4>组织部</h4>
+                                <p class="dept-desc">负责协会活动策划、组织实施、人员调配</p>
+                                <div class="dept-members">
+                                    <span class="dept-member">部长：小张</span>
+                                    <span class="dept-member">干事：小李、小王</span>
+                                </div>
+                            </div>
+                            <div class="dept-card">
+                                <div class="dept-icon">⚽</div>
+                                <h4>技术部</h4>
+                                <p class="dept-desc">负责赛事技术统计、裁判培训、战术研究</p>
+                                <div class="dept-members">
+                                    <span class="dept-member">部长：阿龙</span>
+                                    <span class="dept-member">干事：阿辉、阿凯</span>
+                                </div>
+                            </div>
+                            <div class="dept-card">
+                                <div class="dept-icon">📢</div>
+                                <h4>宣传部</h4>
+                                <p class="dept-desc">负责协会宣传推广、新媒体运营、照片视频拍摄</p>
+                                <div class="dept-members">
+                                    <span class="dept-member">部长：小美</span>
+                                    <span class="dept-member">干事：阿杰、小芳</span>
+                                </div>
+                            </div>
+                            <div class="dept-card">
+                                <div class="dept-icon">💰</div>
+                                <h4>财务部</h4>
+                                <p class="dept-desc">负责协会财务管理、经费预算、会费收取</p>
+                                <div class="dept-members">
+                                    <span class="dept-member">部长：会计张</span>
+                                    <span class="dept-member">干事：出纳李</span>
+                                </div>
+                            </div>
+                            <div class="dept-card">
+                                <div class="dept-icon">🤝</div>
+                                <h4>外联部</h4>
+                                <p class="dept-desc">负责对外联络、赞助商洽谈、校际交流</p>
+                                <div class="dept-members">
+                                    <span class="dept-member">部长：阿文</span>
+                                    <span class="dept-member">干事：阿强、阿华</span>
+                                </div>
+                            </div>
+                            <div class="dept-card">
+                                <div class="dept-icon">🏟️</div>
+                                <h4>场务部</h4>
+                                <p class="dept-desc">负责场地协调、器材管理、赛事后勤保障</p>
+                                <div class="dept-members">
+                                    <span class="dept-member">部长：老周</span>
+                                    <span class="dept-member">干事：阿涛、阿峰</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <footer class="site-footer">
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <span class="footer-logo-icon">⚽</span>
+                                <div>
+                                    <h3>深鸡蛋足球协会</h3>
+                                    <span>Shenjidan Football Association</span>
+                                </div>
+                            </div>
+                            <p class="footer-desc">
+                                深鸡蛋足球协会致力于推广校园足球文化，培养学生足球兴趣，
+                                提高足球技术水平，为全校师生提供专业的足球交流平台。
+                            </p>
+                            <div class="footer-social">
+                                <a href="#" class="social-link" title="微信">💬</a>
+                                <a href="#" class="social-link" title="微博">📱</a>
+                                <a href="#" class="social-link" title="B站">📺</a>
+                                <a href="#" class="social-link" title="抖音">🎵</a>
+                            </div>
+                        </div>
+                        <div class="footer-links">
+                            <h4>快速链接</h4>
+                            <ul>
+                                <li><a href="#" onclick="switchPage('about'); return false;">协会简介</a></li>
+                                <li><a href="#" onclick="switchPage('events'); return false;">活动动态</a></li>
+                                <li><a href="#" onclick="switchPage('collegeteam'); return false;">球队信息</a></li>
+                                <li><a href="#" onclick="switchPage('schoolteam'); return false;">校队风采</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-links">
+                            <h4>资源中心</h4>
+                            <ul>
+                                <li><a href="#">招新报名</a></li>
+                                <li><a href="#">场地预约</a></li>
+                                <li><a href="#">训练计划</a></li>
+                                <li><a href="#">规章制度</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-contact">
+                            <h4>联系我们</h4>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>深圳市坪山区公园路深鸡蛋足球场</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏫</span>
+                                <span>深鸡蛋大学</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>138-0013-8000</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@shendanji.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>© 2025 深鸡蛋足球协会. All Rights Reserved. | 
+                            <a href="#">隐私政策</a> | 
+                            <a href="#">使用条款</a> | 
+                            <a href="#">网站地图</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </section>
 
-        <!-- 赛事资讯 -->
+        <!-- 活动动态页面 -->
         <section id="events" class="page">
-            <div class="content-box">
-                <h2>赛事资讯</h2>
-                <div class="events-list">
-                    <div class="event-card">
-                        <div class="event-date">
-                            <span class="month">6月</span>
-                            <span class="day">15</span>
+            <div class="page-header" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);">
+                <div class="page-header-content">
+                    <h1>活动动态</h1>
+                    <p>了解协会最新活动资讯，参与丰富多彩的足球活动</p>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="content-container">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">EVENTS</span>
+                            <h2>全部活动</h2>
                         </div>
-                        <div class="event-info">
-                            <h3>2025夏季联赛</h3>
-                            <p>八支球队参赛，激烈角逐冠军</p>
-                            <span class="event-status upcoming">即将开始</span>
+                        <div class="activity-tabs">
+                            <button class="tab-btn active" data-tab="all">全部活动</button>
+                            <button class="tab-btn" data-tab="upcoming">即将开始</button>
+                            <button class="tab-btn" data-tab="ongoing">进行中</button>
+                            <button class="tab-btn" data-tab="ended">已结束</button>
                         </div>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-date">
-                            <span class="month">5月</span>
-                            <span class="day">20</span>
-                        </div>
-                        <div class="event-info">
-                            <h3>会员友谊赛</h3>
-                            <p>新老会员足球交流活动</p>
-                            <span class="event-status completed">已结束</span>
-                        </div>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-date">
-                            <span class="month">4月</span>
-                            <span class="day">5</span>
-                        </div>
-                        <div class="event-info">
-                            <h3>春季杯足球赛</h3>
-                            <p>16支球队参赛，精彩纷呈</p>
-                            <span class="event-status completed">已结束</span>
+                        <div class="activity-list">
+                            <div class="activity-item" data-status="ongoing">
+                                <div class="activity-badge ongoing">进行中</div>
+                                <div class="activity-image">
+                                    <div class="activity-img-placeholder">⚽</div>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>2025夏季足球联赛</h3>
+                                    <p>八支球队参赛，单循环赛制，争夺联赛冠军奖杯</p>
+                                    <div class="activity-meta">
+                                        <span>📍 坪山公园足球场</span>
+                                        <span>👥 8支球队</span>
+                                        <span>📅 每周六日</span>
+                                    </div>
+                                    <button class="btn-view-detail">查看详情 →</button>
+                                </div>
+                            </div>
+                            <div class="activity-item" data-status="upcoming">
+                                <div class="activity-badge upcoming">即将开始</div>
+                                <div class="activity-image">
+                                    <div class="activity-img-placeholder">📚</div>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>足球裁判培训营</h3>
+                                    <p>邀请国家级裁判授课，学习足球规则和裁判技巧</p>
+                                    <div class="activity-meta">
+                                        <span>📍 协会会议室</span>
+                                        <span>👥 限30人</span>
+                                        <span>⏰ 14:00-17:00</span>
+                                    </div>
+                                    <button class="btn-view-detail">查看详情 →</button>
+                                </div>
+                            </div>
+                            <div class="activity-item" data-status="upcoming">
+                                <div class="activity-badge upcoming">即将开始</div>
+                                <div class="activity-image">
+                                    <div class="activity-img-placeholder">👨‍👩‍👧</div>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>亲子足球嘉年华</h3>
+                                    <p>家庭足球趣味活动，增进亲子感情，培养孩子足球兴趣</p>
+                                    <div class="activity-meta">
+                                        <span>📍 坪山公园足球场</span>
+                                        <span>👨‍👩‍👧‍👦 适合5-12岁</span>
+                                        <span>⏰ 09:00-12:00</span>
+                                    </div>
+                                    <button class="btn-view-detail">查看详情 →</button>
+                                </div>
+                            </div>
+                            <div class="activity-item" data-status="ended">
+                                <div class="activity-badge ended">已结束</div>
+                                <div class="activity-image">
+                                    <div class="activity-img-placeholder">🤝</div>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>新老会员友谊赛</h3>
+                                    <p>新老会员足球交流活动，以球会友，增进感情</p>
+                                    <div class="activity-meta">
+                                        <span>📍 坪山公园足球场</span>
+                                        <span>👥 40人参与</span>
+                                        <span>✅ 圆满成功</span>
+                                    </div>
+                                    <button class="btn-view-detail">查看详情 →</button>
+                                </div>
+                            </div>
+                            <div class="activity-item" data-status="ended">
+                                <div class="activity-badge ended">已结束</div>
+                                <div class="activity-image">
+                                    <div class="activity-img-placeholder">🏆</div>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>春季杯足球赛</h3>
+                                    <p>16支球队参赛，经过激烈角逐，经管学院夺冠</p>
+                                    <div class="activity-meta">
+                                        <span>📍 坪山公园足球场</span>
+                                        <span>🏆 经管学院冠军</span>
+                                        <span>⚽ 32场比赛</span>
+                                    </div>
+                                    <button class="btn-view-detail">查看详情 →</button>
+                                </div>
+                            </div>
+                            <div class="activity-item" data-status="ended">
+                                <div class="activity-badge ended">已结束</div>
+                                <div class="activity-image">
+                                    <div class="activity-img-placeholder">🎀</div>
+                                </div>
+                                <div class="activity-content">
+                                    <h3>三八节女足友谊赛</h3>
+                                    <p>庆祝国际妇女节，女足姑娘们展现风采</p>
+                                    <div class="activity-meta">
+                                        <span>📍 坪山公园足球场</span>
+                                        <span>👩 20人参与</span>
+                                        <span>🎀 特别活动</span>
+                                    </div>
+                                    <button class="btn-view-detail">查看详情 →</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <footer class="site-footer">
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <span class="footer-logo-icon">⚽</span>
+                                <div>
+                                    <h3>深鸡蛋足球协会</h3>
+                                    <span>Shenjidan Football Association</span>
+                                </div>
+                            </div>
+                            <p class="footer-desc">
+                                深鸡蛋足球协会致力于推广校园足球文化，培养学生足球兴趣，
+                                提高足球技术水平，为全校师生提供专业的足球交流平台。
+                            </p>
+                            <div class="footer-social">
+                                <a href="#" class="social-link" title="微信">💬</a>
+                                <a href="#" class="social-link" title="微博">📱</a>
+                                <a href="#" class="social-link" title="B站">📺</a>
+                                <a href="#" class="social-link" title="抖音">🎵</a>
+                            </div>
+                        </div>
+                        <div class="footer-links">
+                            <h4>快速链接</h4>
+                            <ul>
+                                <li><a href="#" onclick="switchPage('about'); return false;">协会简介</a></li>
+                                <li><a href="#" onclick="switchPage('events'); return false;">活动动态</a></li>
+                                <li><a href="#" onclick="switchPage('collegeteam'); return false;">球队信息</a></li>
+                                <li><a href="#" onclick="switchPage('schoolteam'); return false;">校队风采</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-links">
+                            <h4>资源中心</h4>
+                            <ul>
+                                <li><a href="#">招新报名</a></li>
+                                <li><a href="#">场地预约</a></li>
+                                <li><a href="#">训练计划</a></li>
+                                <li><a href="#">规章制度</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-contact">
+                            <h4>联系我们</h4>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>深圳市坪山区公园路深鸡蛋足球场</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏫</span>
+                                <span>深鸡蛋大学</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>138-0013-8000</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@shendanji.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>© 2025 深鸡蛋足球协会. All Rights Reserved. | 
+                            <a href="#">隐私政策</a> | 
+                            <a href="#">使用条款</a> | 
+                            <a href="#">网站地图</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
         </section>
 
-        <!-- 荣誉之星 -->
-        <section id="honor" class="page">
-            <div class="content-box">
-                <h2>荣誉之星</h2>
-                <p class="intro">致敬那些为校争光、现已毕业的传奇球员，他们的精神永远激励着我们！</p>
-
-                <div class="honor-stars-grid" id="honorStarsGrid">
-                </div>
-            </div>
-        </section>
-
-        <!-- 荣誉之星详情模态框 -->
-        <div id="honorDetailModal" class="modal">
-            <div class="modal-content honor-modal">
-                <button class="modal-close" onclick="closeHonorDetail()">×</button>
-                <div id="honorDetailContent">
-                </div>
-            </div>
-        </div>
-
-        <!-- 精彩瞬间 -->
-        <section id="gallery" class="page">
-            <div class="content-box">
-                <h2>精彩瞬间</h2>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <div class="placeholder-img">⚽</div>
-                        <p>2025夏季联赛开幕式</p>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="placeholder-img">🏆</div>
-                        <p>冠军球队合影</p>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="placeholder-img">⚽</div>
-                        <p>激烈比赛瞬间</p>
-                    </div>
-                    <div class="gallery-item">
-                        <div class="placeholder-img">👥</div>
-                        <p>会员合影</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 主裁系统 -->
-        <section id="referee" class="page">
-            <div class="content-box">
-                <h2>主裁系统</h2>
-                <p class="intro">深鸡蛋足球协会拥有专业的裁判团队，所有裁判员均经过严格培训和考核，确保赛事公平公正进行。</p>
-
-                <div class="referee-stats">
-                    <div class="ref-stat">
-                        <div class="ref-number">12</div>
-                        <div class="ref-label">注册主裁</div>
-                    </div>
-                    <div class="ref-stat">
-                        <div class="ref-number">8</div>
-                        <div class="ref-label">一级裁判</div>
-                    </div>
-                    <div class="ref-stat">
-                        <div class="ref-number">200+</div>
-                        <div class="ref-label">执法场次</div>
-                    </div>
-                    <div class="ref-stat">
-                        <div class="ref-number">98%</div>
-                        <div class="ref-label">好评率</div>
-                    </div>
-                </div>
-
-                <h3 style="margin-top: 30px; margin-bottom: 20px; color: var(--accent-blue);">主裁风采</h3>
-                <div class="referee-grid" id="refereeGridDisplay">
-                </div>
-
-                <div class="referee-info" style="margin-top: 30px;">
-                    <h3 style="margin-bottom: 15px; color: var(--accent-blue);">裁判申请</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 15px;">
-                        如果你热爱足球，希望成为一名足球裁判，欢迎加入我们的裁判团队！
-                        我们将提供专业的培训和考核机会。
-                    </p>
-                    <button class="btn-primary" style="background: var(--accent-blue); color: #fff;">申请成为裁判</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 院队风采 -->
+        <!-- 球队信息页面 -->
         <section id="collegeteam" class="page">
-            <div class="content-box">
-                <h2>院队风采</h2>
-                <p class="intro">各学院足球队风采展示，这里有最热血的青春，最精彩的对决！</p>
-
-                <!-- 榜单标签 -->
-                <div class="rank-tabs">
-                    <button class="rank-tab active" data-rank="ranking" onclick="switchRankTab('ranking')">🏆 积分榜</button>
-                    <button class="rank-tab" data-rank="knockout" onclick="switchRankTab('knockout')">🏅 晋级路线</button>
-                    <button class="rank-tab" data-rank="goals" onclick="switchRankTab('goals')">⚽ 进球榜</button>
-                    <button class="rank-tab" data-rank="assists" onclick="switchRankTab('assists')">🎯 助攻榜</button>
-                    <button class="rank-tab" data-rank="awards" onclick="switchRankTab('awards')">🏆 奖项评选</button>
+            <div class="page-header" style="background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);">
+                <div class="page-header-content">
+                    <h1>球队信息</h1>
+                    <p>各学院足球队风采展示，这里有最热血的青春，最精彩的对决！</p>
                 </div>
+            </div>
+            <div class="page-content">
+                <div class="content-container">
+                    <!-- 球队展示 -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">TEAMS</span>
+                            <h2>院队风采</h2>
+                        </div>
+                        <div class="team-grid" id="collegeTeamsGrid">
+                        </div>
+                    </div>
 
-                <!-- 球队展示 -->
-                <div class="team-grid" id="collegeTeamsGrid">
+                    <!-- 榜单 -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">RANKING</span>
+                            <h2>校长杯榜单</h2>
+                        </div>
+                        <div class="rank-tabs">
+                            <button class="rank-tab active" data-rank="ranking" onclick="switchRankTab('ranking')">🏆 积分榜</button>
+                            <button class="rank-tab" data-rank="knockout" onclick="switchRankTab('knockout')">🏅 晋级路线</button>
+                            <button class="rank-tab" data-rank="goals" onclick="switchRankTab('goals')">⚽ 进球榜</button>
+                            <button class="rank-tab" data-rank="assists" onclick="switchRankTab('assists')">🎯 助攻榜</button>
+                            <button class="rank-tab" data-rank="awards" onclick="switchRankTab('awards')">🏆 奖项评选</button>
+                        </div>
+
+                        <!-- 积分榜 -->
+                        <div id="rank-ranking" class="rank-panel active">
+                            <div class="ranking-section">
+                                <h3 style="margin-bottom: 20px; color: var(--accent-blue);" id="rankingTitle">2025年校长杯积分榜</h3>
+                                <div class="group-tables">
+                                    <div class="group-table-container">
+                                        <div class="group-title"><span class="group-label">A组</span></div>
+                                        <table class="ranking-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>排名</th>
+                                                    <th>球队</th>
+                                                    <th>场次</th>
+                                                    <th>胜</th>
+                                                    <th>平</th>
+                                                    <th>负</th>
+                                                    <th>积分</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="groupABody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="group-table-container">
+                                        <div class="group-title"><span class="group-label">B组</span></div>
+                                        <table class="ranking-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>排名</th>
+                                                    <th>球队</th>
+                                                    <th>场次</th>
+                                                    <th>胜</th>
+                                                    <th>平</th>
+                                                    <th>负</th>
+                                                    <th>积分</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="groupBBody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 晋级路线（淘汰赛） -->
+                        <div id="rank-knockout" class="rank-panel">
+                            <div class="ranking-section">
+                                <h3 style="margin-bottom: 20px; color: var(--accent-blue);" id="knockoutTitle">2025年校长杯淘汰赛</h3>
+                                <div class="knockout-bracket" id="knockoutBracket">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 进球榜 -->
+                        <div id="rank-goals" class="rank-panel">
+                            <div class="ranking-section">
+                                <h3 style="margin-bottom: 20px; color: var(--accent-blue);">射手榜</h3>
+                                <table class="ranking-table player-table">
+                                    <thead>
+                                        <tr>
+                                            <th>排名</th>
+                                            <th>球员</th>
+                                            <th>球队</th>
+                                            <th>号码</th>
+                                            <th>进球数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="goalsBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 助攻榜 -->
+                        <div id="rank-assists" class="rank-panel">
+                            <div class="ranking-section">
+                                <h3 style="margin-bottom: 20px; color: var(--accent-blue);">助攻榜</h3>
+                                <table class="ranking-table player-table">
+                                    <thead>
+                                        <tr>
+                                            <th>排名</th>
+                                            <th>球员</th>
+                                            <th>球队</th>
+                                            <th>号码</th>
+                                            <th>助攻数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="assistsBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 奖项评选 -->
+                        <div id="rank-awards" class="rank-panel">
+                            <div class="awards-grid">
+                                <div class="award-card main-award">
+                                    <div class="award-icon">👑</div>
+                                    <h3>金球奖</h3>
+                                    <div class="award-player" id="goldenWinner">
+                                        <div class="player-photo">📷</div>
+                                        <h4>待定</h4>
+                                        <p class="player-team">待定</p>
+                                    </div>
+                                    <p class="award-desc">本届校长杯最有价值球员</p>
+                                </div>
+                                <div class="award-card">
+                                    <div class="award-icon">🌟</div>
+                                    <h3>最佳新秀奖</h3>
+                                    <div class="award-player" id="rookieWinner">
+                                        <div class="player-photo">📷</div>
+                                        <h4>待定</h4>
+                                        <p class="player-team">待定</p>
+                                    </div>
+                                    <p class="award-desc">评选当届表现最出色的新人球员</p>
+                                </div>
+                                <div class="award-card">
+                                    <div class="award-icon">🧤</div>
+                                    <h3>金手套奖</h3>
+                                    <div class="award-player" id="gloveWinner">
+                                        <div class="player-photo">📷</div>
+                                        <h4>待定</h4>
+                                        <p class="player-team">待定</p>
+                                    </div>
+                                    <p class="award-desc">本届校长杯最佳守门员</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 年度选择器 -->
+                        <div class="cup-year-switcher">
+                            <div class="year-switcher-label">🏆 选择校长杯年度</div>
+                            <div class="year-switcher-track" id="yearSwitcherTrack">
+                            </div>
+                            <button class="btn-history-bottom" onclick="showCupHistory()">📚 历年回顾</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
-                <!-- 积分榜 -->
-                <div id="rank-ranking" class="rank-panel active">
-                    <div class="ranking-section">
-                        <h3 style="margin-bottom: 20px; color: var(--accent-blue);" id="rankingTitle">2025年校长杯积分榜</h3>
-                        <div class="group-tables">
-                            <div class="group-table-container">
-                                <div class="group-title"><span class="group-label">A组</span></div>
-                                <table class="ranking-table">
+            <footer class="site-footer">
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <span class="footer-logo-icon">⚽</span>
+                                <div>
+                                    <h3>深鸡蛋足球协会</h3>
+                                    <span>Shenjidan Football Association</span>
+                                </div>
+                            </div>
+                            <p class="footer-desc">
+                                深鸡蛋足球协会致力于推广校园足球文化，培养学生足球兴趣，
+                                提高足球技术水平，为全校师生提供专业的足球交流平台。
+                            </p>
+                            <div class="footer-social">
+                                <a href="#" class="social-link" title="微信">💬</a>
+                                <a href="#" class="social-link" title="微博">📱</a>
+                                <a href="#" class="social-link" title="B站">📺</a>
+                                <a href="#" class="social-link" title="抖音">🎵</a>
+                            </div>
+                        </div>
+                        <div class="footer-links">
+                            <h4>快速链接</h4>
+                            <ul>
+                                <li><a href="#" onclick="switchPage('about'); return false;">协会简介</a></li>
+                                <li><a href="#" onclick="switchPage('events'); return false;">活动动态</a></li>
+                                <li><a href="#" onclick="switchPage('collegeteam'); return false;">球队信息</a></li>
+                                <li><a href="#" onclick="switchPage('schoolteam'); return false;">校队风采</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-links">
+                            <h4>资源中心</h4>
+                            <ul>
+                                <li><a href="#">招新报名</a></li>
+                                <li><a href="#">场地预约</a></li>
+                                <li><a href="#">训练计划</a></li>
+                                <li><a href="#">规章制度</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-contact">
+                            <h4>联系我们</h4>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>深圳市坪山区公园路深鸡蛋足球场</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏫</span>
+                                <span>深鸡蛋大学</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>138-0013-8000</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@shendanji.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>© 2025 深鸡蛋足球协会. All Rights Reserved. | 
+                            <a href="#">隐私政策</a> | 
+                            <a href="#">使用条款</a> | 
+                            <a href="#">网站地图</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <!-- 校队风采页面 -->
+        <section id="schoolteam" class="page">
+            <div class="page-header" style="background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);">
+                <div class="page-header-content">
+                    <h1>校队风采</h1>
+                    <p>深鸡蛋大学校足球队 - 代表学校最高水平的足球队伍，征战各大高校联赛！</p>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="content-container">
+                    <div class="content-card">
+                        <div class="school-hero" id="schoolHeroDisplay">
+                        </div>
+
+                        <div class="team-switch">
+                            <button class="team-switch-btn active" data-team="men" onclick="switchSchoolTeam('men')">⚽ 男子校队</button>
+                            <button class="team-switch-btn" data-team="women" onclick="switchSchoolTeam('women')">⚽ 女子校队</button>
+                            <button class="team-switch-btn" data-team="coaches" onclick="switchSchoolTeam('coaches')">👨‍🏫 教练团队</button>
+                        </div>
+
+                        <div id="men-team" class="team-gallery active">
+                            <h3 style="margin: 20px 0; color: var(--accent-blue);">男子校队阵容</h3>
+                            <div class="player-gallery" id="menPlayersGallery">
+                            </div>
+                        </div>
+
+                        <div id="women-team" class="team-gallery">
+                            <h3 style="margin: 20px 0; color: var(--accent-blue);">女子校队阵容</h3>
+                            <div class="player-gallery" id="womenPlayersGallery">
+                            </div>
+                        </div>
+
+                        <div id="coaches-team" class="team-gallery">
+                            <h3 style="margin: 20px 0; color: var(--accent-blue);">教练团队</h3>
+                            <div class="coach-gallery" id="coachesGallery">
+                            </div>
+                        </div>
+
+                        <div class="join-section" style="margin-top: 30px;">
+                            <h3>加入校队</h3>
+                            <p>如果你有足球天赋，欢迎参加每年一度的校队选拔！</p>
+                            <button class="btn-primary">了解选拔详情</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="site-footer">
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <span class="footer-logo-icon">⚽</span>
+                                <div>
+                                    <h3>深鸡蛋足球协会</h3>
+                                    <span>Shenjidan Football Association</span>
+                                </div>
+                            </div>
+                            <p class="footer-desc">
+                                深鸡蛋足球协会致力于推广校园足球文化，培养学生足球兴趣，
+                                提高足球技术水平，为全校师生提供专业的足球交流平台。
+                            </p>
+                            <div class="footer-social">
+                                <a href="#" class="social-link" title="微信">💬</a>
+                                <a href="#" class="social-link" title="微博">📱</a>
+                                <a href="#" class="social-link" title="B站">📺</a>
+                                <a href="#" class="social-link" title="抖音">🎵</a>
+                            </div>
+                        </div>
+                        <div class="footer-links">
+                            <h4>快速链接</h4>
+                            <ul>
+                                <li><a href="#" onclick="switchPage('about'); return false;">协会简介</a></li>
+                                <li><a href="#" onclick="switchPage('events'); return false;">活动动态</a></li>
+                                <li><a href="#" onclick="switchPage('collegeteam'); return false;">球队信息</a></li>
+                                <li><a href="#" onclick="switchPage('schoolteam'); return false;">校队风采</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-links">
+                            <h4>资源中心</h4>
+                            <ul>
+                                <li><a href="#">招新报名</a></li>
+                                <li><a href="#">场地预约</a></li>
+                                <li><a href="#">训练计划</a></li>
+                                <li><a href="#">规章制度</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-contact">
+                            <h4>联系我们</h4>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>深圳市坪山区公园路深鸡蛋足球场</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏫</span>
+                                <span>深鸡蛋大学</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>138-0013-8000</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@shendanji.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>© 2025 深鸡蛋足球协会. All Rights Reserved. | 
+                            <a href="#">隐私政策</a> | 
+                            <a href="#">使用条款</a> | 
+                            <a href="#">网站地图</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <!-- 主裁系统页面 -->
+        <section id="referee" class="page">
+            <div class="page-header" style="background: linear-gradient(135deg, #2c3e50 0%, #4a6572 100%);">
+                <div class="page-header-content">
+                    <h1>主裁系统</h1>
+                    <p>专业的裁判团队，确保赛事公平公正进行</p>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="content-container">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">REFEREE</span>
+                            <h2>主裁团队</h2>
+                        </div>
+                        <p class="intro">
+                            深鸡蛋足球协会拥有专业的裁判团队，所有裁判员均经过严格培训和考核，确保赛事公平公正进行。
+                        </p>
+                        <div class="referee-stats">
+                            <div class="ref-stat">
+                                <div class="ref-number">12</div>
+                                <div class="ref-label">注册主裁</div>
+                            </div>
+                            <div class="ref-stat">
+                                <div class="ref-number">8</div>
+                                <div class="ref-label">一级裁判</div>
+                            </div>
+                            <div class="ref-stat">
+                                <div class="ref-number">200+</div>
+                                <div class="ref-label">执法场次</div>
+                            </div>
+                            <div class="ref-stat">
+                                <div class="ref-number">98%</div>
+                                <div class="ref-label">好评率</div>
+                            </div>
+                        </div>
+                        <h3 style="margin-top: 30px; margin-bottom: 20px; color: var(--accent-blue);">主裁风采</h3>
+                        <div class="referee-grid" id="refereeGridDisplay">
+                        </div>
+                        <div class="referee-info" style="margin-top: 30px;">
+                            <h3 style="margin-bottom: 15px; color: var(--accent-blue);">裁判申请</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                                如果你热爱足球，希望成为一名足球裁判，欢迎加入我们的裁判团队！
+                                我们将提供专业的培训和考核机会。
+                            </p>
+                            <button class="btn-primary" style="background: var(--accent-blue); color: #fff;">申请成为裁判</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="site-footer">
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <span class="footer-logo-icon">⚽</span>
+                                <div>
+                                    <h3>深鸡蛋足球协会</h3>
+                                    <span>Shenjidan Football Association</span>
+                                </div>
+                            </div>
+                            <p class="footer-desc">
+                                深鸡蛋足球协会致力于推广校园足球文化，培养学生足球兴趣，
+                                提高足球技术水平，为全校师生提供专业的足球交流平台。
+                            </p>
+                            <div class="footer-social">
+                                <a href="#" class="social-link" title="微信">💬</a>
+                                <a href="#" class="social-link" title="微博">📱</a>
+                                <a href="#" class="social-link" title="B站">📺</a>
+                                <a href="#" class="social-link" title="抖音">🎵</a>
+                            </div>
+                        </div>
+                        <div class="footer-links">
+                            <h4>快速链接</h4>
+                            <ul>
+                                <li><a href="#" onclick="switchPage('about'); return false;">协会简介</a></li>
+                                <li><a href="#" onclick="switchPage('events'); return false;">活动动态</a></li>
+                                <li><a href="#" onclick="switchPage('collegeteam'); return false;">球队信息</a></li>
+                                <li><a href="#" onclick="switchPage('schoolteam'); return false;">校队风采</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-links">
+                            <h4>资源中心</h4>
+                            <ul>
+                                <li><a href="#">招新报名</a></li>
+                                <li><a href="#">场地预约</a></li>
+                                <li><a href="#">训练计划</a></li>
+                                <li><a href="#">规章制度</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-contact">
+                            <h4>联系我们</h4>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>深圳市坪山区公园路深鸡蛋足球场</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏫</span>
+                                <span>深鸡蛋大学</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>138-0013-8000</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@shendanji.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>© 2025 深鸡蛋足球协会. All Rights Reserved. | 
+                            <a href="#">隐私政策</a> | 
+                            <a href="#">使用条款</a> | 
+                            <a href="#">网站地图</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <!-- 联系我们页面 -->
+        <section id="contact" class="page">
+            <div class="page-header" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+                <div class="page-header-content">
+                    <h1>联系我们</h1>
+                    <p>有任何问题或建议，欢迎随时联系我们</p>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="content-container">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">CONTACT US</span>
+                            <h2>联系方式</h2>
+                        </div>
+                        <div class="contact-info-grid">
+                            <div class="contact-info-item">
+                                <span class="contact-icon">📍</span>
+                                <div>
+                                    <p class="contact-label">地址</p>
+                                    <p class="contact-value">深圳市坪山区公园路深鸡蛋足球场</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <span class="contact-icon">📞</span>
+                                <div>
+                                    <p class="contact-label">电话</p>
+                                    <p class="contact-value">138-0013-8000</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <span class="contact-icon">📧</span>
+                                <div>
+                                    <p class="contact-label">邮箱</p>
+                                    <p class="contact-value">info@shendanji.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-info-item">
+                                <span class="contact-icon">🕐</span>
+                                <div>
+                                    <p class="contact-label">工作时间</p>
+                                    <p class="contact-value">周一至周日 09:00-21:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <div class="card-header">
+                            <span class="card-tag">MESSAGE</span>
+                            <h2>留言反馈</h2>
+                        </div>
+                        <div class="contact-form">
+                            <form>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>姓名</label>
+                                        <input type="text" placeholder="请输入您的姓名">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>联系电话</label>
+                                        <input type="tel" placeholder="请输入您的电话">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>邮箱</label>
+                                    <input type="email" placeholder="请输入您的邮箱">
+                                </div>
+                                <div class="form-group">
+                                    <label>留言内容</label>
+                                    <textarea rows="5" placeholder="请输入您想说的内容..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-submit">提交留言</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="site-footer">
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <span class="footer-logo-icon">⚽</span>
+                                <div>
+                                    <h3>深鸡蛋足球协会</h3>
+                                    <span>Shenjidan Football Association</span>
+                                </div>
+                            </div>
+                            <p class="footer-desc">
+                                深鸡蛋足球协会致力于推广校园足球文化，培养学生足球兴趣，
+                                提高足球技术水平，为全校师生提供专业的足球交流平台。
+                            </p>
+                            <div class="footer-social">
+                                <a href="#" class="social-link" title="微信">💬</a>
+                                <a href="#" class="social-link" title="微博">📱</a>
+                                <a href="#" class="social-link" title="B站">📺</a>
+                                <a href="#" class="social-link" title="抖音">🎵</a>
+                            </div>
+                        </div>
+                        <div class="footer-links">
+                            <h4>快速链接</h4>
+                            <ul>
+                                <li><a href="#" onclick="switchPage('about'); return false;">协会简介</a></li>
+                                <li><a href="#" onclick="switchPage('events'); return false;">活动动态</a></li>
+                                <li><a href="#" onclick="switchPage('collegeteam'); return false;">球队信息</a></li>
+                                <li><a href="#" onclick="switchPage('schoolteam'); return false;">校队风采</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-links">
+                            <h4>资源中心</h4>
+                            <ul>
+                                <li><a href="#">招新报名</a></li>
+                                <li><a href="#">场地预约</a></li>
+                                <li><a href="#">训练计划</a></li>
+                                <li><a href="#">规章制度</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-contact">
+                            <h4>联系我们</h4>
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>深圳市坪山区公园路深鸡蛋足球场</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏫</span>
+                                <span>深鸡蛋大学</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>138-0013-8000</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@shendanji.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>© 2025 深鸡蛋足球协会. All Rights Reserved. | 
+                            <a href="#">隐私政策</a> | 
+                            <a href="#">使用条款</a> | 
+                            <a href="#">网站地图</a>
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <!-- 管理后台页面 -->
+        <section id="admin" class="page">
+            <div class="page-header" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);">
+                <div class="page-header-content">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div>
+                            <h1>管理后台</h1>
+                            <p>管理网站内容和数据</p>
+                        </div>
+                        <button class="btn-logout" onclick="logoutAdmin()">退出登录</button>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="content-container">
+                    <div class="content-card">
+                        <div class="admin-tabs">
+                            <button class="admin-tab active" data-tab="homepage">首页管理</button>
+                            <button class="admin-tab" data-tab="teams">院队管理</button>
+                            <button class="admin-tab" data-tab="ranking">校长杯管理</button>
+                            <button class="admin-tab" data-tab="schoolteam">校队管理</button>
+                            <button class="admin-tab" data-tab="honor">荣誉之星</button>
+                            <button class="admin-tab" data-tab="activities">活动管理</button>
+                            <button class="admin-tab" data-tab="referee">主裁管理</button>
+                            <button class="admin-tab" data-tab="settings">系统设置</button>
+                        </div>
+
+                        <!-- 首页管理 -->
+                        <div id="tab-homepage" class="admin-panel active">
+                            <div class="panel-header">
+                                <h3>首页比赛管理</h3>
+                            </div>
+                            
+                            <h4 style="margin: 20px 0 15px;">下一场比赛（倒计时）</h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>主队</label>
+                                    <select id="homeMatchHomeTeam"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>客队</label>
+                                    <select id="homeMatchAwayTeam"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>比赛时间</label>
+                                    <input type="datetime-local" id="homeMatchDateTime">
+                                </div>
+                                <div class="form-group">
+                                    <label>比赛地点</label>
+                                    <input type="text" id="homeMatchLocation" placeholder="如：坪山公园足球场">
+                                </div>
+                                <div class="form-group full-width">
+                                    <label>直播链接</label>
+                                    <input type="url" id="homeMatchLiveUrl" placeholder="如：https://...">
+                                </div>
+                            </div>
+                            <button class="btn-save" onclick="saveHomeMatch()">保存下一场比赛</button>
+
+                            <h4 style="margin: 30px 0 15px;">最近比赛比分</h4>
+                            <div class="panel-header" style="margin-bottom: 15px;">
+                                <h3 style="font-size: 16px;">最近比赛列表</h3>
+                                <button class="btn-add" onclick="showAddRecentMatchModal()">+ 添加比赛</button>
+                            </div>
+                            <div class="data-list" id="recentMatchesList">
+                            </div>
+                        </div>
+
+                        <!-- 院队管理 -->
+                        <div id="tab-teams" class="admin-panel">
+                            <div class="panel-header">
+                                <h3>院队信息管理</h3>
+                                <button class="btn-add" onclick="showAddTeamModal()">+ 添加院队</button>
+                            </div>
+                            <div class="data-list" id="teamsList">
+                            </div>
+                        </div>
+
+                        <!-- 积分榜管理 -->
+                        <div id="tab-ranking" class="admin-panel">
+                            <div class="panel-header">
+                                <h3>积分榜管理</h3>
+                            </div>
+                            <div class="ranking-edit-table">
+                                <table id="rankingEditTable">
                                     <thead>
                                         <tr>
                                             <th>排名</th>
@@ -514,125 +1440,125 @@
                                             <th>平</th>
                                             <th>负</th>
                                             <th>积分</th>
+                                            <th>操作</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="groupABody">
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="group-table-container">
-                                <div class="group-title"><span class="group-label">B组</span></div>
-                                <table class="ranking-table">
-                                    <thead>
-                                        <tr>
-                                            <th>排名</th>
-                                            <th>球队</th>
-                                            <th>场次</th>
-                                            <th>胜</th>
-                                            <th>平</th>
-                                            <th>负</th>
-                                            <th>积分</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="groupBBody">
+                                    <tbody id="rankingBody">
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- 晋级路线（淘汰赛） -->
-                <div id="rank-knockout" class="rank-panel">
-                    <div class="ranking-section">
-                        <h3 style="margin-bottom: 20px; color: var(--accent-blue);" id="knockoutTitle">2025年校长杯淘汰赛</h3>
-                        <div class="knockout-bracket" id="knockoutBracket">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 进球榜 -->
-                <div id="rank-goals" class="rank-panel">
-                    <div class="ranking-section">
-                        <h3 style="margin-bottom: 20px; color: var(--accent-blue);">射手榜</h3>
-                        <table class="ranking-table player-table">
-                            <thead>
-                                <tr>
-                                    <th>排名</th>
-                                    <th>球员</th>
-                                    <th>球队</th>
-                                    <th>号码</th>
-                                    <th>进球数</th>
-                                </tr>
-                            </thead>
-                            <tbody id="goalsBody">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- 助攻榜 -->
-                <div id="rank-assists" class="rank-panel">
-                    <div class="ranking-section">
-                        <h3 style="margin-bottom: 20px; color: var(--accent-blue);">助攻榜</h3>
-                        <table class="ranking-table player-table">
-                            <thead>
-                                <tr>
-                                    <th>排名</th>
-                                    <th>球员</th>
-                                    <th>球队</th>
-                                    <th>号码</th>
-                                    <th>助攻数</th>
-                                </tr>
-                            </thead>
-                            <tbody id="assistsBody">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- 奖项评选 -->
-                <div id="rank-awards" class="rank-panel">
-                    <div class="awards-grid">
-                        <div class="award-card main-award">
-                            <div class="award-icon">👑</div>
-                            <h3>金球奖</h3>
-                            <div class="award-player" id="goldenWinner">
-                                <div class="player-photo">📷</div>
-                                <h4>待定</h4>
-                                <p class="player-team">待定</p>
+                        <!-- 校队管理 -->
+                        <div id="tab-schoolteam" class="admin-panel">
+                            <div class="panel-header">
+                                <h3>校队信息管理</h3>
                             </div>
-                            <p class="award-desc">本届校长杯最有价值球员</p>
-                        </div>
-                        <div class="award-card">
-                            <div class="award-icon">🌟</div>
-                            <h3>最佳新秀奖</h3>
-                            <div class="award-player" id="rookieWinner">
-                                <div class="player-photo">📷</div>
-                                <h4>待定</h4>
-                                <p class="player-team">待定</p>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>球队名称</label>
+                                    <input type="text" id="schoolTeamName" value="深鸡蛋大学校足球队">
+                                </div>
+                                <div class="form-group">
+                                    <label>成立时间</label>
+                                    <input type="text" id="schoolTeamYear" value="成立于2018年">
+                                </div>
+                                <div class="form-group">
+                                    <label>队员人数</label>
+                                    <input type="text" id="schoolTeamMembers" value="30名">
+                                </div>
+                                <div class="form-group">
+                                    <label>教练人数</label>
+                                    <input type="text" id="schoolTeamCoaches" value="2名">
+                                </div>
                             </div>
-                            <p class="award-desc">评选当届表现最出色的新人球员</p>
-                        </div>
-                        <div class="award-card">
-                            <div class="award-icon">🧤</div>
-                            <h3>金手套奖</h3>
-                            <div class="award-player" id="gloveWinner">
-                                <div class="player-photo">📷</div>
-                                <h4>待定</h4>
-                                <p class="player-team">待定</p>
+                            <div class="form-group full-width">
+                                <label>球队荣誉</label>
+                                <textarea id="schoolTeamHonors" rows="3" placeholder="每行一个荣誉，格式：🥇 市高校联赛冠军 x2"></textarea>
                             </div>
-                            <p class="award-desc">本届校长杯最佳守门员</p>
-                        </div>
-                    </div>
-                </div>
+                            <button class="btn-save" onclick="saveSchoolTeam()">保存校队信息</button>
 
-                <!-- 年度选择器（底部设计感切换） -->
-                <div class="cup-year-switcher">
-                    <div class="year-switcher-label">🏆 选择校长杯年度</div>
-                    <div class="year-switcher-track" id="yearSwitcherTrack">
+                            <h3 style="margin-top: 30px; margin-bottom: 20px;">教练团队</h3>
+                            <div class="data-list" id="coachesList">
+                            </div>
+                            <button class="btn-add" onclick="showAddCoachModal()">+ 添加教练</button>
+
+                            <h3 style="margin-top: 30px; margin-bottom: 20px;">球队阵容</h3>
+                            <div id="squadEditor">
+                            </div>
+                        </div>
+
+                        <!-- 荣誉之星管理 -->
+                        <div id="tab-honor" class="admin-panel">
+                            <div class="panel-header">
+                                <h3>荣誉之星管理</h3>
+                                <button class="btn-add" onclick="showAddHonorModal()">+ 添加荣誉之星</button>
+                            </div>
+                            <div class="data-list" id="honorList">
+                            </div>
+                        </div>
+
+                        <!-- 活动管理 -->
+                        <div id="tab-activities" class="admin-panel">
+                            <div class="panel-header">
+                                <h3>活动管理</h3>
+                                <button class="btn-add" onclick="showAddActivityModal()">+ 添加活动</button>
+                            </div>
+                            <div class="data-list" id="activitiesList">
+                            </div>
+                        </div>
+
+                        <!-- 主裁管理 -->
+                        <div id="tab-referee" class="admin-panel">
+                            <div class="panel-header">
+                                <h3>主裁管理</h3>
+                                <button class="btn-add" onclick="showAddRefereeModal()">+ 添加主裁</button>
+                            </div>
+                            <div class="ref-stats-edit">
+                                <div class="stat-edit">
+                                    <label>注册主裁</label>
+                                    <input type="number" id="refTotal" value="12">
+                                </div>
+                                <div class="stat-edit">
+                                    <label>一级裁判</label>
+                                    <input type="number" id="refLevel1" value="8">
+                                </div>
+                                <div class="stat-edit">
+                                    <label>执法场次</label>
+                                    <input type="text" id="refMatches" value="200+">
+                                </div>
+                                <div class="stat-edit">
+                                    <label>好评率</label>
+                                    <input type="text" id="refRating" value="98%">
+                                </div>
+                                <button class="btn-save" onclick="saveRefStats()">保存统计数据</button>
+                            </div>
+                            <div class="data-list" id="refereeList">
+                            </div>
+                        </div>
+
+                        <!-- 系统设置 -->
+                        <div id="tab-settings" class="admin-panel">
+                            <div class="panel-header">
+                                <h3>系统设置</h3>
+                            </div>
+                            <div class="form-group">
+                                <label>修改管理员密码</label>
+                                <input type="password" id="newAdminPwd" placeholder="请输入新密码">
+                            </div>
+                            <div class="form-group">
+                                <label>确认新密码</label>
+                                <input type="password" id="confirmAdminPwd" placeholder="请再次输入新密码">
+                            </div>
+                            <button class="btn-save" onclick="changeAdminPassword()">修改密码</button>
+
+                            <div class="danger-zone">
+                                <h4>危险操作</h4>
+                                <button class="btn-danger" onclick="resetAllData()">重置所有数据</button>
+                                <p class="danger-tip">警告：此操作将清除所有数据且不可恢复！</p>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn-history-bottom" onclick="showCupHistory()">📚 历年回顾</button>
                 </div>
             </div>
         </section>
@@ -649,673 +1575,78 @@
             </div>
         </div>
 
-        <!-- 校队风采 -->
-        <section id="schoolteam" class="page">
-            <div class="content-box">
-                <h2>校队风采</h2>
-                <p class="intro">深鸡蛋大学校足球队 - 代表学校最高水平的足球队伍，征战各大高校联赛！</p>
-
-                <div class="school-hero" id="schoolHeroDisplay">
-                </div>
-
-                <!-- 队伍切换 -->
-                <div class="team-switch">
-                    <button class="team-switch-btn active" data-team="men" onclick="switchSchoolTeam('men')">⚽ 男子校队</button>
-                    <button class="team-switch-btn" data-team="women" onclick="switchSchoolTeam('women')">⚽ 女子校队</button>
-                    <button class="team-switch-btn" data-team="coaches" onclick="switchSchoolTeam('coaches')">👨‍🏫 教练团队</button>
-                </div>
-
-                <!-- 男子校队照片墙 -->
-                <div id="men-team" class="team-gallery active">
-                    <h3 style="margin: 20px 0; color: var(--accent-blue);">男子校队阵容</h3>
-                    <div class="player-gallery" id="menPlayersGallery">
-                    </div>
-                </div>
-
-                <!-- 女子校队照片墙 -->
-                <div id="women-team" class="team-gallery">
-                    <h3 style="margin: 20px 0; color: var(--accent-blue);">女子校队阵容</h3>
-                    <div class="player-gallery" id="womenPlayersGallery">
-                    </div>
-                </div>
-
-                <!-- 教练团队照片 -->
-                <div id="coaches-team" class="team-gallery">
-                    <h3 style="margin: 20px 0; color: var(--accent-blue);">教练团队</h3>
-                    <div class="coach-gallery" id="coachesGallery">
-                    </div>
-                </div>
-
-                <div class="join-section" style="margin-top: 30px;">
-                    <h3>加入校队</h3>
-                    <p>如果你有足球天赋，欢迎参加每年一度的校队选拔！</p>
-                    <button class="btn-primary">了解选拔详情</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 足协活动 -->
-        <section id="activities" class="page">
-            <div class="content-box">
-                <h2>足协活动</h2>
-                <p class="intro">深鸡蛋足球协会定期举办各类足球活动，让更多人参与到足球运动中来！</p>
-
-                <div class="activity-tabs">
-                    <button class="tab-btn active" data-tab="all">全部活动</button>
-                    <button class="tab-btn" data-tab="upcoming">即将开始</button>
-                    <button class="tab-btn" data-tab="ongoing">进行中</button>
-                    <button class="tab-btn" data-tab="ended">已结束</button>
-                </div>
-
-                <div class="activity-list">
-                    <div class="activity-item" data-status="ongoing">
-                        <div class="activity-badge ongoing">进行中</div>
-                        <div class="activity-date">
-                            <span class="month">6月</span>
-                            <span class="day">15-30</span>
-                        </div>
-                        <div class="activity-content">
-                            <h3>2025夏季足球联赛</h3>
-                            <p>八支球队参赛，单循环赛制，争夺联赛冠军奖杯</p>
-                            <div class="activity-meta">
-                                <span>📍 坪山公园足球场</span>
-                                <span>👥 8支球队</span>
-                                <span>📅 每周六日</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity-item" data-status="upcoming">
-                        <div class="activity-badge upcoming">即将开始</div>
-                        <div class="activity-date">
-                            <span class="month">7月</span>
-                            <span class="day">10</span>
-                        </div>
-                        <div class="activity-content">
-                            <h3>足球裁判培训营</h3>
-                            <p>邀请国家级裁判授课，学习足球规则和裁判技巧</p>
-                            <div class="activity-meta">
-                                <span>📍 协会会议室</span>
-                                <span>👥 限30人</span>
-                                <span>⏰ 14:00-17:00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity-item" data-status="upcoming">
-                        <div class="activity-badge upcoming">即将开始</div>
-                        <div class="activity-date">
-                            <span class="month">7月</span>
-                            <span class="day">20</span>
-                        </div>
-                        <div class="activity-content">
-                            <h3>亲子足球嘉年华</h3>
-                            <p>家庭足球趣味活动，增进亲子感情，培养孩子足球兴趣</p>
-                            <div class="activity-meta">
-                                <span>📍 坪山公园足球场</span>
-                                <span>👨‍👩‍👧‍👦 适合5-12岁</span>
-                                <span>⏰ 09:00-12:00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity-item" data-status="ended">
-                        <div class="activity-badge ended">已结束</div>
-                        <div class="activity-date">
-                            <span class="month">5月</span>
-                            <span class="day">20</span>
-                        </div>
-                        <div class="activity-content">
-                            <h3>新老会员友谊赛</h3>
-                            <p>新老会员足球交流活动，以球会友，增进感情</p>
-                            <div class="activity-meta">
-                                <span>📍 坪山公园足球场</span>
-                                <span>👥 40人参与</span>
-                                <span>✅ 圆满成功</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity-item" data-status="ended">
-                        <div class="activity-badge ended">已结束</div>
-                        <div class="activity-date">
-                            <span class="month">4月</span>
-                            <span class="day">5</span>
-                        </div>
-                        <div class="activity-content">
-                            <h3>春季杯足球赛</h3>
-                            <p>16支球队参赛，经过激烈角逐，经管学院夺冠</p>
-                            <div class="activity-meta">
-                                <span>📍 坪山公园足球场</span>
-                                <span>🏆 经管学院冠军</span>
-                                <span>⚽ 32场比赛</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="activity-item" data-status="ended">
-                        <div class="activity-badge ended">已结束</div>
-                        <div class="activity-date">
-                            <span class="month">3月</span>
-                            <span class="day">8</span>
-                        </div>
-                        <div class="activity-content">
-                            <h3>三八节女足友谊赛</h3>
-                            <p>庆祝国际妇女节，女足姑娘们展现风采</p>
-                            <div class="activity-meta">
-                                <span>📍 坪山公园足球场</span>
-                                <span>👩 20人参与</span>
-                                <span>🎀 特别活动</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 管理后台 -->
-        <section id="admin" class="page">
-            <div class="content-box">
-                <div class="admin-header">
-                    <h2>管理后台</h2>
-                    <button class="btn-logout" onclick="logoutAdmin()">退出登录</button>
-                </div>
-
-                <div class="admin-tabs">
-                    <button class="admin-tab active" data-tab="homepage">首页管理</button>
-                    <button class="admin-tab" data-tab="teams">院队管理</button>
-                    <button class="admin-tab" data-tab="ranking">校长杯管理</button>
-                    <button class="admin-tab" data-tab="schoolteam">校队管理</button>
-                    <button class="admin-tab" data-tab="honor">荣誉之星</button>
-                    <button class="admin-tab" data-tab="activities">活动管理</button>
-                    <button class="admin-tab" data-tab="referee">主裁管理</button>
-                    <button class="admin-tab" data-tab="settings">系统设置</button>
-                </div>
-
-                <!-- 首页管理 -->
-                <div id="tab-homepage" class="admin-panel active">
-                    <div class="panel-header">
-                        <h3>首页比赛管理</h3>
-                    </div>
-                    
-                    <h4 style="margin: 20px 0 15px;">下一场比赛（倒计时）</h4>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>主队</label>
-                            <select id="homeMatchHomeTeam"></select>
-                        </div>
-                        <div class="form-group">
-                            <label>客队</label>
-                            <select id="homeMatchAwayTeam"></select>
-                        </div>
-                        <div class="form-group">
-                            <label>比赛时间</label>
-                            <input type="datetime-local" id="homeMatchDateTime">
-                        </div>
-                        <div class="form-group">
-                            <label>比赛地点</label>
-                            <input type="text" id="homeMatchLocation" placeholder="如：坪山公园足球场">
-                        </div>
-                        <div class="form-group full-width">
-                            <label>直播链接</label>
-                            <input type="url" id="homeMatchLiveUrl" placeholder="如：https://...">
-                        </div>
-                    </div>
-                    <button class="btn-save" onclick="saveHomeMatch()">保存下一场比赛</button>
-
-                    <h4 style="margin: 30px 0 15px;">最近比赛比分</h4>
-                    <div class="panel-header" style="margin-bottom: 15px;">
-                        <h3 style="font-size: 16px;">最近比赛列表</h3>
-                        <button class="btn-add" onclick="showAddRecentMatchModal()">+ 添加比赛</button>
-                    </div>
-                    <div class="data-list" id="recentMatchesList">
-                    </div>
-                </div>
-
-                <!-- 院队管理 -->
-                <div id="tab-teams" class="admin-panel">
-                    <div class="panel-header">
-                        <h3>院队信息管理</h3>
-                        <button class="btn-add" onclick="showAddTeamModal()">+ 添加院队</button>
-                    </div>
-                    <div class="data-list" id="teamsList">
-                    </div>
-                </div>
-
-                <!-- 积分榜管理 -->
-                <div id="tab-ranking" class="admin-panel">
-                    <div class="panel-header">
-                        <h3>积分榜管理</h3>
-                    </div>
-                    <div class="ranking-edit-table">
-                        <table id="rankingEditTable">
-                            <thead>
-                                <tr>
-                                    <th>排名</th>
-                                    <th>球队</th>
-                                    <th>场次</th>
-                                    <th>胜</th>
-                                    <th>平</th>
-                                    <th>负</th>
-                                    <th>积分</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="rankingBody">
-                                <!-- 动态加载 -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- 校队管理 -->
-                <div id="tab-schoolteam" class="admin-panel">
-                    <div class="panel-header">
-                        <h3>校队信息管理</h3>
-                    </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label>球队名称</label>
-                            <input type="text" id="schoolTeamName" value="深鸡蛋大学校足球队">
-                        </div>
-                        <div class="form-group">
-                            <label>成立时间</label>
-                            <input type="text" id="schoolTeamYear" value="成立于2018年">
-                        </div>
-                        <div class="form-group">
-                            <label>队员人数</label>
-                            <input type="text" id="schoolTeamMembers" value="30名">
-                        </div>
-                        <div class="form-group">
-                            <label>教练人数</label>
-                            <input type="text" id="schoolTeamCoaches" value="2名">
-                        </div>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>球队荣誉</label>
-                        <textarea id="schoolTeamHonors" rows="3" placeholder="每行一个荣誉，格式：🥇 市高校联赛冠军 x2"></textarea>
-                    </div>
-                    <button class="btn-save" onclick="saveSchoolTeam()">保存校队信息</button>
-
-                    <h3 style="margin-top: 30px; margin-bottom: 20px;">教练团队</h3>
-                    <div class="data-list" id="coachesList">
-                        <!-- 动态加载 -->
-                    </div>
-                    <button class="btn-add" onclick="showAddCoachModal()">+ 添加教练</button>
-
-                    <h3 style="margin-top: 30px; margin-bottom: 20px;">球队阵容</h3>
-                    <div id="squadEditor">
-                        <!-- 动态加载 -->
-                    </div>
-                </div>
-
-                <!-- 荣誉之星管理 -->
-                <div id="tab-honor" class="admin-panel">
-                    <div class="panel-header">
-                        <h3>荣誉之星管理</h3>
-                        <button class="btn-add" onclick="showAddHonorModal()">+ 添加荣誉之星</button>
-                    </div>
-                    <div class="data-list" id="honorList">
-                    </div>
-                </div>
-
-                <!-- 活动管理 -->
-                <div id="tab-activities" class="admin-panel">
-                    <div class="panel-header">
-                        <h3>活动管理</h3>
-                        <button class="btn-add" onclick="showAddActivityModal()">+ 添加活动</button>
-                    </div>
-                    <div class="data-list" id="activitiesList">
-                        <!-- 动态加载 -->
-                    </div>
-                </div>
-
-                <!-- 主裁管理 -->
-                <div id="tab-referee" class="admin-panel">
-                    <div class="panel-header">
-                        <h3>主裁管理</h3>
-                        <button class="btn-add" onclick="showAddRefereeModal()">+ 添加主裁</button>
-                    </div>
-                    <div class="ref-stats-edit">
-                        <div class="stat-edit">
-                            <label>注册主裁</label>
-                            <input type="number" id="refTotal" value="12">
-                        </div>
-                        <div class="stat-edit">
-                            <label>一级裁判</label>
-                            <input type="number" id="refLevel1" value="8">
-                        </div>
-                        <div class="stat-edit">
-                            <label>执法场次</label>
-                            <input type="text" id="refMatches" value="200+">
-                        </div>
-                        <div class="stat-edit">
-                            <label>好评率</label>
-                            <input type="text" id="refRating" value="98%">
-                        </div>
-                        <button class="btn-save" onclick="saveRefStats()">保存统计数据</button>
-                    </div>
-                    <div class="data-list" id="refereeList">
-                        <!-- 动态加载 -->
-                    </div>
-                </div>
-
-                <!-- 系统设置 -->
-                <div id="tab-settings" class="admin-panel">
-                    <div class="panel-header">
-                        <h3>系统设置</h3>
+        <!-- 添加/编辑院队模态框 -->
+        <div id="teamModal" class="modal">
+            <div class="modal-content admin-modal">
+                <h3 id="teamModalTitle">添加院队</h3>
+                <form id="teamForm">
+                    <input type="hidden" id="teamId">
+                    <div class="form-group">
+                        <label>院队名称</label>
+                        <input type="text" id="teamName" placeholder="请输入院队名称">
                     </div>
                     <div class="form-group">
-                        <label>修改管理员密码</label>
-                        <input type="password" id="newAdminPwd" placeholder="请输入新密码">
+                        <label>口号</label>
+                        <input type="text" id="teamSlogan" placeholder="请输入球队口号">
                     </div>
                     <div class="form-group">
-                        <label>确认新密码</label>
-                        <input type="password" id="confirmAdminPwd" placeholder="请再次输入新密码">
+                        <label>图标</label>
+                        <input type="text" id="teamIcon" placeholder="请输入emoji图标">
                     </div>
-                    <button class="btn-save" onclick="changeAdminPassword()">修改密码</button>
-
-                    <div class="danger-zone">
-                        <h4>危险操作</h4>
-                        <button class="btn-danger" onclick="resetAllData()">重置所有数据</button>
-                        <p class="danger-tip">警告：此操作将清除所有数据且不可恢复！</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 添加/编辑院队模态框 -->
-            <div id="teamModal" class="modal">
-                <div class="modal-content admin-modal">
-                    <h3 id="teamModalTitle">添加院队</h3>
-                    <form id="teamForm">
-                        <input type="hidden" id="teamId">
-                        <div class="form-group">
-                            <label>院队名称</label>
-                            <input type="text" id="teamName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>口号</label>
-                            <input type="text" id="teamSlogan">
-                        </div>
-                        <div class="form-group">
-                            <label>队徽图标（表情符号）</label>
-                            <select id="teamIcon">
-                                <option value="🔵">🔵 蓝色</option>
-                                <option value="🔴">🔴 红色</option>
-                                <option value="🟢">🟢 绿色</option>
-                                <option value="🟡">🟡 黄色</option>
-                                <option value="🟣">🟣 紫色</option>
-                                <option value="🟠">🟠 橙色</option>
-                                <option value="⚫">⚫ 黑色</option>
-                                <option value="⚪">⚪ 白色</option>
-                                <option value="🏀">🏀 篮球</option>
-                                <option value="🏐">🏐 排球</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>队徽图片（自定义上传）</label>
-                            <div class="upload-preview">
-                                <div class="preview-box" id="teamLogoPreview">📷</div>
-                                <input type="file" id="teamLogoUpload" accept="image/*" style="display: none;">
-                                <button type="button" class="btn-upload" onclick="document.getElementById('teamLogoUpload').click()">上传队徽</button>
-                                <button type="button" class="btn-remove" onclick="clearTeamLogo()" style="display: none;">移除</button>
-                            </div>
-                        </div>
+                    <div class="form-grid">
                         <div class="form-group">
                             <label>冠军次数</label>
-                            <input type="number" id="teamChampions" value="0" min="0">
+                            <input type="number" id="teamChampions" value="0">
                         </div>
                         <div class="form-group">
                             <label>队员人数</label>
-                            <input type="number" id="teamMembers" value="25" min="1">
+                            <input type="number" id="teamMembers" value="25">
                         </div>
-                        <div class="modal-buttons">
-                            <button type="button" class="btn-cancel" onclick="closeTeamModal()">取消</button>
-                            <button type="submit" class="btn-confirm">保存</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- 添加教练模态框 -->
-            <div id="coachModal" class="modal">
-                <div class="modal-content admin-modal">
-                    <h3 id="coachModalTitle">添加教练</h3>
-                    <form id="coachForm">
-                        <input type="hidden" id="coachId">
-                        <div class="form-group">
-                            <label>姓名</label>
-                            <input type="text" id="coachName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>职位</label>
-                            <select id="coachTitle">
-                                <option value="主教练">主教练</option>
-                                <option value="助理教练">助理教练</option>
-                                <option value="体能教练">体能教练</option>
-                                <option value="守门员教练">守门员教练</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>简介</label>
-                            <textarea id="coachDesc" rows="3"></textarea>
-                        </div>
-                        <div class="modal-buttons">
-                            <button type="button" class="btn-cancel" onclick="closeCoachModal()">取消</button>
-                            <button type="submit" class="btn-confirm">保存</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- 添加活动模态框 -->
-            <div id="activityModal" class="modal">
-                <div class="modal-content admin-modal">
-                    <h3 id="activityModalTitle">添加活动</h3>
-                    <form id="activityForm">
-                        <input type="hidden" id="activityId">
-                        <div class="form-group">
-                            <label>活动名称</label>
-                            <input type="text" id="activityName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>活动描述</label>
-                            <textarea id="activityDesc" rows="2"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>活动日期</label>
-                            <input type="text" id="activityDate" placeholder="如：6月15-30 或 7月10">
-                        </div>
-                        <div class="form-group">
-                            <label>活动月份</label>
-                            <input type="text" id="activityMonth" placeholder="如：6月">
-                        </div>
-                        <div class="form-group">
-                            <label>活动地点</label>
-                            <input type="text" id="activityLocation" placeholder="如：坪山公园足球场">
-                        </div>
-                        <div class="form-group">
-                            <label>活动状态</label>
-                            <select id="activityStatus">
-                                <option value="upcoming">即将开始</option>
-                                <option value="ongoing">进行中</option>
-                                <option value="ended">已结束</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>额外信息</label>
-                            <input type="text" id="activityMeta" placeholder="如：8支球队 或 限30人">
-                        </div>
-                        <div class="modal-buttons">
-                            <button type="button" class="btn-cancel" onclick="closeActivityModal()">取消</button>
-                            <button type="submit" class="btn-confirm">保存</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- 添加主裁模态框 -->
-            <div id="refereeModal" class="modal">
-                <div class="modal-content admin-modal">
-                    <h3 id="refereeModalTitle">添加主裁</h3>
-                    <form id="refereeForm">
-                        <input type="hidden" id="refereeId">
-                        <div class="form-group">
-                            <label>姓名</label>
-                            <input type="text" id="refereeName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>裁判等级</label>
-                            <select id="refereeLevel">
-                                <option value="国家级裁判">国家级裁判</option>
-                                <option value="一级裁判">一级裁判</option>
-                                <option value="二级裁判">二级裁判</option>
-                                <option value="三级裁判">三级裁判</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>简介</label>
-                            <textarea id="refereeDesc" rows="3" placeholder="如：执法经验10年..."></textarea>
-                        </div>
-                        <div class="modal-buttons">
-                            <button type="button" class="btn-cancel" onclick="closeRefereeModal()">取消</button>
-                            <button type="submit" class="btn-confirm">保存</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- 添加/编辑最近比赛模态框 -->
-            <div id="recentMatchModal" class="modal">
-                <div class="modal-content admin-modal">
-                    <h3 id="recentMatchModalTitle">添加最近比赛</h3>
-                    <form id="recentMatchForm">
-                        <input type="hidden" id="recentMatchId">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>主队</label>
-                                <select id="recentMatchHomeTeam"></select>
-                            </div>
-                            <div class="form-group">
-                                <label>客队</label>
-                                <select id="recentMatchAwayTeam"></select>
-                            </div>
-                            <div class="form-group">
-                                <label>主队进球</label>
-                                <input type="number" id="recentMatchHomeScore" value="0" min="0">
-                            </div>
-                            <div class="form-group">
-                                <label>客队进球</label>
-                                <input type="number" id="recentMatchAwayScore" value="0" min="0">
-                            </div>
-                            <div class="form-group">
-                                <label>比赛日期</label>
-                                <input type="date" id="recentMatchDate">
-                            </div>
-                            <div class="form-group">
-                                <label>比赛地点</label>
-                                <input type="text" id="recentMatchLocation" placeholder="如：坪山公园足球场">
-                            </div>
-                        </div>
-                        <div class="modal-buttons">
-                            <button type="button" class="btn-cancel" onclick="closeRecentMatchModal()">取消</button>
-                            <button type="submit" class="btn-confirm">保存</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- 添加/编辑荣誉之星模态框 -->
-            <div id="honorModal" class="modal">
-                <div class="modal-content admin-modal">
-                    <h3 id="honorModalTitle">添加荣誉之星</h3>
-                    <form id="honorForm">
-                        <input type="hidden" id="honorId">
-                        <div class="form-group">
-                            <label>球员姓名</label>
-                            <input type="text" id="honorName" required>
-                        </div>
-                        <div class="form-group">
-                            <label>照片</label>
-                            <div class="upload-preview">
-                                <div class="preview-box" id="honorPhotoPreview">📷</div>
-                                <input type="file" id="honorPhotoUpload" accept="image/*" style="display: none;">
-                                <button type="button" class="btn-upload" onclick="document.getElementById('honorPhotoUpload').click()">上传照片</button>
-                                <button type="button" class="btn-remove" id="honorPhotoRemoveBtn" onclick="clearHonorPhoto()" style="display: none;">移除</button>
-                            </div>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>毕业年份</label>
-                                <input type="text" id="honorGradYear" placeholder="如：2023届">
-                            </div>
-                            <div class="form-group">
-                                <label>场上位置</label>
-                                <input type="text" id="honorPosition" placeholder="如：前锋/中场/后卫/门将">
-                            </div>
-                            <div class="form-group">
-                                <label>球衣号码</label>
-                                <input type="text" id="honorNumber" placeholder="如：10号">
-                            </div>
-                            <div class="form-group">
-                                <label>所属学院</label>
-                                <input type="text" id="honorCollege" placeholder="如：计算机学院">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>主要荣誉（每行一个）</label>
-                            <textarea id="honorAchievements" rows="3" placeholder="如：&#10;🥇 2022年校长杯冠军&#10;⚽ 2022年金球奖"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>球员介绍</label>
-                            <textarea id="honorBio" rows="5" placeholder="球员的详细介绍..."></textarea>
-                        </div>
-                        <div class="modal-buttons">
-                            <button type="button" class="btn-cancel" onclick="closeHonorModal()">取消</button>
-                            <button type="submit" class="btn-confirm">保存</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- 联系我们 -->
-        <section id="contact" class="page">
-            <div class="content-box">
-                <h2>联系我们</h2>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <span class="label">📍 地址</span>
-                        <span>深圳市坪山区公园路深鸡蛋足球场</span>
                     </div>
-                    <div class="contact-item">
-                        <span class="label">📞 电话</span>
-                        <span>138-0013-8000</span>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn-cancel" onclick="closeTeamModal()">取消</button>
+                        <button type="button" class="btn-confirm" onclick="saveTeam()">保存</button>
                     </div>
-                    <div class="contact-item">
-                        <span class="label">✉️ 邮箱</span>
-                        <span>info@shendanji.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <span class="label">⏰ 开放时间</span>
-                        <span>周一至周日 08:00-22:00</span>
-                    </div>
-                </div>
+                </form>
+            </div>
+        </div>
 
-                <div class="contact-form">
-                    <h3>给我们留言</h3>
-                    <form>
-                        <input type="text" placeholder="您的姓名" required>
-                        <input type="email" placeholder="您的邮箱" required>
-                        <textarea placeholder="留言内容..." rows="5" required></textarea>
-                        <button type="submit" class="btn-primary">提交留言</button>
-                    </form>
+        <!-- 添加/编辑教练模态框 -->
+        <div id="coachModal" class="modal">
+            <div class="modal-content admin-modal">
+                <h3 id="coachModalTitle">添加教练</h3>
+                <form id="coachForm">
+                    <input type="hidden" id="coachId">
+                    <div class="form-group">
+                        <label>姓名</label>
+                        <input type="text" id="coachName" placeholder="请输入教练姓名">
+                    </div>
+                    <div class="form-group">
+                        <label>职位</label>
+                        <input type="text" id="coachTitle" placeholder="请输入职位">
+                    </div>
+                    <div class="form-group">
+                        <label>简介</label>
+                        <textarea id="coachDesc" rows="3" placeholder="请输入简介"></textarea>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn-cancel" onclick="closeCoachModal()">取消</button>
+                        <button type="button" class="btn-confirm" onclick="saveCoach()">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 荣誉之星详情模态框 -->
+        <div id="honorDetailModal" class="modal">
+            <div class="modal-content honor-modal">
+                <button class="modal-close" onclick="closeHonorDetail()">×</button>
+                <div id="honorDetailContent">
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
-    <script src="script.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>

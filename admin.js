@@ -321,6 +321,69 @@ function initFrontendDisplay() {
     loadRefereeDisplay();
     loadSchoolTeamDisplay();
     loadActivitiesDisplay();
+    loadHomeEvents();
+    loadHomeTeams();
+}
+
+function loadHomeEvents() {
+    const data = getData();
+    const grid = document.getElementById('homeEventsGrid');
+    if (!grid || !data.activities) return;
+
+    const activities = data.activities.slice(0, 3);
+    const statusMap = { upcoming: '即将开始', ongoing: '进行中', ended: '已结束' };
+    const tagMap = { upcoming: '热门活动', ongoing: '热门活动', ended: '赛事' };
+
+    grid.innerHTML = activities.map(activity => `
+        <div class="home-event-card">
+            <div class="home-event-img">
+                <span class="event-status ${activity.status}">${statusMap[activity.status]}</span>
+                ${activity.icon || '⚽'}
+            </div>
+            <div class="home-event-content">
+                <span class="home-event-tag">${tagMap[activity.status] || '活动'}</span>
+                <h3>${activity.name}</h3>
+                <p>${activity.desc}</p>
+                <div class="home-event-meta">
+                    <span>📅 ${activity.month}月${activity.date}日</span>
+                    <span>📍 ${activity.location}</span>
+                </div>
+                <button class="home-event-btn" onclick="switchPage('events')">查看详情 →</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function loadHomeTeams() {
+    const data = getData();
+    const grid = document.getElementById('homeTeamsGrid');
+    if (!grid || !data.teams) return;
+
+    const teams = data.teams.slice(0, 4);
+
+    grid.innerHTML = teams.map(team => `
+        <div class="home-team-card">
+            <div class="home-team-logo">${team.icon}</div>
+            <div class="home-team-info">
+                <h3>${team.name}</h3>
+                <div class="home-team-details">
+                    <div class="home-team-detail-item">
+                        <span class="home-team-detail-label">主场球衣</span>
+                        <span class="home-team-detail-value">蓝色</span>
+                    </div>
+                    <div class="home-team-detail-item">
+                        <span class="home-team-detail-label">队员人数</span>
+                        <span class="home-team-detail-value">${team.members}人</span>
+                    </div>
+                    <div class="home-team-detail-item">
+                        <span class="home-team-detail-label">冠军次数</span>
+                        <span class="home-team-detail-value">${team.champions}次</span>
+                    </div>
+                </div>
+                <button class="home-team-btn" onclick="switchPage('collegeteam')">查看详情</button>
+            </div>
+        </div>
+    `).join('');
 }
 
 // ==================== 院队前台显示 ====================
@@ -2694,6 +2757,9 @@ function initFrontendDisplay() {
     loadHonorStarsDisplay();
     loadYearSwitcher();
     loadKnockoutDisplay();
+    loadHomeEvents();
+    loadHomeTeams();
+    setTimeout(initScrollAnimations, 100);
 }
 
 // ==================== 更新管理后台标签页 ====================
@@ -2711,4 +2777,29 @@ function loadAdminTabs() {
     loadRefereesAdmin();
     loadRefStatsAdmin();
     loadHonorAdmin();
+}
+
+// ==================== 滚动动画 ====================
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.section-wrapper, .content-card, .home-event-card, .home-team-card, .team-card, .activity-item, .org-card, .dept-card, .award-card').forEach((el, index) => {
+        el.classList.add('scroll-animate');
+        if (index % 4 === 1) el.classList.add('delay-1');
+        else if (index % 4 === 2) el.classList.add('delay-2');
+        else if (index % 4 === 3) el.classList.add('delay-3');
+        observer.observe(el);
+    });
 }
