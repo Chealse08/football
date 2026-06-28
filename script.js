@@ -152,10 +152,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // 观察统计卡片和特色服务卡片
-    document.querySelectorAll('.stat-card, .feature-card, .benefit-card').forEach(card => {
+    document.querySelectorAll('.stat-card, .feature-card, .benefit-card, .ref-stat, .referee-card, .team-card, .coach-card, .activity-item').forEach(card => {
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(card);
     });
+
+    // ==================== 活动标签页筛选 ====================
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const activityItems = document.querySelectorAll('.activity-item');
+
+    if (tabBtns.length > 0 && activityItems.length > 0) {
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                activityItems.forEach(item => {
+                    const status = item.dataset.status;
+                    if (tab === 'all') {
+                        item.style.display = 'flex';
+                    } else {
+                        if (status === tab) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    }
+
+    // ==================== 裁判申请按钮 ====================
+    const refApplyBtn = document.querySelector('.referee-info .btn-primary');
+    if (refApplyBtn) {
+        refApplyBtn.addEventListener('click', () => {
+            alert('欢迎申请成为深鸡蛋足球协会裁判！\n\n请联系我们获取培训和考核信息：\n电话：138-0013-8000\n邮箱：info@shendanji.com');
+        });
+    }
+
+    // ==================== 校队选拔按钮 ====================
+    const tryoutBtn = document.querySelector('#schoolteam .join-section .btn-primary');
+    if (tryoutBtn) {
+        tryoutBtn.addEventListener('click', () => {
+            alert('欢迎参加校队选拔！\n\n选拔时间：每年9月新生入学季\n选拔地点：坪山公园足球场\n请关注协会公众号获取最新选拔通知！');
+        });
+    }
 });
