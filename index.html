@@ -29,13 +29,13 @@
                 <span class="icon">🏆</span>
                 <span class="text">赛事资讯</span>
             </button>
-            <button class="nav-btn" data-page="members">
-                <span class="icon">👥</span>
-                <span class="text">会员服务</span>
-            </button>
             <button class="nav-btn" data-page="gallery">
                 <span class="icon">📷</span>
                 <span class="text">精彩瞬间</span>
+            </button>
+            <button class="nav-btn" data-page="honor">
+                <span class="icon">⭐</span>
+                <span class="text">荣誉之星</span>
             </button>
             <button class="nav-btn" data-page="referee">
                 <span class="icon">🧑‍⚖️</span>
@@ -128,28 +128,85 @@
 
             <!-- 首页内容 -->
             <div class="content-box">
-                <h2>欢迎来到深鸡蛋足球协会</h2>
-                <p class="intro">
-                    深鸡蛋足球协会成立于2020年，是坪山公园地区最具活力的草根足球组织。
-                    我们致力于为足球爱好者提供一个交流、切磋、竞技的平台，让更多人感受足球的魅力。
-                </p>
+                <!-- 协会介绍 -->
+                <div class="home-intro-section">
+                    <h2>关于深鸡蛋足球协会</h2>
+                    <p class="intro">
+                        深鸡蛋足球协会成立于2020年，是坪山公园地区最具活力的草根足球组织。
+                        我们致力于为足球爱好者提供一个交流、切磋、竞技的平台，让更多人感受足球的魅力。
+                        协会现有8支常驻院队、2支校队、注册会员150余人，每年举办各类足球赛事50余场。
+                    </p>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-label">注册会员</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">常驻球队</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">举办赛事</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">年历史</div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">150+</div>
-                        <div class="stat-label">注册会员</div>
+                <!-- 比赛倒计时 -->
+                <div class="home-match-section" id="homeCountdownSection">
+                    <div class="section-header">
+                        <h2>⏰ 下一场比赛</h2>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">常驻球队</div>
+                    <div class="countdown-match" id="countdownMatch">
+                        <div class="match-teams">
+                            <div class="match-team home-team">
+                                <div class="team-badge" id="countdownHomeBadge">🔵</div>
+                                <div class="team-name" id="countdownHomeName">计算机学院</div>
+                            </div>
+                            <div class="match-vs">VS</div>
+                            <div class="match-team away-team">
+                                <div class="team-badge" id="countdownAwayBadge">🔴</div>
+                                <div class="team-name" id="countdownAwayName">机械工程学院</div>
+                            </div>
+                        </div>
+                        <div class="countdown-timer" id="countdownTimer">
+                            <div class="countdown-item">
+                                <span class="countdown-number" id="cd-days">00</span>
+                                <span class="countdown-label">天</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="countdown-number" id="cd-hours">00</span>
+                                <span class="countdown-label">时</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="countdown-number" id="cd-minutes">00</span>
+                                <span class="countdown-label">分</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="countdown-number" id="cd-seconds">00</span>
+                                <span class="countdown-label">秒</span>
+                            </div>
+                        </div>
+                        <div class="match-info">
+                            <span id="countdownMatchTime">2025年7月1日 15:00</span>
+                            <span id="countdownMatchLocation">📍 坪山公园足球场</span>
+                        </div>
+                        <div class="match-live" id="matchLiveSection">
+                            <a href="#" id="matchLiveUrl" target="_blank" class="btn-live">🔴 观看直播</a>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">举办赛事</div>
+                </div>
+
+                <!-- 最近比赛比分 -->
+                <div class="home-match-section">
+                    <div class="section-header">
+                        <h2>⚽ 最近比赛</h2>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">年历史</div>
+                    <div class="recent-matches" id="recentMatches">
                     </div>
                 </div>
 
@@ -160,14 +217,14 @@
                         <p>定期举办各类足球赛事，包括联赛、杯赛、友谊赛等</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">👥</div>
-                        <h3>会员服务</h3>
-                        <p>为会员提供场地预约、装备团购、技术培训等服务</p>
-                    </div>
-                    <div class="feature-card">
                         <div class="feature-icon">🏟️</div>
                         <h3>场地资源</h3>
                         <p>整合优质足球场地资源，为会员提供便利</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <h3>青训培养</h3>
+                        <p>校队、青训营体系完善，培养优秀足球人才</p>
                     </div>
                 </div>
             </div>
@@ -245,36 +302,25 @@
             </div>
         </section>
 
-        <!-- 会员服务 -->
-        <section id="members" class="page">
+        <!-- 荣誉之星 -->
+        <section id="honor" class="page">
             <div class="content-box">
-                <h2>会员服务</h2>
-                <div class="member-benefits">
-                    <div class="benefit-card">
-                        <h3>⚽ 场地预约</h3>
-                        <p>会员优先预约坪山公园足球场，享受优惠价格</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h3>👕 装备团购</h3>
-                        <p>定期组织球衣、球鞋等装备团购，价格实惠</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h3>📚 培训指导</h3>
-                        <p>聘请专业教练，提供技术培训和战术指导</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h3>🏆 赛事报名</h3>
-                        <p>优先报名参加协会组织的各类足球赛事</p>
-                    </div>
-                </div>
+                <h2>荣誉之星</h2>
+                <p class="intro">致敬那些为校争光、现已毕业的传奇球员，他们的精神永远激励着我们！</p>
 
-                <div class="join-section">
-                    <h3>加入我们</h3>
-                    <p>热爱足球？联系我们成为正式会员</p>
-                    <button class="btn-primary">申请入会</button>
+                <div class="honor-stars-grid" id="honorStarsGrid">
                 </div>
             </div>
         </section>
+
+        <!-- 荣誉之星详情模态框 -->
+        <div id="honorDetailModal" class="modal">
+            <div class="modal-content honor-modal">
+                <button class="modal-close" onclick="closeHonorDetail()">×</button>
+                <div id="honorDetailContent">
+                </div>
+            </div>
+        </div>
 
         <!-- 精彩瞬间 -->
         <section id="gallery" class="page">
@@ -347,30 +393,17 @@
                 <h2>院队风采</h2>
                 <p class="intro">各学院足球队风采展示，这里有最热血的青春，最精彩的对决！</p>
 
-                <!-- 校长杯年度选择 -->
-                <div class="cup-year-selector">
-                    <label>🏆 校长杯：</label>
-                    <select id="cupYearSelect" onchange="changeCupYear(this.value)">
-                        <option value="2025">2025年校长杯</option>
-                        <option value="2024">2024年校长杯</option>
-                        <option value="2023">2023年校长杯</option>
-                    </select>
-                    <button class="btn-history" onclick="showCupHistory()">📚 历年回顾</button>
-                </div>
-
                 <!-- 榜单标签 -->
                 <div class="rank-tabs">
                     <button class="rank-tab active" data-rank="ranking" onclick="switchRankTab('ranking')">🏆 积分榜</button>
+                    <button class="rank-tab" data-rank="knockout" onclick="switchRankTab('knockout')">🏅 晋级路线</button>
                     <button class="rank-tab" data-rank="goals" onclick="switchRankTab('goals')">⚽ 进球榜</button>
                     <button class="rank-tab" data-rank="assists" onclick="switchRankTab('assists')">🎯 助攻榜</button>
-                    <button class="rank-tab" data-rank="rookie" onclick="switchRankTab('rookie')">🌟 最佳新秀</button>
-                    <button class="rank-tab" data-rank="golden" onclick="switchRankTab('golden')">👑 金球奖</button>
-                    <button class="rank-tab" data-rank="glove" onclick="switchRankTab('glove')">🧤 金手套奖</button>
+                    <button class="rank-tab" data-rank="awards" onclick="switchRankTab('awards')">🏆 奖项评选</button>
                 </div>
 
                 <!-- 球队展示 -->
                 <div class="team-grid" id="collegeTeamsGrid">
-                    <!-- 动态加载 -->
                 </div>
 
                 <!-- 积分榜 -->
@@ -392,6 +425,15 @@
                             <tbody id="rankingBodyDisplay">
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- 晋级路线（淘汰赛） -->
+                <div id="rank-knockout" class="rank-panel">
+                    <div class="ranking-section">
+                        <h3 style="margin-bottom: 20px; color: var(--accent-blue);" id="knockoutTitle">2025年校长杯淘汰赛</h3>
+                        <div class="knockout-bracket" id="knockoutBracket">
+                        </div>
                     </div>
                 </div>
 
@@ -435,24 +477,8 @@
                     </div>
                 </div>
 
-                <!-- 最佳新秀 -->
-                <div id="rank-rookie" class="rank-panel">
-                    <div class="awards-grid">
-                        <div class="award-card">
-                            <div class="award-icon">🌟</div>
-                            <h3>最佳新秀奖</h3>
-                            <div class="award-player" id="rookieWinner">
-                                <div class="player-photo">📷</div>
-                                <h4>待定</h4>
-                                <p class="player-team">待定</p>
-                            </div>
-                            <p class="award-desc">评选当届表现最出色的新人球员</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 金球奖 -->
-                <div id="rank-golden" class="rank-panel">
+                <!-- 奖项评选 -->
+                <div id="rank-awards" class="rank-panel">
                     <div class="awards-grid">
                         <div class="award-card main-award">
                             <div class="award-icon">👑</div>
@@ -464,12 +490,16 @@
                             </div>
                             <p class="award-desc">本届校长杯最有价值球员</p>
                         </div>
-                    </div>
-                </div>
-
-                <!-- 金手套奖 -->
-                <div id="rank-glove" class="rank-panel">
-                    <div class="awards-grid">
+                        <div class="award-card">
+                            <div class="award-icon">🌟</div>
+                            <h3>最佳新秀奖</h3>
+                            <div class="award-player" id="rookieWinner">
+                                <div class="player-photo">📷</div>
+                                <h4>待定</h4>
+                                <p class="player-team">待定</p>
+                            </div>
+                            <p class="award-desc">评选当届表现最出色的新人球员</p>
+                        </div>
                         <div class="award-card">
                             <div class="award-icon">🧤</div>
                             <h3>金手套奖</h3>
@@ -481,6 +511,14 @@
                             <p class="award-desc">本届校长杯最佳守门员</p>
                         </div>
                     </div>
+                </div>
+
+                <!-- 年度选择器（底部设计感切换） -->
+                <div class="cup-year-switcher">
+                    <div class="year-switcher-label">🏆 选择校长杯年度</div>
+                    <div class="year-switcher-track" id="yearSwitcherTrack">
+                    </div>
+                    <button class="btn-history-bottom" onclick="showCupHistory()">📚 历年回顾</button>
                 </div>
             </div>
         </section>
@@ -670,22 +708,63 @@
                 </div>
 
                 <div class="admin-tabs">
-                    <button class="admin-tab active" data-tab="teams">院队管理</button>
-                    <button class="admin-tab" data-tab="ranking">积分榜管理</button>
+                    <button class="admin-tab active" data-tab="homepage">首页管理</button>
+                    <button class="admin-tab" data-tab="teams">院队管理</button>
+                    <button class="admin-tab" data-tab="ranking">校长杯管理</button>
                     <button class="admin-tab" data-tab="schoolteam">校队管理</button>
+                    <button class="admin-tab" data-tab="honor">荣誉之星</button>
                     <button class="admin-tab" data-tab="activities">活动管理</button>
                     <button class="admin-tab" data-tab="referee">主裁管理</button>
                     <button class="admin-tab" data-tab="settings">系统设置</button>
                 </div>
 
+                <!-- 首页管理 -->
+                <div id="tab-homepage" class="admin-panel active">
+                    <div class="panel-header">
+                        <h3>首页比赛管理</h3>
+                    </div>
+                    
+                    <h4 style="margin: 20px 0 15px;">下一场比赛（倒计时）</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>主队</label>
+                            <select id="homeMatchHomeTeam"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>客队</label>
+                            <select id="homeMatchAwayTeam"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>比赛时间</label>
+                            <input type="datetime-local" id="homeMatchDateTime">
+                        </div>
+                        <div class="form-group">
+                            <label>比赛地点</label>
+                            <input type="text" id="homeMatchLocation" placeholder="如：坪山公园足球场">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>直播链接</label>
+                            <input type="url" id="homeMatchLiveUrl" placeholder="如：https://...">
+                        </div>
+                    </div>
+                    <button class="btn-save" onclick="saveHomeMatch()">保存下一场比赛</button>
+
+                    <h4 style="margin: 30px 0 15px;">最近比赛比分</h4>
+                    <div class="panel-header" style="margin-bottom: 15px;">
+                        <h3 style="font-size: 16px;">最近比赛列表</h3>
+                        <button class="btn-add" onclick="showAddRecentMatchModal()">+ 添加比赛</button>
+                    </div>
+                    <div class="data-list" id="recentMatchesList">
+                    </div>
+                </div>
+
                 <!-- 院队管理 -->
-                <div id="tab-teams" class="admin-panel active">
+                <div id="tab-teams" class="admin-panel">
                     <div class="panel-header">
                         <h3>院队信息管理</h3>
                         <button class="btn-add" onclick="showAddTeamModal()">+ 添加院队</button>
                     </div>
                     <div class="data-list" id="teamsList">
-                        <!-- 动态加载 -->
                     </div>
                 </div>
 
@@ -753,6 +832,16 @@
                     <h3 style="margin-top: 30px; margin-bottom: 20px;">球队阵容</h3>
                     <div id="squadEditor">
                         <!-- 动态加载 -->
+                    </div>
+                </div>
+
+                <!-- 荣誉之星管理 -->
+                <div id="tab-honor" class="admin-panel">
+                    <div class="panel-header">
+                        <h3>荣誉之星管理</h3>
+                        <button class="btn-add" onclick="showAddHonorModal()">+ 添加荣誉之星</button>
+                    </div>
+                    <div class="data-list" id="honorList">
                     </div>
                 </div>
 
@@ -835,7 +924,7 @@
                             <input type="text" id="teamSlogan">
                         </div>
                         <div class="form-group">
-                            <label>队徽图标</label>
+                            <label>队徽图标（表情符号）</label>
                             <select id="teamIcon">
                                 <option value="🔵">🔵 蓝色</option>
                                 <option value="🔴">🔴 红色</option>
@@ -848,6 +937,15 @@
                                 <option value="🏀">🏀 篮球</option>
                                 <option value="🏐">🏐 排球</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label>队徽图片（自定义上传）</label>
+                            <div class="upload-preview">
+                                <div class="preview-box" id="teamLogoPreview">📷</div>
+                                <input type="file" id="teamLogoUpload" accept="image/*" style="display: none;">
+                                <button type="button" class="btn-upload" onclick="document.getElementById('teamLogoUpload').click()">上传队徽</button>
+                                <button type="button" class="btn-remove" onclick="clearTeamLogo()" style="display: none;">移除</button>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>冠军次数</label>
@@ -967,6 +1065,99 @@
                         </div>
                         <div class="modal-buttons">
                             <button type="button" class="btn-cancel" onclick="closeRefereeModal()">取消</button>
+                            <button type="submit" class="btn-confirm">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 添加/编辑最近比赛模态框 -->
+            <div id="recentMatchModal" class="modal">
+                <div class="modal-content admin-modal">
+                    <h3 id="recentMatchModalTitle">添加最近比赛</h3>
+                    <form id="recentMatchForm">
+                        <input type="hidden" id="recentMatchId">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>主队</label>
+                                <select id="recentMatchHomeTeam"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>客队</label>
+                                <select id="recentMatchAwayTeam"></select>
+                            </div>
+                            <div class="form-group">
+                                <label>主队进球</label>
+                                <input type="number" id="recentMatchHomeScore" value="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>客队进球</label>
+                                <input type="number" id="recentMatchAwayScore" value="0" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>比赛日期</label>
+                                <input type="date" id="recentMatchDate">
+                            </div>
+                            <div class="form-group">
+                                <label>比赛地点</label>
+                                <input type="text" id="recentMatchLocation" placeholder="如：坪山公园足球场">
+                            </div>
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn-cancel" onclick="closeRecentMatchModal()">取消</button>
+                            <button type="submit" class="btn-confirm">保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 添加/编辑荣誉之星模态框 -->
+            <div id="honorModal" class="modal">
+                <div class="modal-content admin-modal">
+                    <h3 id="honorModalTitle">添加荣誉之星</h3>
+                    <form id="honorForm">
+                        <input type="hidden" id="honorId">
+                        <div class="form-group">
+                            <label>球员姓名</label>
+                            <input type="text" id="honorName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>照片</label>
+                            <div class="upload-preview">
+                                <div class="preview-box" id="honorPhotoPreview">📷</div>
+                                <input type="file" id="honorPhotoUpload" accept="image/*" style="display: none;">
+                                <button type="button" class="btn-upload" onclick="document.getElementById('honorPhotoUpload').click()">上传照片</button>
+                                <button type="button" class="btn-remove" id="honorPhotoRemoveBtn" onclick="clearHonorPhoto()" style="display: none;">移除</button>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>毕业年份</label>
+                                <input type="text" id="honorGradYear" placeholder="如：2023届">
+                            </div>
+                            <div class="form-group">
+                                <label>场上位置</label>
+                                <input type="text" id="honorPosition" placeholder="如：前锋/中场/后卫/门将">
+                            </div>
+                            <div class="form-group">
+                                <label>球衣号码</label>
+                                <input type="text" id="honorNumber" placeholder="如：10号">
+                            </div>
+                            <div class="form-group">
+                                <label>所属学院</label>
+                                <input type="text" id="honorCollege" placeholder="如：计算机学院">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>主要荣誉（每行一个）</label>
+                            <textarea id="honorAchievements" rows="3" placeholder="如：&#10;🥇 2022年校长杯冠军&#10;⚽ 2022年金球奖"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>球员介绍</label>
+                            <textarea id="honorBio" rows="5" placeholder="球员的详细介绍..."></textarea>
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn-cancel" onclick="closeHonorModal()">取消</button>
                             <button type="submit" class="btn-confirm">保存</button>
                         </div>
                     </form>

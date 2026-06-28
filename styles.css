@@ -2509,3 +2509,713 @@ body {
         transform: scale(1);
     }
 }
+
+/* ==================== 首页新样式 ==================== */
+.home-intro-section {
+    margin-bottom: 40px;
+}
+
+.home-intro-section h2 {
+    color: var(--accent-blue);
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.home-match-section {
+    margin-bottom: 40px;
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    color: var(--accent-blue);
+    font-size: 22px;
+}
+
+.countdown-match {
+    background: linear-gradient(135deg, var(--accent-blue) 0%, #2a5298 100%);
+    border-radius: 16px;
+    padding: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+.match-teams {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+
+.match-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-width: 100px;
+}
+
+.team-badge {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+}
+
+.team-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.team-name {
+    font-size: 16px;
+    font-weight: 500;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.match-vs {
+    font-size: 24px;
+    font-weight: 700;
+    opacity: 0.9;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px 20px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    min-width: 70px;
+}
+
+.countdown-number {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.countdown-label {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.match-info {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.match-live {
+    margin-top: 10px;
+}
+
+.btn-live {
+    display: inline-block;
+    background: #ff4757;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.btn-live:hover {
+    background: #ff3838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.recent-matches {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recent-match-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border: 1px solid #e8ecf1;
+    border-radius: 12px;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+}
+
+.recent-match-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.recent-match-teams {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+.recent-match-team {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 100px;
+}
+
+.recent-match-team .team-badge {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    background: var(--accent-light);
+    border: none;
+}
+
+.recent-match-team-name {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.recent-match-score {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent-blue);
+    min-width: 60px;
+    text-align: center;
+}
+
+.recent-match-meta {
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-secondary);
+    min-width: 100px;
+}
+
+/* ==================== 底部年度选择器 ==================== */
+.cup-year-switcher {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #e8ecf1;
+    text-align: center;
+}
+
+.year-switcher-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.year-switcher-track {
+    display: inline-flex;
+    background: #f5f7fa;
+    border-radius: 50px;
+    padding: 6px;
+    gap: 4px;
+    margin-bottom: 15px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.year-switcher-btn {
+    padding: 10px 24px;
+    border: none;
+    background: transparent;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.year-switcher-btn:hover {
+    color: var(--accent-blue);
+}
+
+.year-switcher-btn.active {
+    background: var(--accent-blue);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+}
+
+.btn-history-bottom {
+    background: transparent;
+    border: 1px solid #e8ecf1;
+    color: var(--text-secondary);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.btn-history-bottom:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+/* ==================== 淘汰赛对阵图 ==================== */
+.knockout-bracket {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px;
+    padding: 20px 0;
+    overflow-x: auto;
+}
+
+.bracket-round {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 1;
+    min-width: 180px;
+    gap: 20px;
+}
+
+.bracket-round-title {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent-light);
+}
+
+.bracket-match {
+    background: #fff;
+    border: 1px solid #e8ecf1;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.bracket-match:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.bracket-team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f2f5;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.bracket-team:last-child {
+    border-bottom: none;
+}
+
+.bracket-team.winner {
+    background: var(--accent-light);
+    font-weight: 600;
+    color: var(--accent-blue);
+}
+
+.bracket-team.loser {
+    opacity: 0.5;
+}
+
+.bracket-team .team-badge {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    background: var(--accent-light);
+    border: none;
+    flex-shrink: 0;
+}
+
+.bracket-team-name {
+    flex: 1;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bracket-team-score {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent-blue);
+    min-width: 20px;
+    text-align: right;
+}
+
+.bracket-champion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+    border-radius: 16px;
+    padding: 25px;
+    color: #fff;
+    text-align: center;
+    min-height: 140px;
+}
+
+.bracket-champion .champion-badge {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.bracket-champion .champion-name {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.bracket-champion .champion-label {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-top: 5px;
+}
+
+/* ==================== 荣誉之星 ==================== */
+.honor-stars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.honor-star-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #e8ecf1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.honor-star-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.honor-star-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, #2a5298 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.honor-star-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.honor-star-photo::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
+}
+
+.honor-star-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.honor-star-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.honor-star-meta {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.honor-star-tag {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent-blue);
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* 荣誉之星详情模态框 */
+.honor-modal {
+    max-width: 700px !important;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+}
+
+.honor-detail-header {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e8ecf1;
+}
+
+.honor-detail-photo {
+    width: 180px;
+    height: 240px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, #2a5298 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    color: #fff;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.honor-detail-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.honor-detail-info {
+    flex: 1;
+}
+
+.honor-detail-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.honor-detail-subtitle {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+.honor-detail-achievements {
+    margin-top: 15px;
+}
+
+.honor-detail-achievements h4 {
+    font-size: 15px;
+    color: var(--accent-blue);
+    margin-bottom: 10px;
+}
+
+.honor-detail-achievements ul {
+    list-style: none;
+    padding: 0;
+}
+
+.honor-detail-achievements li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.honor-detail-bio h3 {
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 15px;
+}
+
+.honor-detail-bio p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* ==================== 上传预览 ==================== */
+.upload-preview {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.preview-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    overflow: hidden;
+    border: 2px dashed #d0d7e0;
+}
+
+.preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-upload, .btn-remove {
+    padding: 8px 16px;
+    border: 1px solid #d0d7e0;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.btn-upload:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.btn-remove {
+    color: #e74c3c;
+    border-color: #f5c6cb;
+}
+
+.btn-remove:hover {
+    background: #fdf0ef;
+}
+
+/* ==================== 响应式新内容 ==================== */
+@media (max-width: 768px) {
+    .match-teams {
+        gap: 15px;
+    }
+
+    .team-badge {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .team-name {
+        font-size: 14px;
+        max-width: 80px;
+    }
+
+    .countdown-timer {
+        gap: 10px;
+    }
+
+    .countdown-item {
+        padding: 10px 12px;
+        min-width: 55px;
+    }
+
+    .countdown-number {
+        font-size: 24px;
+    }
+
+    .match-info {
+        gap: 15px;
+        font-size: 12px;
+    }
+
+    .recent-match-card {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .recent-match-meta {
+        width: 100%;
+        text-align: left;
+    }
+
+    .knockout-bracket {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .bracket-round {
+        min-width: 100%;
+    }
+
+    .honor-detail-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .honor-detail-photo {
+        width: 150px;
+        height: 200px;
+    }
+
+    .year-switcher-track {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .year-switcher-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}

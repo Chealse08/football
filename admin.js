@@ -1651,4 +1651,940 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // 最近比赛表单
+    const recentMatchForm = document.getElementById('recentMatchForm');
+    if (recentMatchForm) {
+        recentMatchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveRecentMatch();
+        });
+    }
+
+    // 荣誉之星表单
+    const honorForm = document.getElementById('honorForm');
+    if (honorForm) {
+        honorForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            saveHonorStar();
+        });
+    }
+
+    // 队徽上传
+    const teamLogoUpload = document.getElementById('teamLogoUpload');
+    if (teamLogoUpload) {
+        teamLogoUpload.addEventListener('change', (e) => {
+            handleImageUpload(e.target, (result) => {
+                tempTeamLogo = result;
+                const preview = document.getElementById('teamLogoPreview');
+                preview.innerHTML = `<img src="${result}" alt="队徽">`;
+                document.querySelector('#teamLogoUpload + .btn-remove').style.display = 'inline-block';
+            });
+        });
+    }
+
+    // 荣誉之星照片上传
+    const honorPhotoUpload = document.getElementById('honorPhotoUpload');
+    if (honorPhotoUpload) {
+        honorPhotoUpload.addEventListener('change', (e) => {
+            handleImageUpload(e.target, (result) => {
+                tempHonorPhoto = result;
+                const preview = document.getElementById('honorPhotoPreview');
+                preview.innerHTML = `<img src="${result}" alt="照片">`;
+                document.getElementById('honorPhotoRemoveBtn').style.display = 'inline-block';
+            });
+        });
+    }
 });
+
+// ==================== 临时变量 ====================
+let tempTeamLogo = '';
+let tempHonorPhoto = '';
+let editingTeamId = null;
+let editingHonorId = null;
+let editingRecentMatchId = null;
+
+// ==================== 扩展默认数据 ====================
+// 在defaultData的teams中添加logo字段，新增homeMatch、recentMatches、honorStars、knockout数据
+const extendedDefaultData = {
+    teams: [
+        { id: 1, name: '计算机学院', slogan: '代码写得好，足球踢得棒', icon: '🔵', champions: 2, members: 25, logo: '' },
+        { id: 2, name: '机械工程学院', slogan: '机械机械，永不言败', icon: '🔴', champions: 1, members: 28, logo: '' },
+        { id: 3, name: '经济管理学院', slogan: '经管经管，锐不可当', icon: '🟢', champions: 3, members: 22, logo: '' },
+        { id: 4, name: '电气工程学院', slogan: '电气电气，充满电力', icon: '🟡', champions: 1, members: 26, logo: '' },
+        { id: 5, name: '土木工程学院', slogan: '土木土木，牢不可破', icon: '🟣', champions: 0, members: 24, logo: '' },
+        { id: 6, name: '艺术设计学院', slogan: '艺术足球，赏心悦目', icon: '🟠', champions: 0, members: 20, logo: '' },
+        { id: 7, name: '外国语学院', slogan: '外语外语，世界之窗', icon: '⚫', champions: 0, members: 18, logo: '' },
+        { id: 8, name: '生物医药学院', slogan: '生医生医，健康第一', icon: '⚪', champions: 0, members: 20, logo: '' }
+    ],
+    homeMatch: {
+        homeTeam: '计算机学院',
+        awayTeam: '机械工程学院',
+        dateTime: '',
+        location: '坪山公园足球场',
+        liveUrl: ''
+    },
+    recentMatches: [
+        { id: 1, homeTeam: '经济管理学院', awayTeam: '计算机学院', homeScore: 2, awayScore: 1, date: '2025-06-20', location: '坪山公园足球场' },
+        { id: 2, homeTeam: '机械工程学院', awayTeam: '电气工程学院', homeScore: 3, awayScore: 0, date: '2025-06-18', location: '坪山公园足球场' },
+        { id: 3, homeTeam: '土木工程学院', awayTeam: '艺术设计学院', homeScore: 1, awayScore: 1, date: '2025-06-15', location: '坪山公园足球场' }
+    ],
+    honorStars: [
+        {
+            id: 1,
+            name: '李明',
+            photo: '',
+            gradYear: '2023届',
+            position: '前锋',
+            number: '10号',
+            college: '计算机学院',
+            achievements: '🥇 2022年校长杯冠军\n⚽ 2022年金球奖\n🎯 2022年射手王',
+            bio: '李明同学是计算机学院传奇前锋，在校期间为球队打入50余粒进球。他技术全面，速度快，射门精准，是球队当之无愧的进攻核心。2022年带领计算机学院夺得校长杯冠军，个人包揽金球奖和金靴奖。毕业后继续活跃在业余足坛，传承足球精神。'
+        },
+        {
+            id: 2,
+            name: '王芳',
+            photo: '',
+            gradYear: '2022届',
+            position: '中场',
+            number: '8号',
+            college: '经济管理学院',
+            achievements: '🥇 2021年校长杯冠军\n👑 2021年金球奖\n🎯 2021年助攻王',
+            bio: '王芳是经济管理学院的中场指挥官，视野开阔，传球精准，是球队攻防转换的枢纽。她不仅自己能得分，更能为队友创造机会，2021赛季助攻数创历史新高。毕业后进入知名企业工作，依然每周坚持踢球。'
+        },
+        {
+            id: 3,
+            name: '张伟',
+            photo: '',
+            gradYear: '2021届',
+            position: '守门员',
+            number: '1号',
+            college: '机械工程学院',
+            achievements: '🧤 2020年金手套奖\n🥈 2020年校长杯亚军\n⭐ 连续三届最佳门将',
+            bio: '张伟是机械工程学院的门神，反应敏捷，扑救果断，职业生涯零封场次超过30场。他在2020赛季创造了单赛季仅失5球的纪录，连续三年获得最佳门将称号。现就职于某科技公司，担任业余队守门员教练。'
+        }
+    ],
+    knockoutData: {
+        '2025': {
+            quarterfinals: [
+                { home: '经济管理学院', away: '生物医药学院', homeScore: 3, awayScore: 1, winner: 'home' },
+                { home: '计算机学院', away: '外国语学院', homeScore: 2, awayScore: 0, winner: 'home' },
+                { home: '机械工程学院', away: '艺术设计学院', homeScore: 2, awayScore: 1, winner: 'home' },
+                { home: '电气工程学院', away: '土木工程学院', homeScore: 1, awayScore: 2, winner: 'away' }
+            ],
+            semifinals: [
+                { home: '经济管理学院', away: '土木工程学院', homeScore: 2, awayScore: 1, winner: 'home' },
+                { home: '计算机学院', away: '机械工程学院', homeScore: 1, awayScore: 2, winner: 'away' }
+            ],
+            final: { home: '经济管理学院', away: '机械工程学院', homeScore: 2, awayScore: 1, winner: 'home' },
+            champion: '经济管理学院'
+        }
+    }
+};
+
+// 确保数据包含所有新字段
+function ensureDataFields() {
+    const data = getData();
+    let modified = false;
+
+    // 为team添加logo字段
+    if (data.teams && data.teams.length > 0 && data.teams[0].logo === undefined) {
+        data.teams.forEach(team => { team.logo = ''; });
+        modified = true;
+    }
+
+    // 添加homeMatch
+    if (!data.homeMatch) {
+        data.homeMatch = JSON.parse(JSON.stringify(extendedDefaultData.homeMatch));
+        modified = true;
+    }
+
+    // 添加recentMatches
+    if (!data.recentMatches) {
+        data.recentMatches = JSON.parse(JSON.stringify(extendedDefaultData.recentMatches));
+        modified = true;
+    }
+
+    // 添加honorStars
+    if (!data.honorStars) {
+        data.honorStars = JSON.parse(JSON.stringify(extendedDefaultData.honorStars));
+        modified = true;
+    }
+
+    // 添加knockoutData
+    if (!data.knockoutData) {
+        data.knockoutData = JSON.parse(JSON.stringify(extendedDefaultData.knockoutData));
+        modified = true;
+    }
+
+    if (modified) {
+        saveData(data);
+    }
+}
+
+// ==================== 首页比赛显示 ====================
+let countdownInterval = null;
+
+function loadHomeMatchDisplay() {
+    ensureDataFields();
+    const data = getData();
+
+    // 加载下一场比赛
+    if (data.homeMatch && data.homeMatch.homeTeam) {
+        const homeTeam = data.teams.find(t => t.name === data.homeMatch.homeTeam);
+        const awayTeam = data.teams.find(t => t.name === data.homeMatch.awayTeam);
+
+        const homeBadge = document.getElementById('countdownHomeBadge');
+        const awayBadge = document.getElementById('countdownAwayBadge');
+        const homeName = document.getElementById('countdownHomeName');
+        const awayName = document.getElementById('countdownAwayName');
+
+        if (homeBadge) {
+            homeBadge.innerHTML = homeTeam && homeTeam.logo
+                ? `<img src="${homeTeam.logo}" alt="${data.homeMatch.homeTeam}">`
+                : (homeTeam ? homeTeam.icon : '🔵');
+        }
+        if (awayBadge) {
+            awayBadge.innerHTML = awayTeam && awayTeam.logo
+                ? `<img src="${awayTeam.logo}" alt="${data.homeMatch.awayTeam}">`
+                : (awayTeam ? awayTeam.icon : '🔴');
+        }
+        if (homeName) homeName.textContent = data.homeMatch.homeTeam;
+        if (awayName) awayName.textContent = data.homeMatch.awayTeam;
+
+        const matchTime = document.getElementById('countdownMatchTime');
+        const matchLocation = document.getElementById('countdownMatchLocation');
+        const liveSection = document.getElementById('matchLiveSection');
+        const liveUrl = document.getElementById('matchLiveUrl');
+
+        if (matchTime && data.homeMatch.dateTime) {
+            const date = new Date(data.homeMatch.dateTime);
+            matchTime.textContent = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+        }
+        if (matchLocation) matchLocation.textContent = '📍 ' + (data.homeMatch.location || '坪山公园足球场');
+        if (liveUrl && data.homeMatch.liveUrl) {
+            liveUrl.href = data.homeMatch.liveUrl;
+            liveSection.style.display = 'block';
+        } else if (liveSection) {
+            liveSection.style.display = 'none';
+        }
+
+        // 启动倒计时
+        startCountdown(data.homeMatch.dateTime);
+    }
+
+    // 加载最近比赛
+    loadRecentMatchesDisplay();
+}
+
+function startCountdown(dateTimeStr) {
+    if (countdownInterval) clearInterval(countdownInterval);
+    if (!dateTimeStr) return;
+
+    const targetDate = new Date(dateTimeStr).getTime();
+
+    function update() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('cd-days').textContent = '00';
+            document.getElementById('cd-hours').textContent = '00';
+            document.getElementById('cd-minutes').textContent = '00';
+            document.getElementById('cd-seconds').textContent = '00';
+            clearInterval(countdownInterval);
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+        document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    update();
+    countdownInterval = setInterval(update, 1000);
+}
+
+function loadRecentMatchesDisplay() {
+    ensureDataFields();
+    const data = getData();
+    const container = document.getElementById('recentMatches');
+    if (!container || !data.recentMatches) return;
+
+    container.innerHTML = data.recentMatches.map(match => {
+        const homeTeam = data.teams.find(t => t.name === match.homeTeam);
+        const awayTeam = data.teams.find(t => t.name === match.awayTeam);
+        const homeBadge = homeTeam && homeTeam.logo
+            ? `<img src="${homeTeam.logo}" alt="${match.homeTeam}">`
+            : (homeTeam ? homeTeam.icon : '🔵');
+        const awayBadge = awayTeam && awayTeam.logo
+            ? `<img src="${awayTeam.logo}" alt="${match.awayTeam}">`
+            : (awayTeam ? awayTeam.icon : '🔴');
+
+        const date = new Date(match.date);
+        const dateStr = `${date.getMonth() + 1}月${date.getDate()}日`;
+
+        return `
+            <div class="recent-match-card">
+                <div class="recent-match-teams">
+                    <div class="recent-match-team">
+                        <div class="team-badge">${homeBadge}</div>
+                        <span class="recent-match-team-name">${match.homeTeam}</span>
+                    </div>
+                    <div class="recent-match-score">${match.homeScore} - ${match.awayScore}</div>
+                    <div class="recent-match-team">
+                        <span class="recent-match-team-name">${match.awayTeam}</span>
+                        <div class="team-badge">${awayBadge}</div>
+                    </div>
+                </div>
+                <div class="recent-match-meta">
+                    <div>${dateStr}</div>
+                    <div>📍 ${match.location || '坪山公园足球场'}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ==================== 荣誉之星显示 ====================
+function loadHonorStarsDisplay() {
+    ensureDataFields();
+    const data = getData();
+    const grid = document.getElementById('honorStarsGrid');
+    if (!grid || !data.honorStars) return;
+
+    grid.innerHTML = data.honorStars.map(star => `
+        <div class="honor-star-card" onclick="showHonorDetail(${star.id})">
+            <div class="honor-star-photo">
+                ${star.photo ? `<img src="${star.photo}" alt="${star.name}">` : '⭐'}
+            </div>
+            <div class="honor-star-info">
+                <div class="honor-star-name">${star.name}</div>
+                <div class="honor-star-meta">${star.gradYear} · ${star.position}</div>
+                <div class="honor-star-tag">${star.college}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function showHonorDetail(id) {
+    ensureDataFields();
+    const data = getData();
+    const star = data.honorStars.find(s => s.id === id);
+    if (!star) return;
+
+    const achievements = star.achievements
+        .split('\n')
+        .filter(a => a.trim())
+        .map(a => `<li>${a.trim()}</li>`)
+        .join('');
+
+    const content = document.getElementById('honorDetailContent');
+    content.innerHTML = `
+        <div class="honor-detail-header">
+            <div class="honor-detail-photo">
+                ${star.photo ? `<img src="${star.photo}" alt="${star.name}">` : '⭐'}
+            </div>
+            <div class="honor-detail-info">
+                <h3 class="honor-detail-name">${star.name}</h3>
+                <div class="honor-detail-subtitle">
+                    ${star.gradYear}毕业<br>
+                    场上位置：${star.position} · 球衣号码：${star.number}<br>
+                    所属学院：${star.college}
+                </div>
+                <div class="honor-detail-achievements">
+                    <h4>主要荣誉</h4>
+                    <ul>${achievements}</ul>
+                </div>
+            </div>
+        </div>
+        <div class="honor-detail-bio">
+            <h3>球员介绍</h3>
+            <p>${star.bio || '暂无介绍'}</p>
+        </div>
+    `;
+
+    document.getElementById('honorDetailModal').style.display = 'flex';
+}
+
+function closeHonorDetail() {
+    document.getElementById('honorDetailModal').style.display = 'none';
+}
+
+// ==================== 底部年度选择器 ====================
+function loadYearSwitcher() {
+    const data = getData();
+    const track = document.getElementById('yearSwitcherTrack');
+    if (!track) return;
+
+    track.innerHTML = data.cupYears.map(year => `
+        <button class="year-switcher-btn ${year === data.currentCupYear ? 'active' : ''}" onclick="switchCupYear('${year}')">${year}年</button>
+    `).join('');
+}
+
+function switchCupYear(year) {
+    const data = getData();
+    data.currentCupYear = year;
+    saveData(data);
+    loadYearSwitcher();
+    loadRankingDisplay();
+    loadKnockoutDisplay();
+    loadCollegeTeams();
+}
+
+// 兼容旧函数名
+function changeCupYear(year) {
+    switchCupYear(year);
+}
+
+// ==================== 淘汰赛显示 ====================
+function loadKnockoutDisplay() {
+    ensureDataFields();
+    const data = getData();
+    const year = data.currentCupYear;
+    const bracket = document.getElementById('knockoutBracket');
+    if (!bracket) return;
+
+    const knockout = data.knockoutData && data.knockoutData[year];
+    if (!knockout) {
+        bracket.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 40px;">暂无淘汰赛数据</p>';
+        return;
+    }
+
+    function getTeamBadge(teamName) {
+        const team = data.teams.find(t => t.name === teamName);
+        return team && team.logo
+            ? `<img src="${team.logo}" alt="${teamName}">`
+            : (team ? team.icon : '⚽');
+    }
+
+    // 四分之一决赛
+    const quarterHtml = knockout.quarterfinals.map(match => `
+        <div class="bracket-match">
+            <div class="bracket-team ${match.winner === 'home' ? 'winner' : 'loser'}">
+                <div class="team-badge">${getTeamBadge(match.home)}</div>
+                <span class="bracket-team-name">${match.home}</span>
+                <span class="bracket-team-score">${match.homeScore}</span>
+            </div>
+            <div class="bracket-team ${match.winner === 'away' ? 'winner' : 'loser'}">
+                <div class="team-badge">${getTeamBadge(match.away)}</div>
+                <span class="bracket-team-name">${match.away}</span>
+                <span class="bracket-team-score">${match.awayScore}</span>
+            </div>
+        </div>
+    `).join('');
+
+    // 半决赛
+    const semiHtml = knockout.semifinals.map(match => `
+        <div class="bracket-match">
+            <div class="bracket-team ${match.winner === 'home' ? 'winner' : 'loser'}">
+                <div class="team-badge">${getTeamBadge(match.home)}</div>
+                <span class="bracket-team-name">${match.home}</span>
+                <span class="bracket-team-score">${match.homeScore}</span>
+            </div>
+            <div class="bracket-team ${match.winner === 'away' ? 'winner' : 'loser'}">
+                <div class="team-badge">${getTeamBadge(match.away)}</div>
+                <span class="bracket-team-name">${match.away}</span>
+                <span class="bracket-team-score">${match.awayScore}</span>
+            </div>
+        </div>
+    `).join('');
+
+    // 决赛
+    const final = knockout.final;
+    const championTeam = data.teams.find(t => t.name === knockout.champion);
+    const championBadge = championTeam && championTeam.logo
+        ? `<img src="${championTeam.logo}" alt="${knockout.champion}">`
+        : (championTeam ? championTeam.icon : '🏆');
+
+    bracket.innerHTML = `
+        <div class="bracket-round">
+            <div class="bracket-round-title">四分之一决赛</div>
+            ${quarterHtml}
+        </div>
+        <div class="bracket-round">
+            <div class="bracket-round-title">半决赛</div>
+            ${semiHtml}
+        </div>
+        <div class="bracket-round">
+            <div class="bracket-round-title">决赛</div>
+            <div class="bracket-match">
+                <div class="bracket-team ${final.winner === 'home' ? 'winner' : 'loser'}">
+                    <div class="team-badge">${getTeamBadge(final.home)}</div>
+                    <span class="bracket-team-name">${final.home}</span>
+                    <span class="bracket-team-score">${final.homeScore}</span>
+                </div>
+                <div class="bracket-team ${final.winner === 'away' ? 'winner' : 'loser'}">
+                    <div class="team-badge">${getTeamBadge(final.away)}</div>
+                    <span class="bracket-team-name">${final.away}</span>
+                    <span class="bracket-team-score">${final.awayScore}</span>
+                </div>
+            </div>
+        </div>
+        <div class="bracket-round">
+            <div class="bracket-round-title">冠军</div>
+            <div class="bracket-champion">
+                <div class="champion-badge">${championBadge}</div>
+                <div class="champion-name">${knockout.champion}</div>
+                <div class="champion-label">🏆 校长杯冠军</div>
+            </div>
+        </div>
+    `;
+}
+
+// ==================== 榜单标签切换（新） ====================
+function switchRankTab(tab) {
+    const tabs = document.querySelectorAll('.rank-tab');
+    const panels = document.querySelectorAll('.rank-panel');
+
+    tabs.forEach(t => t.classList.remove('active'));
+    panels.forEach(p => p.classList.remove('active'));
+
+    const activeTab = document.querySelector(`.rank-tab[data-rank="${tab}"]`);
+    if (activeTab) activeTab.classList.add('active');
+
+    const activePanel = document.getElementById('rank-' + tab);
+    if (activePanel) activePanel.classList.add('active');
+}
+
+// ==================== 院队显示（添加队徽） ====================
+function loadCollegeTeams() {
+    ensureDataFields();
+    const data = getData();
+    const grid = document.getElementById('collegeTeamsGrid');
+    if (!grid) return;
+
+    grid.innerHTML = data.teams.map(team => {
+        const badge = team.logo
+            ? `<div class="team-icon"><img src="${team.logo}" alt="${team.name}"></div>`
+            : `<div class="team-icon">${team.icon}</div>`;
+        return `
+            <div class="team-card">
+                ${badge}
+                <h3>${team.name}</h3>
+                <p class="team-slogan">${team.slogan}</p>
+                <div class="team-stats">
+                    <span>🏆 ${team.champions}次冠军</span>
+                    <span>👥 ${team.members}人</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// ==================== 首页管理 ====================
+function loadHomepageAdmin() {
+    ensureDataFields();
+    const data = getData();
+
+    // 填充球队下拉
+    const homeSelect = document.getElementById('homeMatchHomeTeam');
+    const awaySelect = document.getElementById('homeMatchAwayTeam');
+    const recentHomeSelect = document.getElementById('recentMatchHomeTeam');
+    const recentAwaySelect = document.getElementById('recentMatchAwayTeam');
+
+    const options = data.teams.map(t => `<option value="${t.name}">${t.name}</option>`).join('');
+
+    if (homeSelect) homeSelect.innerHTML = options;
+    if (awaySelect) awaySelect.innerHTML = options;
+    if (recentHomeSelect) recentHomeSelect.innerHTML = options;
+    if (recentAwaySelect) recentAwaySelect.innerHTML = options;
+
+    // 填充当前数据
+    if (data.homeMatch) {
+        if (homeSelect) homeSelect.value = data.homeMatch.homeTeam;
+        if (awaySelect) awaySelect.value = data.homeMatch.awayTeam;
+        if (data.homeMatch.dateTime) {
+            const dtInput = document.getElementById('homeMatchDateTime');
+            if (dtInput) dtInput.value = data.homeMatch.dateTime;
+        }
+        const locInput = document.getElementById('homeMatchLocation');
+        if (locInput) locInput.value = data.homeMatch.location || '';
+        const liveInput = document.getElementById('homeMatchLiveUrl');
+        if (liveInput) liveInput.value = data.homeMatch.liveUrl || '';
+    }
+
+    // 加载最近比赛列表
+    loadRecentMatchesList();
+}
+
+function saveHomeMatch() {
+    ensureDataFields();
+    const data = getData();
+
+    data.homeMatch = {
+        homeTeam: document.getElementById('homeMatchHomeTeam').value,
+        awayTeam: document.getElementById('homeMatchAwayTeam').value,
+        dateTime: document.getElementById('homeMatchDateTime').value,
+        location: document.getElementById('homeMatchLocation').value,
+        liveUrl: document.getElementById('homeMatchLiveUrl').value
+    };
+
+    saveData(data);
+    alert('下一场比赛信息已保存！');
+    loadHomeMatchDisplay();
+}
+
+// ==================== 最近比赛管理 ====================
+function loadRecentMatchesList() {
+    ensureDataFields();
+    const data = getData();
+    const list = document.getElementById('recentMatchesList');
+    if (!list || !data.recentMatches) return;
+
+    list.innerHTML = data.recentMatches.map(match => `
+        <div class="data-item">
+            <div class="item-info">
+                <div class="item-name">${match.homeTeam} vs ${match.awayTeam}</div>
+                <div class="item-desc">比分：${match.homeScore} - ${match.awayScore} · ${match.date} · ${match.location}</div>
+            </div>
+            <div class="item-actions">
+                <button class="btn-edit" onclick="editRecentMatch(${match.id})">编辑</button>
+                <button class="btn-delete" onclick="deleteRecentMatch(${match.id})">删除</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function showAddRecentMatchModal() {
+    editingRecentMatchId = null;
+    document.getElementById('recentMatchModalTitle').textContent = '添加最近比赛';
+    document.getElementById('recentMatchForm').reset();
+    document.getElementById('recentMatchModal').style.display = 'flex';
+}
+
+function editRecentMatch(id) {
+    ensureDataFields();
+    const data = getData();
+    const match = data.recentMatches.find(m => m.id === id);
+    if (!match) return;
+
+    editingRecentMatchId = id;
+    document.getElementById('recentMatchModalTitle').textContent = '编辑最近比赛';
+    document.getElementById('recentMatchId').value = id;
+    document.getElementById('recentMatchHomeTeam').value = match.homeTeam;
+    document.getElementById('recentMatchAwayTeam').value = match.awayTeam;
+    document.getElementById('recentMatchHomeScore').value = match.homeScore;
+    document.getElementById('recentMatchAwayScore').value = match.awayScore;
+    document.getElementById('recentMatchDate').value = match.date;
+    document.getElementById('recentMatchLocation').value = match.location;
+
+    document.getElementById('recentMatchModal').style.display = 'flex';
+}
+
+function closeRecentMatchModal() {
+    document.getElementById('recentMatchModal').style.display = 'none';
+    editingRecentMatchId = null;
+}
+
+function saveRecentMatch() {
+    ensureDataFields();
+    const data = getData();
+
+    const matchData = {
+        homeTeam: document.getElementById('recentMatchHomeTeam').value,
+        awayTeam: document.getElementById('recentMatchAwayTeam').value,
+        homeScore: parseInt(document.getElementById('recentMatchHomeScore').value),
+        awayScore: parseInt(document.getElementById('recentMatchAwayScore').value),
+        date: document.getElementById('recentMatchDate').value,
+        location: document.getElementById('recentMatchLocation').value
+    };
+
+    if (editingRecentMatchId) {
+        const index = data.recentMatches.findIndex(m => m.id === editingRecentMatchId);
+        if (index > -1) {
+            data.recentMatches[index] = { ...data.recentMatches[index], ...matchData };
+        }
+    } else {
+        const newId = data.recentMatches.length > 0 ? Math.max(...data.recentMatches.map(m => m.id)) + 1 : 1;
+        data.recentMatches.unshift({ id: newId, ...matchData });
+    }
+
+    saveData(data);
+    closeRecentMatchModal();
+    loadRecentMatchesList();
+    loadRecentMatchesDisplay();
+}
+
+function deleteRecentMatch(id) {
+    if (!confirm('确定要删除这场比赛记录吗？')) return;
+    ensureDataFields();
+    const data = getData();
+    data.recentMatches = data.recentMatches.filter(m => m.id !== id);
+    saveData(data);
+    loadRecentMatchesList();
+    loadRecentMatchesDisplay();
+}
+
+// ==================== 荣誉之星管理 ====================
+function loadHonorAdmin() {
+    ensureDataFields();
+    const data = getData();
+    const list = document.getElementById('honorList');
+    if (!list || !data.honorStars) return;
+
+    list.innerHTML = data.honorStars.map(star => `
+        <div class="data-item">
+            <div class="item-info">
+                <div class="item-name">${star.name}</div>
+                <div class="item-desc">${star.gradYear} · ${star.position} · ${star.college}</div>
+            </div>
+            <div class="item-actions">
+                <button class="btn-edit" onclick="editHonorStar(${star.id})">编辑</button>
+                <button class="btn-delete" onclick="deleteHonorStar(${star.id})">删除</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function showAddHonorModal() {
+    editingHonorId = null;
+    tempHonorPhoto = '';
+    document.getElementById('honorModalTitle').textContent = '添加荣誉之星';
+    document.getElementById('honorForm').reset();
+    document.getElementById('honorPhotoPreview').innerHTML = '📷';
+    document.getElementById('honorPhotoRemoveBtn').style.display = 'none';
+    document.getElementById('honorModal').style.display = 'flex';
+}
+
+function editHonorStar(id) {
+    ensureDataFields();
+    const data = getData();
+    const star = data.honorStars.find(s => s.id === id);
+    if (!star) return;
+
+    editingHonorId = id;
+    tempHonorPhoto = star.photo || '';
+
+    document.getElementById('honorModalTitle').textContent = '编辑荣誉之星';
+    document.getElementById('honorId').value = id;
+    document.getElementById('honorName').value = star.name;
+    document.getElementById('honorGradYear').value = star.gradYear || '';
+    document.getElementById('honorPosition').value = star.position || '';
+    document.getElementById('honorNumber').value = star.number || '';
+    document.getElementById('honorCollege').value = star.college || '';
+    document.getElementById('honorAchievements').value = star.achievements || '';
+    document.getElementById('honorBio').value = star.bio || '';
+
+    const preview = document.getElementById('honorPhotoPreview');
+    const removeBtn = document.getElementById('honorPhotoRemoveBtn');
+    if (star.photo) {
+        preview.innerHTML = `<img src="${star.photo}" alt="${star.name}">`;
+        removeBtn.style.display = 'inline-block';
+    } else {
+        preview.innerHTML = '📷';
+        removeBtn.style.display = 'none';
+    }
+
+    document.getElementById('honorModal').style.display = 'flex';
+}
+
+function closeHonorModal() {
+    document.getElementById('honorModal').style.display = 'none';
+    editingHonorId = null;
+    tempHonorPhoto = '';
+}
+
+function clearHonorPhoto() {
+    tempHonorPhoto = '';
+    document.getElementById('honorPhotoPreview').innerHTML = '📷';
+    document.getElementById('honorPhotoRemoveBtn').style.display = 'none';
+}
+
+function saveHonorStar() {
+    ensureDataFields();
+    const data = getData();
+
+    const starData = {
+        name: document.getElementById('honorName').value,
+        photo: tempHonorPhoto,
+        gradYear: document.getElementById('honorGradYear').value,
+        position: document.getElementById('honorPosition').value,
+        number: document.getElementById('honorNumber').value,
+        college: document.getElementById('honorCollege').value,
+        achievements: document.getElementById('honorAchievements').value,
+        bio: document.getElementById('honorBio').value
+    };
+
+    if (editingHonorId) {
+        const index = data.honorStars.findIndex(s => s.id === editingHonorId);
+        if (index > -1) {
+            data.honorStars[index] = { ...data.honorStars[index], ...starData };
+        }
+    } else {
+        const newId = data.honorStars.length > 0 ? Math.max(...data.honorStars.map(s => s.id)) + 1 : 1;
+        data.honorStars.push({ id: newId, ...starData });
+    }
+
+    saveData(data);
+    closeHonorModal();
+    loadHonorAdmin();
+    loadHonorStarsDisplay();
+}
+
+function deleteHonorStar(id) {
+    if (!confirm('确定要删除这位荣誉之星吗？')) return;
+    ensureDataFields();
+    const data = getData();
+    data.honorStars = data.honorStars.filter(s => s.id !== id);
+    saveData(data);
+    loadHonorAdmin();
+    loadHonorStarsDisplay();
+}
+
+// ==================== 院队管理（添加队徽上传） ====================
+function clearTeamLogo() {
+    tempTeamLogo = '';
+    document.getElementById('teamLogoPreview').innerHTML = '📷';
+    const removeBtn = document.querySelector('#teamLogoUpload + .btn-remove');
+    if (removeBtn) removeBtn.style.display = 'none';
+}
+
+// 覆盖原有的loadTeamsList函数，添加队徽显示
+const _originalLoadTeamsList = typeof loadTeamsList === 'function' ? loadTeamsList : null;
+
+function loadTeamsList() {
+    ensureDataFields();
+    const data = getData();
+    const list = document.getElementById('teamsList');
+    if (!list) return;
+
+    list.innerHTML = data.teams.map(team => {
+        const badge = team.logo
+            ? `<img src="${team.logo}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">`
+            : team.icon;
+        return `
+            <div class="data-item">
+                <div class="item-info">
+                    <div class="item-icon">${badge}</div>
+                    <div>
+                        <div class="item-name">${team.name}</div>
+                        <div class="item-desc">${team.slogan}</div>
+                    </div>
+                </div>
+                <div class="item-actions">
+                    <button class="btn-edit" onclick="editTeam(${team.id})">编辑</button>
+                    <button class="btn-delete" onclick="deleteTeam(${team.id})">删除</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// 覆盖原有的editTeam函数
+const _originalEditTeam = typeof editTeam === 'function' ? editTeam : null;
+
+function editTeam(id) {
+    ensureDataFields();
+    const data = getData();
+    const team = data.teams.find(t => t.id === id);
+    if (!team) return;
+
+    editingTeamId = id;
+    tempTeamLogo = team.logo || '';
+
+    document.getElementById('teamModalTitle').textContent = '编辑院队';
+    document.getElementById('teamId').value = id;
+    document.getElementById('teamName').value = team.name;
+    document.getElementById('teamSlogan').value = team.slogan;
+    document.getElementById('teamIcon').value = team.icon;
+    document.getElementById('teamChampions').value = team.champions;
+    document.getElementById('teamMembers').value = team.members;
+
+    const preview = document.getElementById('teamLogoPreview');
+    const removeBtn = document.querySelector('#teamLogoUpload + .btn-remove');
+    if (team.logo) {
+        preview.innerHTML = `<img src="${team.logo}" alt="${team.name}">`;
+        if (removeBtn) removeBtn.style.display = 'inline-block';
+    } else {
+        preview.innerHTML = '📷';
+        if (removeBtn) removeBtn.style.display = 'none';
+    }
+
+    document.getElementById('teamModal').style.display = 'flex';
+}
+
+// 覆盖原有的showAddTeamModal函数
+const _originalShowAddTeamModal = typeof showAddTeamModal === 'function' ? showAddTeamModal : null;
+
+function showAddTeamModal() {
+    editingTeamId = null;
+    tempTeamLogo = '';
+    document.getElementById('teamModalTitle').textContent = '添加院队';
+    document.getElementById('teamForm').reset();
+    document.getElementById('teamLogoPreview').innerHTML = '📷';
+    const removeBtn = document.querySelector('#teamLogoUpload + .btn-remove');
+    if (removeBtn) removeBtn.style.display = 'none';
+    document.getElementById('teamModal').style.display = 'flex';
+}
+
+// 覆盖原有的saveTeam函数
+const _originalSaveTeam = typeof saveTeam === 'function' ? saveTeam : null;
+
+function saveTeam() {
+    ensureDataFields();
+    const data = getData();
+
+    const teamData = {
+        name: document.getElementById('teamName').value,
+        slogan: document.getElementById('teamSlogan').value,
+        icon: document.getElementById('teamIcon').value,
+        champions: parseInt(document.getElementById('teamChampions').value) || 0,
+        members: parseInt(document.getElementById('teamMembers').value) || 20,
+        logo: tempTeamLogo
+    };
+
+    if (editingTeamId) {
+        const index = data.teams.findIndex(t => t.id === editingTeamId);
+        if (index > -1) {
+            data.teams[index] = { ...data.teams[index], ...teamData };
+        }
+    } else {
+        const newId = data.teams.length > 0 ? Math.max(...data.teams.map(t => t.id)) + 1 : 1;
+        data.teams.push({ id: newId, ...teamData });
+    }
+
+    saveData(data);
+    closeTeamModal();
+    loadTeamsList();
+    loadCollegeTeams();
+}
+
+// ==================== 更新前台初始化 ====================
+const _originalInitFrontendDisplay = typeof initFrontendDisplay === 'function' ? initFrontendDisplay : null;
+
+function initFrontendDisplay() {
+    ensureDataFields();
+    loadCollegeTeams();
+    loadRankingDisplay();
+    loadRefereeDisplay();
+    loadSchoolTeamDisplay();
+    loadActivitiesDisplay();
+    loadHomeMatchDisplay();
+    loadHonorStarsDisplay();
+    loadYearSwitcher();
+    loadKnockoutDisplay();
+}
+
+// ==================== 更新管理后台标签页 ====================
+const _originalLoadAdminTabs = typeof loadAdminTabs === 'function' ? loadAdminTabs : null;
+
+function loadAdminTabs() {
+    ensureDataFields();
+    loadHomepageAdmin();
+    loadTeamsList();
+    loadCupAdminPanel();
+    loadSchoolTeamAdmin();
+    loadCoachesAdmin();
+    loadPlayersAdmin('men');
+    loadActivitiesAdmin();
+    loadRefereesAdmin();
+    loadRefStatsAdmin();
+    loadHonorAdmin();
+}
