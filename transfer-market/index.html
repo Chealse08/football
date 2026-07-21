@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>德转风暴 · Transfer Storm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- 顶部导航 -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="#/" class="brand">
+        <span class="brand-ball">⚽</span>
+        <span class="brand-name">德转<span class="brand-accent">风暴</span></span>
+        <span class="brand-tag">TRANSFER STORM</span>
+      </a>
+      <nav class="nav" id="mainNav">
+        <a href="#/" data-route="/">首页</a>
+        <a href="#/rankings" data-route="/rankings">身价榜</a>
+        <a href="#/league/epl" data-route="/league">英超</a>
+        <a href="#/league/liga" data-route="/league">西甲</a>
+        <a href="#/league/seriea" data-route="/league">意甲</a>
+        <a href="#/league/bundes" data-route="/league">德甲</a>
+        <a href="#/league/ligue1" data-route="/league">法甲</a>
+        <a href="#/game" data-route="/game">点球大战</a>
+        <a href="#/admin" data-route="/admin">管理后台</a>
+      </nav>
+      <div class="top-actions">
+        <button id="themeToggle" class="icon-btn" title="切换主题" aria-label="切换主题">🌙</button>
+      </div>
+      <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="菜单">☰</button>
+    </div>
+    <!-- 滚动新闻条 -->
+    <div class="ticker">
+      <span class="ticker-label">⚡ 实时动态</span>
+      <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+  </header>
+
+  <!-- 移动端抽屉菜单 -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="mobileDrawer">
+    <a href="#/">首页</a>
+    <a href="#/rankings">身价榜</a>
+    <a href="#/league/epl">英超</a>
+    <a href="#/league/liga">西甲</a>
+    <a href="#/league/seriea">意甲</a>
+    <a href="#/league/bundes">德甲</a>
+    <a href="#/league/ligue1">法甲</a>
+    <a href="#/game">点球大战</a>
+    <a href="#/admin">管理后台</a>
+  </aside>
+
+  <!-- 主内容 -->
+  <main id="app" class="app"></main>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-ball">⚽</span>
+        <strong>德转风暴 · TRANSFER STORM</strong>
+      </div>
+      <p>本站数据为模拟数据，仅供学习与展示使用。球员身价、转会信息不代表真实情况。</p>
+      <p>© 2024 德转风暴 · Built with HTML / CSS / JavaScript</p>
+    </div>
+  </footer>
+
+  <!-- Toast 通知 -->
+  <div class="toast-stack" id="toastStack"></div>
+
+  <!-- 模态层 -->
+  <div class="modal-root" id="modalRoot"></div>
+
+  <!-- 脚本（顺序很重要） -->
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/pages.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
